@@ -1,0 +1,44 @@
+{
+  "name": "es-libr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@elastic/elasticsearch": "^8.14.0",
+    "@koa/cors": "^5.0.0",
+    "@types/koa-proxies": "^0.11.0",
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "http-proxy": "^1.18.1",
+    "koa": "^2.15.3",
+    "koa-body": "^6.0.1",
+    "koa-bodyparser": "^4.4.1",
+    "koa-parameter": "^3.0.1",
+    "koa-proxies": "^0.12.4",
+    "koa-router": "^12.0.1",
+    "lodash": "^4.17.21",
+    "tslog": "^3.3.4"
+  },
+  "devDependencies": {
+    "@types/http-proxy": "^1.17.14",
+    "@types/koa": "^2.15.0",
+    "@types/koa__cors": "^5.0.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa-router": "^7.4.8",
+    "@types/lodash": "^4.17.6",
+    "@types/node": "^20.14.10",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
+  }
+}
