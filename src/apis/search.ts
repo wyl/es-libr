@@ -1,14 +1,11 @@
  
 
-import { koaBody } from "koa-body";
 import { router } from "./constants";
-router.post(
+router.all(
   "/search",
-  koaBody(),
   (ctx, next) => {
-    const k = ctx.request.body;
     console.log(`router.post("/search"`);
-    ctx.body = {
+    ctx.response.body =  {
       body: ctx.request.body,
       query: ctx.request.query,
       params: ctx.params,
@@ -16,6 +13,6 @@ router.post(
       method: ctx.method,
       url: ctx.url,
     };
-  },
-  (ctx) => {}
+  // next()
+}
 );

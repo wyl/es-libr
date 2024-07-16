@@ -1,51 +1,40 @@
 import axios, { AxiosResponse, Method } from "axios";
 import koa from "koa";
 
-const AxiosToExpress = async (
-  axiosRes: AxiosResponse,
-  koaRes: koa.Response
-): Promise<koa.Response> => {
-  console.log("axiosResponse =====  ", axiosRes.status);
-  console.log("axiosResponse =====  ", axiosRes.headers);
-  console.log("axiosResponse =====  ", axiosRes.data);
-  koaRes.status = axiosRes.status ?? 200;
-  koaRes.body = axiosRes.data ?? { msg: "???" };
-  // koaRes.headers = (axiosRes.headers as any) ?? [];
-  return koaRes;
-};
-// .status(axiosResponse.status)
-// .header(axiosResponse.headers)
-// .send(axiosResponse.data);
-
-export function AxiosProxy(url: string) {
-  return async (ctx: koa.Context, next: koa.Next) =>
-    AxiosToExpress(await ExpressToAxios(url, ctx.request), ctx.response);
+export  function AxiosProxy(url: string) {
+   return async (ctx:koa.ExtendableContext) =>  {
+    const axiosRes = await ExpressToAxios(url, ctx.request)
+    // console.log("axiosRes", axiosRes);
+    ctx.response.status = axiosRes.status as number;
+    ctx.response.body =  axiosRes.data
+      Object.entries(axiosRes.headers).forEach(([key,value]) => {
+        ctx.response.set(key,value +'')
+      })
+  };
 }
 
 async function ExpressToAxios(
   url: string,
   request: koa.Request
-): Promise<AxiosResponse<any>> {
-  console.log("__________________-");
+) {
   const reqUrl = `${url}${request.url}`;
-  console.log("__________________-", reqUrl);
-  const path = Object.values(request.query).at(0);
+  // console.log("__________________-", reqUrl);
   const kk = new URL(reqUrl);
-  console.log(kk.protocol)
-  console.log(kk)
+  // console.log(kk.protocol)
+  // console.log(kk)
   const reqHeaders = {
     ...request.headers,
-    Host: kk.hostname,
+    host: kk.hostname,
+    authorization: 'Basic ZWxhc3RpYzo4VVpjT3p3dlBEZmtQanlkVlhqYXc1aG8='
   };
-  console.log(">>>>>>", reqUrl, {});
 
-  console.log("url ", url);
-  console.log("request.url ", request.url);
-  console.log("request.query ", request.query);
-  console.log("request.path ", request.path);
-  console.log("request.body ", request.body);
-  console.log(`${url}${request.url}`);
-  console.log("headers ", reqHeaders);
+  // console.log("url ", url);
+  // console.log("request.url ", request.url);
+  // console.log("request.query ", request.query);
+  // console.log("request.path ", request.path);
+  // console.log("request.body ", request.body);
+  // console.log(`${url}${request.url}`);
+  // console.log("headers ", reqHeaders);
   // {
   //   host: '127.0.0.1:3001',
   //   'content-type': 'application/json',
@@ -91,14 +80,16 @@ async function ExpressToAxios(
   //   localAddress: undefined,
   //   path: '/caas-cn-zaobao-online/_search'
   // }
-  
-  return axios({
+  const option = {
     url: reqUrl,
     method: request.method as Method,
     headers: reqHeaders,
-    params: request.query,
+    // params: request.query,
     data: "content-length" in reqHeaders ? request.body : undefined,
-  })
+  }
+  console.log(">>>>>>", reqUrl, option);
+
+  return axios.request(option)
     .then((it) => {
       console.log("<<<<<<", it.data);
       return {
