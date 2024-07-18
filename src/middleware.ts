@@ -4,6 +4,7 @@ import { logger } from "../logger";
 import ndjson from "ndjson";
 import { parse } from "path";
 import fs from "fs";
+
 export function AxiosProxy(url: string) {
   return async (ctx: koa.ExtendableContext) => {
     const axiosRes = await ExpressToAxios(url, ctx.request);
@@ -17,14 +18,17 @@ export function AxiosProxy(url: string) {
 
 async function ExpressToAxios(url: string, request: koa.Request) {
   const reqUrl = `${url}${request.url}`;
-  const kk = new URL(reqUrl);
+  const urlInfo = new URL(reqUrl);
   delete request.headers["content-length"];
   delete request.headers["host"];
   const reqHeaders = {
     ...request.headers,
-    host: kk.hostname,
+    ["content-type"]: urlInfo.pathname.endsWith("_bulk")
+      ? "application/x-ndjson"
+      : "application/json",
+    host: urlInfo.hostname,
   };
-  
+
   const options = {
     url: reqUrl,
     method: request.method as Method,

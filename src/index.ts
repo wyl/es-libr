@@ -13,6 +13,8 @@ import getRawBody from "raw-body";
 import contentType from "content-type";
 import apm from "elastic-apm-node";
 import ndjson from "ndjson";
+import split from "split2";
+import { parse } from "path";
 dotenv.config();
 
 const port = process.env.PORT || 3000;
@@ -20,20 +22,8 @@ const app = new Koa({ proxy: true });
 
 const esHost = `${process.env.ES_HOST}`;
 
-console.log(esHost);
 app.use(cors());
 app.use(async function (ctx, next) {
-  // let url = ctx.req.url;
-  // let body = "";
-  // ctx.req.on("data", (chunk) => (body += chunk));
-  // ctx.req.on("end", () => body);
-  // console.log(`--${body}--`)
-
-  // ctx.req.pipe(ndjson.parse()).on("data", function (obj) {
-  //   console.log("ndjson", obj);
-  // });
-
-
   const body = await new Promise<string>((resolve, reject) => {
     let body = "";
     ctx.req.on("data", (chunk) => (body += chunk));
@@ -42,15 +32,7 @@ app.use(async function (ctx, next) {
   });
   ctx.request.body = body;
 
-  // const stream = ndjson.stringify();
-  // stream.on("data", function (line) {
-  //   // line is a line of stringified JSON with a newline delimiter at the end
-  // });
-  // stream.write(body);
-  // stream.end();
   await next();
-  
-  // ctx.res.pipe(ndjson.stringify())
 });
 // app.use(function* (ctx, next) {
 //   ctx.text = yield getRawBody(ctx.req, {
