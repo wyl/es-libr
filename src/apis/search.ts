@@ -1,9 +1,10 @@
  
 
+import axios from "axios";
 import { router } from "./constants";
 router.all(
   "/search",
-  (ctx, next) => {
+  async (ctx, next) => {
     console.log(`router.post("/search"`);
     ctx.response.body =  {
       body: ctx.request.body,
@@ -13,6 +14,12 @@ router.all(
       method: ctx.method,
       url: ctx.url,
     };
+    // request(options, function (error, response, body) {
+    //   if (error) throw new Error(error);
+    
+    //   console.log(body);
+    // })
+    
   // next()
 }
 );

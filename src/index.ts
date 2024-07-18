@@ -2,30 +2,80 @@ import dotenv from "dotenv";
 import Koa from "koa";
 // import bodyParser from "koa-bodyparser";
 import cors from "@koa/cors";
-import bodyParser from "koa-bodyparser";
+// import bodyParser from "koa-bodyparser";
+import koaBody from "koa-body";
+import bodyParser from "body-parser";
 import { logger } from "../logger";
 import { router } from "./apis/constants";
 import "./implements";
 import { AxiosProxy } from "./middleware";
-
+import getRawBody from "raw-body";
+import contentType from "content-type";
+import apm from "elastic-apm-node";
+import ndjson from "ndjson";
 dotenv.config();
 
 const port = process.env.PORT || 3000;
 const app = new Koa({ proxy: true });
 
-// const esHost = `${process.env.ES_PROTOCOL}://${process.env.ES_USERNAME}:${process.env.ES_PASSWORD}@${process.env.ES_ENDPOINT}`;
+const esHost = `${process.env.ES_HOST}`;
 
-const esHost = `${process.env.ES_PROTOCOL}://${process.env.ES_ENDPOINT}`;
 console.log(esHost);
 app.use(cors());
-app.use(bodyParser())
-app.use(async function (ctx,next){
+app.use(async function (ctx, next) {
+  // let url = ctx.req.url;
+  // let body = "";
+  // ctx.req.on("data", (chunk) => (body += chunk));
+  // ctx.req.on("end", () => body);
+  // console.log(`--${body}--`)
+
+  // ctx.req.pipe(ndjson.parse()).on("data", function (obj) {
+  //   console.log("ndjson", obj);
+  // });
+
+
+  const body = await new Promise<string>((resolve, reject) => {
+    let body = "";
+    ctx.req.on("data", (chunk) => (body += chunk));
+    ctx.req.on("end", () => resolve(body));
+    ctx.req.on("error", (err) => reject(err));
+  });
+  ctx.request.body = body;
+
+  // const stream = ndjson.stringify();
+  // stream.on("data", function (line) {
+  //   // line is a line of stringified JSON with a newline delimiter at the end
+  // });
+  // stream.write(body);
+  // stream.end();
   await next();
-}
-)
+  
+  // ctx.res.pipe(ndjson.stringify())
+});
+// app.use(function* (ctx, next) {
+//   ctx.text = yield getRawBody(ctx.req, {
+//     length: ctx.req.headers["content-length"],
+//     limit: "1mb",
+//     encoding: contentType.parse(ctx.req).parameters.charset,
+//   });
+//   yield next;
+// });
+
+app.use(async function (ctx, next) {
+  const start = Date.now();
+  await next().then((result) => {
+    logger.info(
+      `${ctx.request.method}\t${ctx.req.url} ${ctx.response.status}\t${
+        Date.now() - start
+      } ms`
+    );
+    return result;
+  });
+});
 // app.use(bodyParser({ strict: false, enableTypes: undefined }));
 
 app.use(router.routes());
+app.use(router.allowedMethods());
 app.use(AxiosProxy(esHost));
 
 app.use((ctx) => {
