@@ -13,7 +13,6 @@ import getRawBody from "raw-body";
 import contentType from "content-type";
 import apm from "elastic-apm-node";
 import ndjson from "ndjson";
-import split from "split2";
 import { parse } from "path";
 dotenv.config();
 

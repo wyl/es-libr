@@ -1,12 +1,19 @@
 import axios, { AxiosResponse, Method } from "axios";
 import koa from "koa";
 import { logger } from "../logger";
-import ndjson from "ndjson";
-import { parse } from "path";
-import fs from "fs";
+
+import { SearchRequest } from "@elastic/elasticsearch/lib/api/typesWithBodyKey";
 
 export function AxiosProxy(url: string) {
   return async (ctx: koa.ExtendableContext) => {
+
+    const isSearch = ctx.request.url .endsWith('_search') 
+   
+    if (isSearch){
+       const k = ctx.request.body as SearchRequest
+    
+    }
+
     const axiosRes = await ExpressToAxios(url, ctx.request);
     ctx.response.status = axiosRes.status as number;
     ctx.response.body = axiosRes.data;
@@ -29,6 +36,10 @@ async function ExpressToAxios(url: string, request: koa.Request) {
     host: urlInfo.hostname,
   };
 
+  if (reqUrl.endsWith('_search')){
+    request.body as 
+  }
+
   const options = {
     url: reqUrl,
     method: request.method as Method,
@@ -37,6 +48,7 @@ async function ExpressToAxios(url: string, request: koa.Request) {
     data: request.body,
   };
   logger.debug(">>>>>>", reqUrl, JSON.stringify(options, null, 2));
+
 
   const axiosRes = axios
     .request(options)
