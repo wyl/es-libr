@@ -1,52 +1,53 @@
 import axios, { Method } from "axios";
 import koa from "koa";
 import { logger } from "../logger";
-import jq from "jsonpath";
 import { SearchRequest } from "@elastic/elasticsearch/lib/api/types";
 import { getValueByPath, replaceKeysInBody } from "./lib";
 
 const mapper:Record<string,string> = {
-  "data.context.id" :"data_context_id",
-  "data.context.authors" :"data_context_authors",
-  "data.context.sections.uniqueName" :"data_context_sectionsuniqueName",
-  "data.context.sections.uniqueName.keyword": "data_context_sections_uniqueName_keyword",
-  "data.context.sections":"data_context_sections",
-  "data.context.updated":"data_context_updated"
+  // "data.context.id" :"data_context_id",
+  // "data.context.authors" :"data_context_authors",
+  // "data.context.sections.uniqueName" :"data_context_sectionsuniqueName",
+  // "data.context.sections.uniqueName.keyword": "data_context_sections_uniqueName_keyword",
+  // "data.context.sections":"data_context_sections",
+  // "data.context.updated":"data_context_updated"
+  
 }
-const source = {
-	"size": 60,
-	"from": 0,
-	"_source": [
-		"data.context.id",
-		"data.context.authors",
-		"data.context.sections.uniqueName"
-	],
-	"sort": [
-		{
-			"data.context.updated": "desc"
-		}
-	],
-	"query": {
-		"bool": {
-			"should": {
-				"nested": {
-					"query": {
-						"bool": {
-							"should": [
-								{
-									"term": {
-										"data.context.sections.uniqueName.keyword": "news_singapore"
-									}
-								}
-							]
-						}
-					},
-					"path": "data.context.sections"
-				}
-			}
-		}
-	}
-}
+
+// const source = {
+// 	"size": 60,
+// 	"from": 0,
+// 	"_source": [
+// 		"data.context.id",
+// 		"data.context.authors",
+// 		"data.context.sections.uniqueName"
+// 	],
+// 	"sort": [
+// 		{
+// 			"data.context.updated": "desc"
+// 		}
+// 	],
+// 	"query": {
+// 		"bool": {
+// 			"should": {
+// 				"nested": {
+// 					"query": {
+// 						"bool": {
+// 							"should": [
+// 								{
+// 									"term": {
+// 										"data.context.sections.uniqueName.keyword": "news_singapore"
+// 									}
+// 								}
+// 							]
+// 						}
+// 					},
+// 					"path": "data.context.sections"
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
 export function AxiosProxy(url: string) {
   return async (ctx: koa.ExtendableContext) => {
@@ -62,19 +63,20 @@ export function AxiosProxy(url: string) {
     const axiosRes = await ExpressToAxios(url, ctx.request);
 
     if(isSearch){
-      logger.info(getValueByPath(source,"size"))
-      logger.info(getValueByPath(source,"sort"))
-      logger.info(getValueByPath(source,"sort.0"))
-      logger.info(getValueByPath(source,"query.bool.should.nested.query.bool.should"))
-      logger.info(getValueByPath(source,"query.bool.should.nested.path"))
+      logger.info('source isSearch')
+      // logger.info(getValueByPath(source,"size"))
+      // logger.info(getValueByPath(source,"sort"))
+      // logger.info(getValueByPath(source,"sort.0"))
+      // logger.info(getValueByPath(source,"query.bool.should.nested.query.bool.should"))
+      // logger.info(getValueByPath(source,"query.bool.should.nested.path"))
+
+      console.log(axiosRes.data)
     }
     ctx.response.status = axiosRes.status as number;
     ctx.response.body = axiosRes.data;
     Object.entries(axiosRes.headers).forEach(([key, value]) => {
       ctx.response.set(key, value + "");
     });
-
-
   };
 }
 
