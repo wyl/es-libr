@@ -73,7 +73,7 @@
         "type": {
           "type": "text"
         },
-        "reName": "data_context_authors_profiles_content.id"
+        "reName": "data_context_authors_profiles_content_id"
       },
       "data.context.tags.id": {
         "type": {

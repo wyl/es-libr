@@ -1,4 +1,4 @@
-import { Logger } from "tslog";
+import { Logger, TLogLevelName } from "tslog";
 
 const logger: Logger = new Logger({
   dateTimeTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -6,6 +6,8 @@ const logger: Logger = new Logger({
   displayFilePath: "hidden",
   displayDateTime: true,
   colorizePrettyLogs: true,
+  minLevel: process.env.LOGLEVEL as TLogLevelName
+
   //requestId: ()=> asyncLocalTraceStorage?.getStore()?.['x-request-id']
 });
 

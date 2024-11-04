@@ -1,67 +1,64 @@
 import dotenv from "dotenv";
-import Koa from "koa";
+dotenv.config();
+
 import cors from "@koa/cors";
+import Koa from "koa";
 import { logger } from "../logger";
 import { router } from "./apis/constants";
+import { SERVER_PORT } from "./constants";
+import { CUSTOM_TRANS_MAPPER } from "./core/method";
+import { initGlobal } from "./global";
 import "./implements";
 import { AxiosProxy } from "./middleware";
-import {
-  ELASTICSEARCH_HOST,
-  INDEX_MAPPING_FILE_PATH,
-  SERVER_PORT,
-} from "./constants";
-import { loadIndexMapping } from "./init/init-index-mapping";
-import { initGlobal } from "./global";
-dotenv.config();
 
 const app = new Koa({ proxy: true });
 
 async function main() {
-  
   await initGlobal();
-  await runServer(SERVER_PORT, ELASTICSEARCH_HOST);
+  await runServer(SERVER_PORT);
   logger.info(`Server running on port ${SERVER_PORT}`);
 }
+
 main();
 
-async function runServer(port: string, esHost: string) {
+async function runServer(port: string) {
   app.use(cors());
   app.use(async function (ctx, next) {
-    const body = await new Promise<string>((resolve, reject) => {
-      let body = "";
-      ctx.req.on("data", (chunk) => (body += chunk));
-      ctx.req.on("end", () => resolve(body));
-      ctx.req.on("error", (err) => reject(err));
-    });
-    ctx.request.body = body;
+    let isSearch = false;
+    let body = "";
+    const pathName = ctx.req.url?.split("?").at(0) || "";
+    const esMethod = pathName.split("/").at(-1) || "";
+
+    const { request, response } = CUSTOM_TRANS_MAPPER[esMethod];
+    if (!!request) body = await request(ctx.req);
+
+    logger.info(`${ctx.req.url} ===> ${esMethod} \n${body}`);
+
+    if (!!body) {
+      ctx.request.body = body;
+    }
+
+    if (!response) return next();
 
     await next();
+    await response(ctx.req, ctx.response);
+    return;
   });
-  // app.use(function* (ctx, next) {
-  //   ctx.text = yield getRawBody(ctx.req, {
-  //     length: ctx.req.headers["content-length"],
-  //     limit: "1mb",
-  //     encoding: contentType.parse(ctx.req).parameters.charset,
-  //   });
-  //   yield next;
-  // });
 
   app.use(async function (ctx, next) {
-    const start = Date.now();
-    await next().then((result) => {
+    const start = performance.now();
+    await next().then(() => {
       logger.info(
-        `${ctx.request.method}\t${ctx.req.url} ${ctx.response.status}\t${
-          Date.now() - start
-        } ms`
+        `${ctx.request.method}\t${ctx.req.url} ${ctx.response.status}\t${(
+          performance.now() - start
+        ).toFixed(2)} ms`
       );
-      return result;
     });
   });
-  // app.use(bodyParser({ strict: false, enableTypes: undefined }));
 
   app.use(router.routes());
   app.use(router.allowedMethods());
-  app.use(AxiosProxy(esHost));
+  app.use(AxiosProxy());
 
   app.use((ctx) => {
     ctx.body = "who are you?";

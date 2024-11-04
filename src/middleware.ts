@@ -1,87 +1,36 @@
 import axios, { Method } from "axios";
+import https from "https";
 import koa from "koa";
 import { logger } from "../logger";
-import { SearchRequest } from "@elastic/elasticsearch/lib/api/types";
-import { getValueByPath, replaceKeysInBody } from "./lib";
+import { ELASTICSEARCH_API_KEY, ELASTICSEARCH_HOST } from "./constants";
 
-const mapper:Record<string,string> = {
-  // "data.context.id" :"data_context_id",
-  // "data.context.authors" :"data_context_authors",
-  // "data.context.sections.uniqueName" :"data_context_sectionsuniqueName",
-  // "data.context.sections.uniqueName.keyword": "data_context_sections_uniqueName_keyword",
-  // "data.context.sections":"data_context_sections",
-  // "data.context.updated":"data_context_updated"
-  
-}
+export function AxiosProxy() {
+  const esHost = ELASTICSEARCH_HOST;
+  const esApiKey = ELASTICSEARCH_API_KEY;
 
-// const source = {
-// 	"size": 60,
-// 	"from": 0,
-// 	"_source": [
-// 		"data.context.id",
-// 		"data.context.authors",
-// 		"data.context.sections.uniqueName"
-// 	],
-// 	"sort": [
-// 		{
-// 			"data.context.updated": "desc"
-// 		}
-// 	],
-// 	"query": {
-// 		"bool": {
-// 			"should": {
-// 				"nested": {
-// 					"query": {
-// 						"bool": {
-// 							"should": [
-// 								{
-// 									"term": {
-// 										"data.context.sections.uniqueName.keyword": "news_singapore"
-// 									}
-// 								}
-// 							]
-// 						}
-// 					},
-// 					"path": "data.context.sections"
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-
-export function AxiosProxy(url: string) {
   return async (ctx: koa.ExtendableContext) => {
+    const axiosRes = await ExpressToAxios(
+      { url: esHost, apiKey: esApiKey },
+      ctx.request
+    );
 
-    const isSearch = ctx.request.url .endsWith('_search') 
-   
-    if (isSearch){
-       const k = JSON.parse(ctx.request.body +'' ) as SearchRequest
-      logger.warn(replaceKeysInBody(k, mapper))
-      ctx.request.body = JSON.stringify(replaceKeysInBody(k, mapper))
-    }
-
-    const axiosRes = await ExpressToAxios(url, ctx.request);
-
-    if(isSearch){
-      logger.info('source isSearch')
-      // logger.info(getValueByPath(source,"size"))
-      // logger.info(getValueByPath(source,"sort"))
-      // logger.info(getValueByPath(source,"sort.0"))
-      // logger.info(getValueByPath(source,"query.bool.should.nested.query.bool.should"))
-      // logger.info(getValueByPath(source,"query.bool.should.nested.path"))
-
-      console.log(axiosRes.data)
-    }
     ctx.response.status = axiosRes.status as number;
     ctx.response.body = axiosRes.data;
     Object.entries(axiosRes.headers).forEach(([key, value]) => {
       ctx.response.set(key, value + "");
     });
+
+    return axiosRes;
   };
 }
 
-async function ExpressToAxios(url: string, request: koa.Request) {
-  const reqUrl = `${url}${request.url}`;
+const _axios = axios.create();
+_axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false });
+async function ExpressToAxios(
+  param: { url: string; apiKey: string },
+  request: koa.Request
+) {
+  const reqUrl = `${param.url}${request.url}`;
   const urlInfo = new URL(reqUrl);
   delete request.headers["content-length"];
   delete request.headers["host"];
@@ -91,6 +40,7 @@ async function ExpressToAxios(url: string, request: koa.Request) {
       ? "application/x-ndjson"
       : "application/json",
     host: urlInfo.hostname,
+    Authorization: `ApiKey ${param.apiKey}`,
   };
 
   const options = {
@@ -100,13 +50,13 @@ async function ExpressToAxios(url: string, request: koa.Request) {
     params: request.query,
     data: request.body,
   };
-  logger.debug(">>>>>>", reqUrl, JSON.stringify(options, null, 2));
+  logger.debug(">>>>>>", reqUrl, JSON.stringify({ ...options }, null, 2));
 
-
-  const axiosRes = axios
+  const axiosRes = _axios
     .request(options)
     .then((it) => {
-      // logger.debug("<<<<<<", it.data);
+      // logger.trace("<<<<<<", it.data);
+      // it.data.pipe(process.stdout);
       return {
         status: it.status,
         headers: it.headers,
@@ -117,7 +67,7 @@ async function ExpressToAxios(url: string, request: koa.Request) {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        logger.debug("<<<<<<", error.response.data);
+        logger.trace("<<<<<<", error.response.data);
         return {
           status: error.response.status,
           headers: error.response.headers,
@@ -136,6 +86,8 @@ async function ExpressToAxios(url: string, request: koa.Request) {
       logger.debug(error.message);
       return error;
     });
-
+  // axiosRes.data.on("data", (chunk: string) => {
+  //   console.log(chunk.toString());
+  // });
   return axiosRes;
 }
