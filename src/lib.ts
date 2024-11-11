@@ -1,3 +1,20 @@
+import { logger } from "../logger";
+
+async function traceLog<T, K extends string>(
+  type: K,
+  func: () => PromiseLike<T>,
+  context?: Array<string>
+): Promise<T> {
+  const t0 = performance.now();
+  return func().then((res) => {
+    logger.info(
+      `[${type}] ${context} ${(performance.now() - t0).toFixed(2)} ms `
+    );
+    logger.trace(JSON.stringify(res));
+    return res;
+  });
+}
+
 function replaceKeysInBody(
   source: unknown,
   mapper: Record<string, string>
@@ -70,4 +87,4 @@ function getValueByPath(source: unknown, mapper: Record<string, string>) {
   return source;
 }
 
-export { replaceKeysInBody };
+export { replaceKeysInBody, traceLog };

@@ -1,36 +1,66 @@
-import { IncomingMessage, OutgoingMessage, ServerResponse } from "node:http";
-import { indexMapping } from "../../global";
-import { LiteTransform } from "../lite-transform";
+import { IncomingMessage } from "node:http";
+import { indexMapping, mongoDb } from "../../global";
 import { ElasticsearchResponse } from "../../types";
+import { LiteTransform } from "../lite-transform";
 
 import Koa from "koa";
-import { getMemory } from "../memory";
-export async function _searchParams(req: IncomingMessage) {
-  const indexName = req.url?.split("/").filter(Boolean).at(0) || "";
+import { ObjectId } from "mongodb";
+import { ParamData } from "path-to-regexp";
+import { traceLog } from "../../lib";
+import { TransHandler } from ".";
 
-  return new Promise<string>((resolve, reject) => {
-    let body = "";
-    const currMapping = indexMapping()[indexName].mapping();
-    req
-      .on("data", (data) => {
-        body += data.toString();
-      })
-      .on("end", () => {
-        const trans = new LiteTransform(JSON.parse(body || "{}"), currMapping);
-        resolve(JSON.stringify(trans.makeLiteSearch()));
-      })
-      .on("error", (err) => reject(err));
-  });
-}
+export const _searchHandler: TransHandler = (
+  req: IncomingMessage,
+  res: Koa.Response,
+  params: ParamData
+) => {
+  const { target } = params as { target: string };
+  let _source: Array<string> = [];
+  return [
+    async () =>
+      new Promise<string>((resolve, reject) => {
+        let body = "";
+        const currMapping = indexMapping()[target].mapping();
+        req
+          .on("data", (data) => {
+            body += data.toString();
+          })
+          .on("end", () => {
+            const reqBody = JSON.parse(body || "{}");
+            _source = reqBody._source;
+            const trans = new LiteTransform(reqBody, currMapping);
+            resolve(JSON.stringify(trans.makeLiteSearch()));
+          })
+          .on("error", (err) => reject(err));
+      }),
 
-export async function _searchResponse(req: IncomingMessage, res: Koa.Response) {
-  const resData =
-    (res.body as ElasticsearchResponse<Record<string, string>>).hits?.hits ||
-    [];
-  const promiseList = resData.map(async (data) => {
-    const originData = await getMemory(data._id);
-    data._source = originData;
-  });
+    async () => {
+      const resData =
+        (res.body as ElasticsearchResponse<Record<string, string>>).hits
+          ?.hits || [];
+      const ids = resData.map((it) => new ObjectId(it._id.padStart(24, "0")));
 
-  Promise.all(promiseList);
-}
+      const documents = await traceLog(
+        `Mongo`,
+        () =>
+          mongoDb
+            .collection(target)
+            .find(
+              { _id: { $in: ids } },
+              { projection: Object.fromEntries(_source.map((it) => [it, 1])) }
+            )
+            .toArray(),
+        [target]
+      );
+
+      resData.forEach((data) => {
+        const rawData = documents.find((it) => {
+          return it._id.toString() === data._id.padStart(24, "0");
+        });
+        if (!!rawData) {
+          data._source = rawData;
+        }
+      });
+    },
+  ];
+};

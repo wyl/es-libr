@@ -2,10 +2,10 @@ import { replaceKeysInBody } from "../lib";
 import { setMemory } from "./memory";
 
 export class LiteTransform {
-  data: unknown;
+  data: object | unknown;
   mapper: Record<string, string>;
   index: string;
-  constructor(data: unknown, mapper: Record<string, string>) {
+  constructor(data: object, mapper: Record<string, string>) {
     this.data = data;
     this.mapper = mapper;
     this.index = "";
@@ -19,14 +19,12 @@ export class LiteTransform {
     ) {
       return this.data as Record<string, unknown>;
     }
+
     const transData = Object.fromEntries(
       Object.entries(this.mapper).map(([k, v]) => {
         return [v, this.getValueByPath(k)];
       })
     );
-
-    // ! save origin data to MongoDb
-    setMemory(transData["data_context_id"] as string, this.data);
     return transData;
   }
 

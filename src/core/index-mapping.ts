@@ -21,7 +21,7 @@ async function loadIndexMapping(filePath: string) {
     ) as Array<IndexMapping>;
     indexMappings = Object.fromEntries(
       tmp.map((it) => {
-        return [it.index, new IndexMappingTool(it.index, it.mapper)];
+        return [it.index, new IndexMappingTool(it)];
       })
     );
   } catch (error) {
@@ -34,9 +34,9 @@ class IndexMappingTool {
   index: string;
   mapper: FieldsMapper;
 
-  constructor(index: string, mapper: FieldsMapper) {
-    this.index = index;
-    this.mapper = mapper;
+  constructor(mapping: IndexMapping) {
+    this.index = mapping.index;
+    this.mapper = mapping.mapper;
   }
 
   buildCreateIndexBody() {

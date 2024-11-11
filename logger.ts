@@ -6,7 +6,7 @@ const logger: Logger = new Logger({
   displayFilePath: "hidden",
   displayDateTime: true,
   colorizePrettyLogs: true,
-  minLevel: process.env.LOGLEVEL as TLogLevelName
+  minLevel: process.env.LOGLEVEL?.toLowerCase() as TLogLevelName,
 
   //requestId: ()=> asyncLocalTraceStorage?.getStore()?.['x-request-id']
 });

@@ -6,10 +6,9 @@ import Koa from "koa";
 import { logger } from "../logger";
 import { router } from "./apis/constants";
 import { SERVER_PORT } from "./constants";
-import { CUSTOM_TRANS_MAPPER } from "./core/method";
 import { initGlobal } from "./global";
 import "./implements";
-import { AxiosProxy } from "./middleware";
+import { AxiosProxy, ContextMiddleware } from "./middleware";
 
 const app = new Koa({ proxy: true });
 
@@ -23,27 +22,6 @@ main();
 
 async function runServer(port: string) {
   app.use(cors());
-  app.use(async function (ctx, next) {
-    let isSearch = false;
-    let body = "";
-    const pathName = ctx.req.url?.split("?").at(0) || "";
-    const esMethod = pathName.split("/").at(-1) || "";
-
-    const { request, response } = CUSTOM_TRANS_MAPPER[esMethod];
-    if (!!request) body = await request(ctx.req);
-
-    logger.info(`${ctx.req.url} ===> ${esMethod} \n${body}`);
-
-    if (!!body) {
-      ctx.request.body = body;
-    }
-
-    if (!response) return next();
-
-    await next();
-    await response(ctx.req, ctx.response);
-    return;
-  });
 
   app.use(async function (ctx, next) {
     const start = performance.now();
@@ -58,7 +36,10 @@ async function runServer(port: string) {
 
   app.use(router.routes());
   app.use(router.allowedMethods());
+  // !! 核心 Middleware 开始
+  app.use(ContextMiddleware());
   app.use(AxiosProxy());
+  // !! 核心 Middleware 结束
 
   app.use((ctx) => {
     ctx.body = "who are you?";

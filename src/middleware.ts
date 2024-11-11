@@ -3,15 +3,47 @@ import https from "https";
 import koa from "koa";
 import { logger } from "../logger";
 import { ELASTICSEARCH_API_KEY, ELASTICSEARCH_HOST } from "./constants";
+import { getTransHandler } from "./core/method";
+import { traceLog } from "./lib";
 
-export function AxiosProxy() {
+function ContextMiddleware() {
+  return async function (ctx: koa.Context, next: koa.Next) {
+    let body: string | object | undefined = "";
+
+    const config = getTransHandler(ctx.req.url || "", ctx.req.method || "");
+    logger.debug(`${ctx.req.url} => ${JSON.stringify(config?.params.params)}`);
+
+    if (!config) return next();
+
+    const [request, response] = config.handler(
+      ctx.req,
+      ctx.response,
+      config.params.params
+    );
+
+    if (!!request)
+      body = await traceLog(`${config.title} >`, request, ["request"]);
+
+    if (!!body) {
+      ctx.request.body = body;
+    }
+
+    if (!response) return next();
+
+    await next();
+    await traceLog(`${config.title} <`, response, ["response"]);
+  };
+}
+
+function AxiosProxy() {
   const esHost = ELASTICSEARCH_HOST;
   const esApiKey = ELASTICSEARCH_API_KEY;
 
   return async (ctx: koa.ExtendableContext) => {
-    const axiosRes = await ExpressToAxios(
-      { url: esHost, apiKey: esApiKey },
-      ctx.request
+    const axiosRes = await traceLog(
+      "Call Elasticsearch",
+      () => ExpressToAxios({ url: esHost, apiKey: esApiKey }, ctx.request),
+      [ctx.request.url]
     );
 
     ctx.response.status = axiosRes.status as number;
@@ -51,12 +83,10 @@ async function ExpressToAxios(
     data: request.body,
   };
   logger.debug(">>>>>>", reqUrl, JSON.stringify({ ...options }, null, 2));
-
+  const t0 = performance.now();
   const axiosRes = _axios
     .request(options)
     .then((it) => {
-      // logger.trace("<<<<<<", it.data);
-      // it.data.pipe(process.stdout);
       return {
         status: it.status,
         headers: it.headers,
@@ -91,3 +121,5 @@ async function ExpressToAxios(
   // });
   return axiosRes;
 }
+
+export { ContextMiddleware, AxiosProxy };
