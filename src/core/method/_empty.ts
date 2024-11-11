@@ -7,6 +7,6 @@ export const _emptyHandler: TransHandler = (
   req: IncomingMessage,
   res: Koa.Response,
   params: ParamData
-): [() => Promise<string>, () => Promise<void>] => {
-  return [() => Promise.resolve("1"), () => Promise.resolve()];
+) => {
+  return [undefined, undefined];
 };
