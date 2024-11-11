@@ -10,6 +10,7 @@ import { indexMapping, mongoDb } from "../../global";
 import { traceLog } from "../../lib";
 import { LiteTransform } from "../lite-transform";
 import { TransHandler } from ".";
+import { logger } from "../../../logger";
 
 export const _bulkHandler: TransHandler = (
   req: IncomingMessage,
@@ -115,7 +116,7 @@ export const _bulkHandler: TransHandler = (
                   "Mongo",
                   () => mongoDb.collection(_index).bulkWrite(writeBulk),
                   [_index]
-                );
+                ).then(logger.trace);
               })
             );
             resolve(body);

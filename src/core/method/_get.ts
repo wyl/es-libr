@@ -6,6 +6,7 @@ import Koa from "koa";
 import { ObjectId } from "mongodb";
 import { ParamData } from "path-to-regexp";
 import { TransHandler } from ".";
+import { traceLog } from "../../lib";
 
 export const _getHandler: TransHandler = (
   req: IncomingMessage,
@@ -17,9 +18,11 @@ export const _getHandler: TransHandler = (
     async () => Promise.resolve(""),
 
     async () => {
-      const doc = await mongoDb
-        .collection(index)
-        .findOne({ _id: new ObjectId(_id.padStart(24, "0")) });
+      const doc = await traceLog("Mongo", () =>
+        mongoDb
+          .collection(index)
+          .findOne({ _id: new ObjectId(_id.padStart(24, "0")) })
+      );
       const resData = res.body as ElasticSearchHits<Record<string, unknown>>;
       doc ? (resData._source = doc) : undefined;
     },

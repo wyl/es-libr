@@ -29,7 +29,7 @@ export const _updateHandler: TransHandler = (
             const { doc, ...otherFields } = JSON.parse(body || "{}");
             const trans = new LiteTransform(doc, currMapping);
 
-            const updateIns = await traceLog("Mongo", () =>
+            await traceLog("Mongo", () =>
               mongoDb
                 .collection(index)
                 .updateOne(
@@ -37,9 +37,8 @@ export const _updateHandler: TransHandler = (
                   { $set: doc },
                   { upsert: true }
                 )
-            );
+            ).then(logger.trace);
 
-            logger.debug(updateIns);
             resolve({ doc: trans.makeLiteBody(), ...otherFields });
           })
           .on("error", (err) => reject(err));
