@@ -44,6 +44,6 @@ export const _updateHandler: TransHandler = (
           .on("error", (err) => reject(err));
       }),
 
-    async () => {},
+    undefined,
   ];
 };

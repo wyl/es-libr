@@ -16,7 +16,7 @@ export const _deleteHandler: TransHandler = (
 ) => {
   const { index, _id } = params as { index: string; _id: string };
   return [
-    async () => Promise.resolve(""),
+    undefined,
 
     async () => {
       const resData = res.body as ElasticsearchDeleteResponse;

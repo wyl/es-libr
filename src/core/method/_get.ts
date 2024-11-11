@@ -15,7 +15,7 @@ export const _getHandler: TransHandler = (
 ) => {
   const { index, _id } = params as { index: string; _id: string };
   return [
-    async () => Promise.resolve(""),
+    undefined,
 
     async () => {
       const doc = await traceLog("Mongo", () =>
