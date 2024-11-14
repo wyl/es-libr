@@ -29,7 +29,6 @@ export const _updateHandler: TransHandler = (
             const { doc, ...otherFields } = JSON.parse(body || "{}");
             const trans = new LiteTransformer(doc, currMapping);
 
-            console.log({ doc: trans.makeLiteBody(), ...otherFields });
             resolve(
               JSON.stringify({ doc: trans.makeLiteBody(), ...otherFields })
             );
