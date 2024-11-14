@@ -8,8 +8,6 @@ import { traceLog } from "./lib";
 
 function ContextMiddleware() {
   return async function (ctx: koa.Context, next: koa.Next) {
-    let body: string | object | undefined = "";
-
     const config = getTransHandler(ctx.req.url || "", ctx.req.method || "");
     logger.debug(`${ctx.req.url} => ${JSON.stringify(config?.params.params)}`);
 
@@ -22,9 +20,9 @@ function ContextMiddleware() {
     );
 
     if (!!request)
-      body =
+      ctx.request.body =
         (await traceLog(`${config.title} >`, request, [`apply request()`])) ??
-        body;
+        "";
 
     if (!response) return next();
 
