@@ -1,6 +1,6 @@
 /.index.ts.swp
 /node_modules
 .DS_Store
-/test
+/test-scripts
 .test*.ts
 .env
