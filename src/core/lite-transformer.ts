@@ -1,7 +1,6 @@
 import { replaceKeysInBody } from "../lib";
-import { setMemory } from "./memory";
 
-export class LiteTransform {
+export class LiteTransformer {
   data: object | unknown;
   mapper: Record<string, string>;
   index: string;

@@ -4,20 +4,20 @@ import { _searchHandler } from "./_search";
 import Koa from "koa";
 import { match, MatchResult, ParamData } from "path-to-regexp";
 import { _bulkHandler } from "./_bulk";
-import { _emptyHandler } from "./_empty";
-import { _updateHandler } from "./_update";
-import { _getHandler } from "./_get";
 import { _deleteHandler } from "./_delete";
-import { logger } from "../../../logger";
+import { _emptyHandler } from "./_empty";
+import { _getHandler } from "./_get";
+import { _updateHandler } from "./_update";
 
-const transHandlerList: Array<TransHandlerSettings> = [
+/** @private */
+export const transHandlerList: Array<TransHandlerSettings> = [
   {
     title: "Search API",
     routes: [
       "GET /:target/_search",
-      // "GET /_search",  // todo 不知道是干嘛的，咱不管
+      "GET /_search",
       "POST /:target/_search",
-      // "POST /_search",
+      "POST /_search",
     ],
     handler: _searchHandler,
   },
@@ -70,7 +70,6 @@ export function getTransHandler(
   const route = transHandlerList.find((it) =>
     it.routes.find((router) => {
       const [_method, path] = router.split(" ");
-      logger.trace(url, router.split(" "));
       return _method === method.toUpperCase() && match(path)(url);
     })
   );

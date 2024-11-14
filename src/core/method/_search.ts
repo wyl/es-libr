@@ -1,7 +1,7 @@
 import { IncomingMessage } from "node:http";
 import { indexMapping, mongoDb } from "../../global";
 import { ElasticsearchResponse } from "../../types";
-import { LiteTransform } from "../lite-transform";
+import { LiteTransformer } from "../lite-transformer";
 
 import Koa from "koa";
 import { ObjectId } from "mongodb";
@@ -28,7 +28,7 @@ export const _searchHandler: TransHandler = (
           .on("end", () => {
             const reqBody = JSON.parse(body || "{}");
             _source = reqBody._source;
-            const trans = new LiteTransform(reqBody, currMapping);
+            const trans = new LiteTransformer(reqBody, currMapping);
             resolve(JSON.stringify(trans.makeLiteSearch()));
           })
           .on("error", (err) => reject(err));
@@ -54,7 +54,7 @@ export const _searchHandler: TransHandler = (
       );
 
       resData.forEach((data) => {
-        const rawData = documents.find((it) => {
+        const rawData = documents?.find((it) => {
           return it._id.toString() === data._id.padStart(24, "0");
         });
         if (!!rawData) {

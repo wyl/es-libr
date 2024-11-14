@@ -1,13 +1,6 @@
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  expect,
-  test,
-} from "@jest/globals";
+import { beforeAll, expect, test } from "@jest/globals";
+import { indexMapping, initServer } from "./global";
 import { replaceKeysInBody } from "./lib";
-import { indexMapping, initGlobal } from "./global";
 
 // beforeAll(() => console.log("1 - beforeAll"));
 // afterAll(() => console.log("1 - afterAll"));
@@ -26,7 +19,7 @@ import { indexMapping, initGlobal } from "./global";
 
 let currentMapping: Record<string, string>;
 beforeAll(async () => {
-  await initGlobal();
+  await initServer();
   currentMapping = indexMapping()["caas-cn-zaobao-online"].mapping();
 });
 

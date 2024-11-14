@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loadIndexMapping Testing Success [index-mapping.json]  1`] = `
+{
+  "caas-cn-zaobao-online": IndexMappingTool {
+    "index": "caas-cn-zaobao-online",
+    "mapper": {
+      "data.context.authors.profiles.content.id": {
+        "reName": "data_context_authors_profiles_content_id",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.displaySetting.displayAssetsMultiple.keyword": {
+        "reName": "data_context_displaySetting_displayAssetsMultiple_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.displaySetting.zbsgFlag": {
+        "reName": "data_context_displaySetting_zbsgFlag",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.elements.children": {
+        "reName": "data_context_elements_children",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.id": {
+        "reName": "data_context_id",
+        "type": {
+          "type": "keyword",
+        },
+      },
+      "data.context.tags.id": {
+        "reName": "data_context_tags_id",
+        "type": {
+          "type": "keyword",
+        },
+      },
+      "data.context.tags.name.keyword": {
+        "reName": "data_context_tags_name_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.tags.type.keyword": {
+        "reName": "data_context_tags_type_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.tags.urlPath.keyword": {
+        "reName": "data_context_tags_urlPath_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.title": {
+        "reName": "data_context_title",
+        "type": {
+          "analyzer": "ik_smart",
+          "type": "text",
+        },
+      },
+      "data.context.type": {
+        "reName": "data_context_type",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.updated": {
+        "reName": "data_context_updated",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.resolution.section.uniqueName.keyword": {
+        "reName": "data_resolution_section_uniqueName_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`loadIndexMapping Testing Success Testing Success [index-mapping.json]  1`] = `
+{
+  "caas-cn-zaobao-online": IndexMappingTool {
+    "index": "caas-cn-zaobao-online",
+    "mapper": {
+      "data.context.authors.profiles.content.id": {
+        "reName": "data_context_authors_profiles_content_id",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.displaySetting.displayAssetsMultiple.keyword": {
+        "reName": "data_context_displaySetting_displayAssetsMultiple_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.displaySetting.zbsgFlag": {
+        "reName": "data_context_displaySetting_zbsgFlag",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.elements.children": {
+        "reName": "data_context_elements_children",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.id": {
+        "reName": "data_context_id",
+        "type": {
+          "type": "keyword",
+        },
+      },
+      "data.context.tags.id": {
+        "reName": "data_context_tags_id",
+        "type": {
+          "type": "keyword",
+        },
+      },
+      "data.context.tags.name.keyword": {
+        "reName": "data_context_tags_name_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.tags.type.keyword": {
+        "reName": "data_context_tags_type_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.tags.urlPath.keyword": {
+        "reName": "data_context_tags_urlPath_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.title": {
+        "reName": "data_context_title",
+        "type": {
+          "analyzer": "ik_smart",
+          "type": "text",
+        },
+      },
+      "data.context.type": {
+        "reName": "data_context_type",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.updated": {
+        "reName": "data_context_updated",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.resolution.section.uniqueName.keyword": {
+        "reName": "data_resolution_section_uniqueName_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+    },
+  },
+}
+`;

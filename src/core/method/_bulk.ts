@@ -1,4 +1,4 @@
-import { IncomingMessage } from "node:http";
+import { IncomingMessage, ServerResponse } from "node:http";
 import streamEach from "stream-each";
 import through2 from "through2";
 
@@ -8,7 +8,7 @@ import ndjson from "ndjson";
 import { ParamData } from "path-to-regexp";
 import { indexMapping, mongoDb } from "../../global";
 import { traceLog } from "../../lib";
-import { LiteTransform } from "../lite-transform";
+import { LiteTransformer } from "../lite-transformer";
 import { TransHandler } from ".";
 import { logger } from "../../../logger";
 
@@ -24,14 +24,11 @@ export const _bulkHandler: TransHandler = (
 
   return [
     async () => {
-      let _id = "";
-      let _type = "";
-      const lines = through2.obj();
+      let [_id, _type, lines] = ["", "", through2.obj()];
 
       return new Promise<string>((resolve, reject) => {
         let body = "";
 
-        console.log("start -01");
         streamEach(
           req.pipe(ndjson.parse()),
           (data, next) => {
@@ -60,7 +57,7 @@ export const _bulkHandler: TransHandler = (
             // if (dataKeys.length === 1 && dataKeys.at(0) === "doc") {
             //   ndObj = ndObj["doc"] as Object;
             // }
-            const trans = new LiteTransform(
+            const trans = new LiteTransformer(
               ndObj,
               indexMapping()[_index].mapping()
             );
@@ -80,59 +77,60 @@ export const _bulkHandler: TransHandler = (
           .pipe(ndjson.stringify())
           .on("data", (data) => (body += data))
           .on("end", async () => {
-            // TODO  处理 批量 update or delete 的操作。
-            // console.log("lines", JSON.stringify(currDatas));
-            // for (const [key, values] of Object.entries(currDatas)) {
-            await Promise.all(
-              Object.entries(currDatas).map(([key, values]) => {
-                const writeBulk = values.map((doc) => {
-                  const { action, document } = doc;
-                  switch (action) {
-                    case "index":
-                      return {
-                        updateOne: {
-                          filter: { _id: document._id },
-                          update: { $set: document },
-                          upsert: true,
-                        },
-                      };
-                    case "create":
-                      return { insertOne: { document } };
-                    case "delete":
-                      return {
-                        deleteOne: { filter: { _id: document._id } },
-                      };
-                    case "update":
-                      return {
-                        updateOne: {
-                          filter: { _id: document._id },
-                          update: { $set: document },
-                        },
-                      };
-                  }
-                });
-
-                return traceLog(
-                  "Mongo",
-                  () => mongoDb.collection(_index).bulkWrite(writeBulk),
-                  [_index]
-                ).then(logger.trace);
-              })
-            );
             resolve(body);
           })
           .on("error", (err) => reject(err));
-
-        console.log("start -03");
       });
     },
 
-    async () => {},
+    async () => {
+      if (res.status === 200)
+        await Promise.all(
+          Object.entries(currDatas).map(([key, values]) => {
+            const writeBulk = values.map((doc) => {
+              const { action, document } = doc;
+              switch (action) {
+                case "index":
+                  return {
+                    updateOne: {
+                      filter: { _id: document._id },
+                      update: { $set: document },
+                      upsert: true,
+                    },
+                  };
+                case "create":
+                  return { insertOne: { document } };
+                case "delete":
+                  return {
+                    deleteOne: { filter: { _id: document._id } },
+                  };
+                case "update":
+                  return {
+                    updateOne: {
+                      filter: { _id: document._id },
+                      update: { $set: document },
+                    },
+                  };
+              }
+            });
+
+            return traceLog(
+              "Mongo",
+              () => mongoDb.collection(key).bulkWrite(writeBulk),
+              [key]
+            ).then((it) => {
+              logger.trace(it);
+              return it;
+            });
+          })
+        );
+    },
   ];
 };
 
 type BulkData = { action: Option; document: WithId<object> };
 type Option = "index" | "create" | "delete" | "update";
+
 function createTempData() {
   let dataOperator: Record<string, Array<BulkData>> = {};
   return (index: string, data: BulkData) => {

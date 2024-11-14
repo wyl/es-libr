@@ -4,16 +4,12 @@ import Koa from "koa";
 import { ParamData } from "path-to-regexp";
 import { logger } from "../../../logger";
 
-export const _deleteHandler = (
+export const _deleteByQueryHandler = (
   req: IncomingMessage,
   res: Koa.Response,
   params: ParamData
 ) => {
   const { index, _id } = params as { index: string; _id: string };
-  return [
-    async () => Promise.resolve(""),
-    async () => {
-      logger.warn("unsupport delete by query ");
-    },
-  ];
+  logger.info(`_deleteHandler: ${index}, ${_id}`);
+  return [undefined, undefined];
 };

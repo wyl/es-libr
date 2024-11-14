@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test 1`] = `"{"name":"instance-0000000000","cluster_name":"3211b412f3cc44c1a6e7eeba79a52993","cluster_uuid":"eS-GWiX4R1Kd5W1F9cG8rg","version":{"number":"8.15.3","build_flavor":"default","build_type":"docker","build_hash":"f97532e680b555c3a05e73a74c28afb666923018","build_date":"2024-10-09T22:08:00.328917561Z","build_snapshot":false,"lucene_version":"9.11.1","minimum_wire_compatibility_version":"7.17.0","minimum_index_compatibility_version":"7.0.0"},"tagline":"You Know, for Search"}"`;

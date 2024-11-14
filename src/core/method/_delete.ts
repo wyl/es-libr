@@ -8,6 +8,7 @@ import { ParamData } from "path-to-regexp";
 import { TransHandler } from ".";
 import { traceLog } from "../../lib";
 import { logger } from "../../../logger";
+import { result } from "lodash";
 
 export const _deleteHandler: TransHandler = (
   req: IncomingMessage,
@@ -20,12 +21,18 @@ export const _deleteHandler: TransHandler = (
 
     async () => {
       const resData = res.body as ElasticsearchDeleteResponse;
-
-      await traceLog("Mongo", () =>
-        mongoDb
-          .collection(resData._index)
-          .deleteOne({ _id: new ObjectId(_id.padStart(24, "0")) })
-      ).then(logger.trace);
+      if (res.status === 200 && resData.result === "deleted") {
+        await traceLog("Mongo", () =>
+          mongoDb
+            .collection(resData._index)
+            .deleteOne({ _id: new ObjectId(_id.padStart(24, "0")) })
+        ).then((it) => {
+          logger.trace(it);
+          return it;
+        });
+      } else {
+        logger.error(`Delete status failed: ${res.status}`);
+      }
     },
   ];
 };

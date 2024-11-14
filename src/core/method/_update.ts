@@ -4,7 +4,7 @@ import Koa from "koa";
 import { ParamData } from "path-to-regexp";
 import { logger } from "../../../logger";
 import { indexMapping, mongoDb } from "../../global";
-import { LiteTransform } from "../lite-transform";
+import { LiteTransformer } from "../lite-transformer";
 import { traceLog } from "../../lib";
 import { ObjectId } from "mongodb";
 import { TransHandler } from ".";
@@ -27,7 +27,7 @@ export const _updateHandler: TransHandler = (
           })
           .on("end", async () => {
             const { doc, ...otherFields } = JSON.parse(body || "{}");
-            const trans = new LiteTransform(doc, currMapping);
+            const trans = new LiteTransformer(doc, currMapping);
 
             await traceLog("Mongo", () =>
               mongoDb
@@ -37,7 +37,10 @@ export const _updateHandler: TransHandler = (
                   { $set: doc },
                   { upsert: true }
                 )
-            ).then(logger.trace);
+            ).then((it) => {
+              logger.trace(it);
+              return it;
+            });
 
             resolve({ doc: trans.makeLiteBody(), ...otherFields });
           })

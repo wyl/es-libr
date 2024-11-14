@@ -22,22 +22,19 @@ function ContextMiddleware() {
     );
 
     if (!!request)
-      body = await traceLog(`${config.title} >`, request, ["request"]);
-
-    if (!!body) {
-      ctx.request.body = body;
-    }
+      body =
+        (await traceLog(`${config.title} >`, request, [`apply request()`])) ??
+        body;
 
     if (!response) return next();
 
     await next();
-    await traceLog(`${config.title} <`, response, ["response"]);
+    await traceLog(`${config.title} <`, response, [`apply response()`]);
   };
 }
 
 function AxiosProxy() {
-  const esHost = ELASTICSEARCH_HOST;
-  const esApiKey = ELASTICSEARCH_API_KEY;
+  const [esHost, esApiKey] = [ELASTICSEARCH_HOST, ELASTICSEARCH_API_KEY];
 
   return async (ctx: koa.ExtendableContext) => {
     const axiosRes = await traceLog(
@@ -83,7 +80,6 @@ async function ExpressToAxios(
     data: request.body,
   };
   logger.debug(">>>>>>", reqUrl, JSON.stringify({ ...options }, null, 2));
-  const t0 = performance.now();
   const axiosRes = _axios
     .request(options)
     .then((it) => {
@@ -112,7 +108,7 @@ async function ExpressToAxios(
         // Something happened in setting up the request that triggered an Error
         logger.debug("Error", error.message);
       }
-      logger.debug(error.config);
+      // logger.debug(error.config);
       logger.debug(error.message);
       return error;
     });

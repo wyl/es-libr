@@ -31,8 +31,8 @@ async function loadIndexMapping(filePath: string) {
 }
 
 class IndexMappingTool {
-  index: string;
-  mapper: FieldsMapper;
+  protected index: string;
+  protected mapper: FieldsMapper;
 
   constructor(mapping: IndexMapping) {
     this.index = mapping.index;

@@ -18,13 +18,15 @@ export const _getHandler: TransHandler = (
     undefined,
 
     async () => {
-      const doc = await traceLog("Mongo", () =>
-        mongoDb
-          .collection(index)
-          .findOne({ _id: new ObjectId(_id.padStart(24, "0")) })
-      );
-      const resData = res.body as ElasticSearchHits<Record<string, unknown>>;
-      doc ? (resData._source = doc) : undefined;
+      if (res.status === 200) {
+        const doc = await traceLog("Mongo", () =>
+          mongoDb
+            .collection(index)
+            .findOne({ _id: new ObjectId(_id.padStart(24, "0")) })
+        );
+        const resData = res.body as ElasticSearchHits<Record<string, unknown>>;
+        doc ? (resData._source = doc) : undefined;
+      }
     },
   ];
 };
