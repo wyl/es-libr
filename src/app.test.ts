@@ -1,13 +1,16 @@
 import request from "supertest";
 import { app } from "./app";
 import { initServer, stopServer } from "./global";
+import { ELASTICSEARCH_API_KEY } from "./constants";
 
 beforeAll(initServer);
 
 afterAll(stopServer);
 
-test("test", async () => {
-  const response = await request(app.callback()).get("/");
+test("Get /", async () => {
+  const response = await request(app.callback())
+    .get("/")
+    .set("Authorization", `ApiKey ${ELASTICSEARCH_API_KEY}`);
   expect(response.status).toBe(200);
   // expect(response.text).toMatchSnapshot(`{
   //   name: expect.any(String),

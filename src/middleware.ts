@@ -9,7 +9,11 @@ import { traceLog } from "./lib";
 function ContextMiddleware() {
   return async function (ctx: koa.Context, next: koa.Next) {
     const config = getTransHandler(ctx.req.url || "", ctx.req.method || "");
-    logger.debug(`${ctx.req.url} => ${JSON.stringify(config?.params.params)}`);
+    logger.debug(
+      `Ctx Middleware: ${ctx.req.url} => ${JSON.stringify(
+        config?.params.params
+      )}`
+    );
 
     if (!config) return next();
 
@@ -67,7 +71,7 @@ async function ExpressToAxios(
       ? "application/x-ndjson"
       : "application/json",
     host: urlInfo.hostname,
-    Authorization: `ApiKey ${param.apiKey}`,
+    // Authorization: `ApiKey ${param.apiKey}`,
   };
 
   const options = {
@@ -110,6 +114,10 @@ async function ExpressToAxios(
       logger.debug(error.message);
       return error;
     });
+  // .then((it) => {
+  //   logger.debug("<<<<<<", it);
+  //   return it;
+  // });
   // axiosRes.data.on("data", (chunk: string) => {
   //   console.log(chunk.toString());
   // });

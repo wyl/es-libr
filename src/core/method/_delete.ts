@@ -1,6 +1,6 @@
 import { IncomingMessage } from "node:http";
 import { mongoDb } from "../../global";
-import { ElasticsearchDeleteResponse } from "../../types";
+import { ElasticsearchUpdatedResponse } from "../../types";
 
 import Koa from "koa";
 import { ObjectId } from "mongodb";
@@ -20,11 +20,10 @@ export const _deleteHandler: TransHandler = (
     undefined,
 
     async () => {
-      const resData = res.body as ElasticsearchDeleteResponse;
-      if (res.status === 200 && resData.result === "deleted") {
+      if ((res.body as ElasticsearchUpdatedResponse).result === "deleted") {
         await traceLog("Mongo", () =>
           mongoDb
-            .collection(resData._index)
+            .collection(index)
             .deleteOne({ _id: new ObjectId(_id.padStart(24, "0")) })
         ).then((it) => {
           logger.trace(it);

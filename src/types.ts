@@ -18,14 +18,14 @@ export type ElasticSearchHits<M> = {
   _source: M;
 };
 
-export type ElasticsearchDeleteResponse = {
+export type ElasticsearchUpdatedResponse = {
   _index: string;
   _id: string;
   _version: number;
   _seq_no: number;
   _primary_term: number;
 
-  result: "deleted";
+  result: "deleted" | "created" | "updated";
   _shards: {
     total: number;
     succcessful: number;

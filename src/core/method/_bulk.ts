@@ -1,4 +1,4 @@
-import { IncomingMessage, ServerResponse } from "node:http";
+import { IncomingMessage } from "node:http";
 import streamEach from "stream-each";
 import through2 from "through2";
 
@@ -6,11 +6,11 @@ import Koa from "koa";
 import { ObjectId, WithId } from "mongodb";
 import ndjson from "ndjson";
 import { ParamData } from "path-to-regexp";
+import { TransHandler } from ".";
+import { logger } from "../../../logger";
 import { indexMapping, mongoDb } from "../../global";
 import { traceLog } from "../../lib";
 import { LiteTransformer } from "../lite-transformer";
-import { TransHandler } from ".";
-import { logger } from "../../../logger";
 
 export const _bulkHandler: TransHandler = (
   req: IncomingMessage,
@@ -24,7 +24,8 @@ export const _bulkHandler: TransHandler = (
 
   return [
     async () => {
-      let [_id, _type, lines] = ["", "", through2.obj()];
+      let [_id, _type] = ["", ""];
+      const lines = through2.obj();
 
       return new Promise<string>((resolve, reject) => {
         let body = "";
@@ -42,7 +43,7 @@ export const _bulkHandler: TransHandler = (
             ) {
               _type = dataKeys.at(0) || "";
               _id = Object.values(ndObj).at(0)["_id"];
-              _index = _index || Object.values(ndObj).at(0)["_index"];
+              _index = Object.values(ndObj).at(0)["_index"] || _index;
             } else {
               currDatas = _tmpData(_index, {
                 action: _type as Option,
@@ -53,16 +54,15 @@ export const _bulkHandler: TransHandler = (
               });
             }
 
-            // todo {doc: xxx} 需要处理
+            // todo {doc: xxx} 需要处理 2024/11/14
             // if (dataKeys.length === 1 && dataKeys.at(0) === "doc") {
             //   ndObj = ndObj["doc"] as Object;
             // }
-            const trans = new LiteTransformer(
-              ndObj,
-              indexMapping()[_index].mapping()
-            );
-            lines.write(trans.makeLiteBody());
 
+            const mapping = indexMapping()[_index]?.mapping();
+            const trans = new LiteTransformer(ndObj, mapping);
+
+            lines.write(trans.makeLiteBody());
             next();
           },
           (err) => {
@@ -76,7 +76,7 @@ export const _bulkHandler: TransHandler = (
         lines
           .pipe(ndjson.stringify())
           .on("data", (data) => (body += data))
-          .on("end", async () => {
+          .on("end", () => {
             resolve(body);
           })
           .on("error", (err) => reject(err));
@@ -84,10 +84,10 @@ export const _bulkHandler: TransHandler = (
     },
 
     async () => {
-      if (res.status === 200)
+      if (res.status === 200) {
         await Promise.all(
-          Object.entries(currDatas).map(([key, values]) => {
-            const writeBulk = values.map((doc) => {
+          Object.entries(currDatas).map(([collectionKey, bulkDocuments]) => {
+            const writeBulk = bulkDocuments.map((doc) => {
               const { action, document } = doc;
               switch (action) {
                 case "index":
@@ -116,21 +116,21 @@ export const _bulkHandler: TransHandler = (
 
             return traceLog(
               "Mongo",
-              () => mongoDb.collection(key).bulkWrite(writeBulk),
-              [key]
+              () => mongoDb.collection(collectionKey).bulkWrite(writeBulk),
+              [collectionKey]
             ).then((it) => {
               logger.trace(it);
               return it;
             });
           })
         );
+      }
     },
   ];
 };
 
 type BulkData = { action: Option; document: WithId<object> };
 type Option = "index" | "create" | "delete" | "update";
-
 function createTempData() {
   let dataOperator: Record<string, Array<BulkData>> = {};
   return (index: string, data: BulkData) => {

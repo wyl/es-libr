@@ -8,6 +8,7 @@ import { _deleteHandler } from "./_delete";
 import { _emptyHandler } from "./_empty";
 import { _getHandler } from "./_get";
 import { _updateHandler } from "./_update";
+import { _createHandler } from "./_create";
 
 /** @private */
 export const transHandlerList: Array<TransHandlerSettings> = [
@@ -20,6 +21,16 @@ export const transHandlerList: Array<TransHandlerSettings> = [
       "POST /_search",
     ],
     handler: _searchHandler,
+  },
+  {
+    title: "Index API/Create API",
+    routes: [
+      "PUT /:index/_doc/:_id",
+      "POST /:index/_doc/",
+      "PUT /:index/_create/:_id",
+      "POST /:index/_create/:_id",
+    ],
+    handler: _createHandler,
   },
   {
     title: "Get API",

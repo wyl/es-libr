@@ -10,7 +10,7 @@ import { ObjectId } from "mongodb";
 import { TransHandler } from ".";
 import { ElasticsearchUpdatedResponse } from "../../types";
 
-export const _updateHandler: TransHandler = (
+export const _createHandler: TransHandler = (
   req: IncomingMessage,
   res: Koa.Response,
   params: ParamData
@@ -20,34 +20,28 @@ export const _updateHandler: TransHandler = (
 
   return [
     async () =>
-      new Promise((resolve, reject) => {
+      new Promise<string>((resolve, reject) => {
         const currMapping = indexMapping()[index]?.mapping();
         req
           .on("data", (data) => {
             body += data.toString();
           })
-          .on("end", () => {
-            const { doc, ...otherFields } = JSON.parse(body || "{}");
+          .on("end", async () => {
+            const doc = JSON.parse(body || "{}");
             const trans = new LiteTransformer(doc, currMapping);
-
-            resolve(
-              JSON.stringify({ doc: trans.makeLiteBody(), ...otherFields })
-            );
+            trans.makeLiteBody();
+            resolve(JSON.stringify(trans.makeLiteBody()));
           })
           .on("error", (err) => reject(err));
       }),
 
     async () => {
-      if ((res.body as ElasticsearchUpdatedResponse).result === "updated") {
-        const { doc, ...otherFields } = JSON.parse(body || "{}");
+      if ((res.body as ElasticsearchUpdatedResponse).result === "created") {
+        const doc = JSON.parse(body || "{}");
         await traceLog("Mongo", () =>
           mongoDb
             .collection(index)
-            .updateOne(
-              { _id: { $eq: new ObjectId(_id.padStart(24, "0")) } },
-              { $set: doc },
-              { upsert: true }
-            )
+            .insertOne({ ...doc, _id: new ObjectId(_id.padStart(24, "0")) })
         ).then((it) => {
           logger.trace(it);
           return it;

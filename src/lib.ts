@@ -12,10 +12,11 @@ async function traceLog<T, K extends string>(
 
   if (ignore) {
     logger.warn(
-      `[${type}] Operatoinal data not enabled! Pretend that the data is returned correctly.Ignore this warning message!`
+      `[${type}] ${context} Operatoinal data not enabled! Pretend that the data is returned correctly.Ignore this warning message!`
     );
     return undefined;
   }
+
   return func().then((res) => {
     logger.info(
       `[${type}] ${context} ${(performance.now() - t0).toFixed(2)} ms `
@@ -27,11 +28,12 @@ async function traceLog<T, K extends string>(
 
 function replaceKeysInBody(
   source: unknown,
-  mapper: Record<string, string>
+  mapper?: Record<string, string>
 ): unknown {
   if (
     source === undefined ||
     source === null ||
+    mapper === undefined ||
     Object.keys(mapper).length === 0
   ) {
     return source;

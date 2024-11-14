@@ -1,10 +1,11 @@
+import { logger } from "../../logger";
 import { replaceKeysInBody } from "../lib";
 
 export class LiteTransformer {
   data: object | unknown;
-  mapper: Record<string, string>;
+  mapper?: Record<string, string>;
   index: string;
-  constructor(data: object, mapper: Record<string, string>) {
+  constructor(data: object, mapper?: Record<string, string>) {
     this.data = data;
     this.mapper = mapper;
     this.index = "";
@@ -16,6 +17,10 @@ export class LiteTransformer {
         Object.keys(this.data || {}).includes(key)
       )
     ) {
+      return this.data as Record<string, unknown>;
+    }
+    if (!this.mapper) {
+      logger.warn("not found mapper, return original data");
       return this.data as Record<string, unknown>;
     }
 
@@ -34,10 +39,16 @@ export class LiteTransformer {
   protected getValueByPath(path: string): unknown {
     const paths = path.split(".").filter((p) => p !== "keyword");
     let result = this.data;
-    for (const p of paths) {
-      result = getValueByKey(result, p);
+    let targetData = undefined;
+    for (let i = 0; i < paths.length; i++) {
+      result = getValueByKey(result, paths[i]);
+      if (result === undefined) break;
+      // console.log(i, paths.length, result);
+      if (i === paths.length - 1) {
+        targetData = result as string;
+      }
     }
-    return result;
+    return targetData;
   }
 }
 

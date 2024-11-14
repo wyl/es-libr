@@ -18,7 +18,9 @@ export const _getHandler: TransHandler = (
     undefined,
 
     async () => {
-      if (res.status === 200) {
+      if (
+        (res.body as ElasticSearchHits<Record<string, unknown>>).found === true
+      ) {
         const doc = await traceLog("Mongo", () =>
           mongoDb
             .collection(index)
