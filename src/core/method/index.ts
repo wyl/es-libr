@@ -93,10 +93,7 @@ export type TransHandler = (
   req: IncomingMessage,
   res: Koa.Response,
   params: ParamData
-) => [
-  undefined | (() => Promise<string | object>),
-  undefined | (() => Promise<void>)
-];
+) => [undefined | (() => Promise<string>), undefined | (() => Promise<void>)];
 
 type TransHandlerSettings = {
   title: string;
