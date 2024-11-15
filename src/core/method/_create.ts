@@ -5,7 +5,7 @@ import { ParamData } from "path-to-regexp";
 import { logger } from "../../../logger";
 import { indexMapping, mongoDb } from "../../global";
 import { LiteTransformer } from "../lite-transformer";
-import { traceLog } from "../../lib";
+import { isStatusOk, traceLog } from "../../lib";
 import { ObjectId } from "mongodb";
 import { TransHandler } from ".";
 import { ElasticsearchUpdatedResponse } from "../../types";
@@ -36,7 +36,7 @@ export const _createHandler: TransHandler = (
       }),
 
     async () => {
-      if ((res.body as ElasticsearchUpdatedResponse).result === "created") {
+      if (isStatusOk(res)) {
         const doc = JSON.parse(body || "{}");
         await traceLog("Mongo", () =>
           mongoDb

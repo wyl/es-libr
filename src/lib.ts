@@ -2,6 +2,12 @@ import { info } from "console";
 import { logger } from "../logger";
 import { ENABLE_DB } from "./constants";
 
+import Koa from "koa";
+
+function isStatusOk(res: Koa.Response) {
+  return Math.floor(res.status / 100) * 100 == 200;
+}
+
 async function traceLog<T, K extends string>(
   type: K,
   func: () => PromiseLike<T>,
@@ -64,4 +70,4 @@ function replaceKeysInBody(
   return source;
 }
 
-export { replaceKeysInBody, traceLog };
+export { replaceKeysInBody, traceLog, isStatusOk };

@@ -1,7 +1,11 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { Db } from "mongodb";
-import { INDEX_MAPPING_FILE_PATH } from "./constants";
+import {
+  ENABLE_DB,
+  INDEX_MAPPING_FILE_PATH,
+  MONGODB_DBNAME,
+} from "./constants";
 import { IndexMappings, loadIndexMapping } from "./core/index-mapping";
 import { mongoClient } from "./core/mongodb";
 
@@ -12,6 +16,11 @@ async function initServer() {
   indexMapping = await loadIndexMapping(INDEX_MAPPING_FILE_PATH);
 
   const imapping = indexMapping();
+
+  if (ENABLE_DB) {
+    await mongoClient.connect();
+    mongoDb = mongoClient.db(MONGODB_DBNAME);
+  }
   // await mongoClient.connect();
   // mongoDb = mongoClient.db("ES_LIBR");
   // mongoDb.collection("data").findOneAndReplace;

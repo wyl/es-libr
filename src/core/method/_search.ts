@@ -6,7 +6,7 @@ import { LiteTransformer } from "../lite-transformer";
 import Koa from "koa";
 import { ObjectId } from "mongodb";
 import { ParamData } from "path-to-regexp";
-import { traceLog } from "../../lib";
+import { isStatusOk, traceLog } from "../../lib";
 import { TransHandler } from ".";
 
 export const _searchHandler: TransHandler = (
@@ -35,7 +35,7 @@ export const _searchHandler: TransHandler = (
       }),
 
     async () => {
-      if ((res.status = 200)) {
+      if (isStatusOk(res)) {
         const resData =
           (res.body as ElasticsearchResponse<Record<string, string>>).hits
             ?.hits || [];

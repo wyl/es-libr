@@ -6,7 +6,7 @@ import Koa from "koa";
 import { ObjectId } from "mongodb";
 import { ParamData } from "path-to-regexp";
 import { TransHandler } from ".";
-import { traceLog } from "../../lib";
+import { isStatusOk, traceLog } from "../../lib";
 
 export const _getHandler: TransHandler = (
   req: IncomingMessage,
@@ -18,9 +18,7 @@ export const _getHandler: TransHandler = (
     undefined,
 
     async () => {
-      if (
-        (res.body as ElasticSearchHits<Record<string, unknown>>).found === true
-      ) {
+      if (isStatusOk(res)) {
         const doc = await traceLog("Mongo", () =>
           mongoDb
             .collection(index)

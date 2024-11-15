@@ -6,7 +6,7 @@ import Koa from "koa";
 import { ObjectId } from "mongodb";
 import { ParamData } from "path-to-regexp";
 import { TransHandler } from ".";
-import { traceLog } from "../../lib";
+import { isStatusOk, traceLog } from "../../lib";
 import { logger } from "../../../logger";
 import { result } from "lodash";
 
@@ -20,7 +20,7 @@ export const _deleteHandler: TransHandler = (
     undefined,
 
     async () => {
-      if ((res.body as ElasticsearchUpdatedResponse).result === "deleted") {
+      if (isStatusOk(res)) {
         await traceLog("Mongo", () =>
           mongoDb
             .collection(index)

@@ -9,7 +9,7 @@ import { ParamData } from "path-to-regexp";
 import { TransHandler } from ".";
 import { logger } from "../../../logger";
 import { indexMapping, mongoDb } from "../../global";
-import { traceLog } from "../../lib";
+import { isStatusOk, traceLog } from "../../lib";
 import { LiteTransformer } from "../lite-transformer";
 
 export const _bulkHandler: TransHandler = (
@@ -84,7 +84,7 @@ export const _bulkHandler: TransHandler = (
     },
 
     async () => {
-      if (res.status === 200) {
+      if (isStatusOk(res)) {
         await Promise.all(
           Object.entries(currDatas).map(([collectionKey, bulkDocuments]) => {
             const writeBulk = bulkDocuments.map((doc) => {
