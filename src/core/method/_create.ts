@@ -12,7 +12,7 @@ import { LiteTransformer } from '../lite-transformer'
 export const _createHandler: TransHandler = (
   req: IncomingMessage,
   res: Koa.Response,
-  params: ParamData
+  params: ParamData,
 ) => {
   const { index, _id } = params as { index: string; _id: string }
   let body = ''
@@ -38,9 +38,7 @@ export const _createHandler: TransHandler = (
       if (isStatusOk(res)) {
         const doc = JSON.parse(body || '{}')
         await traceLog('Mongo', () =>
-          mongoDb
-            .collection(index)
-            .insertOne({ ...doc, _id: new ObjectId(_id.padStart(24, '0')) })
+          mongoDb.collection(index).insertOne({ ...doc, _id: new ObjectId(_id.padStart(24, '0')) }),
         ).then((it) => {
           logger.trace(it)
           return it

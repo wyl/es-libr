@@ -9,7 +9,7 @@ export const _emptyHandler: TransHandler = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   res: Koa.Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  params: ParamData
+  params: ParamData,
 ) => {
   logger.warn(`unsupport this router， ${req.url}`)
   return [undefined, undefined]

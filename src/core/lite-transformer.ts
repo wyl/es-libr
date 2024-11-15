@@ -14,7 +14,7 @@ export class LiteTransformer {
   makeLiteBody(): Record<string, unknown> {
     if (
       ['index', 'delete', 'create', 'update', 'doc'].some((key) =>
-        Object.keys(this.data || {}).includes(key)
+        Object.keys(this.data || {}).includes(key),
       )
     ) {
       return this.data as Record<string, unknown>
@@ -27,7 +27,7 @@ export class LiteTransformer {
     const transData = Object.fromEntries(
       Object.entries(this.mapper).map(([k, v]) => {
         return [v, this.getValueByPath(k)]
-      })
+      }),
     )
     return transData
   }
@@ -57,9 +57,7 @@ function getValueByKey(source: unknown, path: string | undefined): unknown {
     return source
   }
   if (Array.isArray(source)) {
-    const t = source
-      .map((item: unknown) => getValueByKey(item, path))
-      .filter(Boolean)
+    const t = source.map((item: unknown) => getValueByKey(item, path)).filter(Boolean)
 
     if (t.every((item) => Array.isArray(item))) {
       return t.flat()

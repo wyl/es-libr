@@ -11,7 +11,7 @@ import { isStatusOk, traceLog } from '../../lib'
 export const _deleteHandler: TransHandler = (
   req: IncomingMessage,
   res: Koa.Response,
-  params: ParamData
+  params: ParamData,
 ) => {
   const { index, _id } = params as { index: string; _id: string }
   return [
@@ -20,9 +20,7 @@ export const _deleteHandler: TransHandler = (
     async () => {
       if (isStatusOk(res)) {
         await traceLog('Mongo', () =>
-          mongoDb
-            .collection(index)
-            .deleteOne({ _id: new ObjectId(_id.padStart(24, '0')) })
+          mongoDb.collection(index).deleteOne({ _id: new ObjectId(_id.padStart(24, '0')) }),
         ).then((it) => {
           logger.trace(it)
           return it

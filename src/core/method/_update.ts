@@ -12,7 +12,7 @@ import { LiteTransformer } from '../lite-transformer'
 export const _updateHandler: TransHandler = (
   req: IncomingMessage,
   res: Koa.Response,
-  params: ParamData
+  params: ParamData,
 ) => {
   const { index, _id } = params as { index: string; _id: string }
   let body = ''
@@ -29,9 +29,7 @@ export const _updateHandler: TransHandler = (
             const { doc, ...otherFields } = JSON.parse(body || '{}')
             const trans = new LiteTransformer(doc, currMapping)
 
-            resolve(
-              JSON.stringify({ doc: trans.makeLiteBody(), ...otherFields })
-            )
+            resolve(JSON.stringify({ doc: trans.makeLiteBody(), ...otherFields }))
           })
           .on('error', (err) => reject(err))
       }),
@@ -46,8 +44,8 @@ export const _updateHandler: TransHandler = (
             .updateOne(
               { _id: { $eq: new ObjectId(_id.padStart(24, '0')) } },
               { $set: doc },
-              { upsert: true }
-            )
+              { upsert: true },
+            ),
         ).then((it) => {
           logger.trace(it)
           return it

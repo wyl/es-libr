@@ -14,12 +14,7 @@ import { _createHandler } from './_create'
 export const transHandlerList: Array<TransHandlerSettings> = [
   {
     title: 'Search API',
-    routes: [
-      'GET /:target/_search',
-      'GET /_search',
-      'POST /:target/_search',
-      'POST /_search',
-    ],
+    routes: ['GET /:target/_search', 'GET /_search', 'POST /:target/_search', 'POST /_search'],
     handler: _searchHandler,
   },
   {
@@ -74,15 +69,12 @@ export const transHandlerList: Array<TransHandlerSettings> = [
   },
 ]
 
-export function getTransHandler(
-  url: string,
-  method: string
-): TransHandlerResponse | undefined {
+export function getTransHandler(url: string, method: string): TransHandlerResponse | undefined {
   const route = transHandlerList.find((it) =>
     it.routes.find((router) => {
       const [_method, path] = router.split(' ')
       return _method === method.toUpperCase() && match(path)(url)
-    })
+    }),
   )
   if (!route) return undefined
 
@@ -104,7 +96,7 @@ export function getTransHandler(
 export type TransHandler = (
   req: IncomingMessage,
   res: Koa.Response,
-  params: ParamData
+  params: ParamData,
 ) => [undefined | (() => Promise<string>), undefined | (() => Promise<void>)]
 
 type TransHandlerSettings = {
