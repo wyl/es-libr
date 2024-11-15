@@ -26,11 +26,23 @@
         },
         "reName": "data_context_tags_urlPath_keyword"
       },
+      "data.context.tags.urlPath": {
+        "type": {
+          "type": "text"
+        },
+        "reName": "data_context_tags_urlPath"
+      },
       "data.context.tags.type.keyword": {
         "type": {
           "type": "text"
         },
         "reName": "data_context_tags_type_keyword"
+      },
+      "data.context.tags.type": {
+        "type": {
+          "type": "text"
+        },
+        "reName": "data_context_tags_type"
       },
       "data.resolution.section.uniqueName.keyword": {
         "type": {

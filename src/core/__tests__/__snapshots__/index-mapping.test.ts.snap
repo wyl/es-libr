@@ -47,8 +47,20 @@ exports[`loadIndexMapping Testing Success [index-mapping.json]  1`] = `
           "type": "text",
         },
       },
+      "data.context.tags.type": {
+        "reName": "data_context_tags_type",
+        "type": {
+          "type": "text",
+        },
+      },
       "data.context.tags.type.keyword": {
         "reName": "data_context_tags_type_keyword",
+        "type": {
+          "type": "text",
+        },
+      },
+      "data.context.tags.urlPath": {
+        "reName": "data_context_tags_urlPath",
         "type": {
           "type": "text",
         },

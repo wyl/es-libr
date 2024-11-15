@@ -95,24 +95,31 @@ export function replaceKeysInBody(
     return source.map((item) => replaceKeysInBody(item, mapper))
   }
 
-  if (typeof source === 'string') {
-    return mapper[source] || source
-  }
+  // ? maybe need
+  // if (typeof source === 'string') {
+  //   return mapper[source] || source
+  // }
 
   if (typeof source === 'object') {
+    const entries = Object.entries(source)
     const newObject: Record<string, unknown> = {}
-    const newObject1 = source as Record<string, unknown>
-    for (const key in source) {
+
+    for (let i = 0; i < entries.length; i++) {
+      const [key, value] = entries[i]
+
       if (key === '_source') {
         continue
       }
-      const newKey = mapper[key] || key
-      newObject[newKey] = replaceKeysInBody(
-        newObject1[key] as Record<string, unknown>,
-        mapper,
-      )
+
+      if (key === 'nested') {
+        return replaceKeysInBody(value.query, mapper)
+      }
+
+      newObject[mapper[key] || key] = replaceKeysInBody(value, mapper)
     }
+
     return newObject
   }
+
   return source
 }

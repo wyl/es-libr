@@ -85,7 +85,21 @@ async function ExpressToAxios(
     params: request.query,
     data: request.body,
   }
-  logger.debug('>>>>>>', reqUrl, JSON.stringify({ ...options }, null, 2))
+  logger.debug(
+    '>>>>>>',
+    reqUrl,
+    JSON.stringify(
+      {
+        ...options,
+        data:
+          typeof request.body === 'string'
+            ? JSON.parse(request.body)
+            : request.body,
+      },
+      null,
+      2,
+    ),
+  )
   const axiosRes = _axios
     .request(options)
     .then((it) => {

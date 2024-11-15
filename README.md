@@ -6,7 +6,7 @@
 
 ## Features
 
-- [ ] ES 数据结构已打平，nested 语句特殊处理
+- [x] ES 数据结构已打平，nested 语句特殊处理
 - [ ] ES \_reindex 的功能需要考虑如何实现
 - [ ] aggregate 语法的支持
 - [ ] 支持更多的语法
