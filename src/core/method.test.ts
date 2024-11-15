@@ -19,11 +19,11 @@
 //   });
 // });
 
-describe("test _search", () => {
-  describe("give an invlid query", () => {
-    test("Case 01", () => {
-      expect("AAA").toStrictEqual("AAA");
-      expect("AAA").toBe("AAA");
-    });
-  });
-});
+describe('test _search', () => {
+  describe('give an invlid query', () => {
+    test('Case 01', () => {
+      expect('AAA').toStrictEqual('AAA')
+      expect('AAA').toBe('AAA')
+    })
+  })
+})

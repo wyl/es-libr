@@ -1,25 +1,21 @@
-import dotenv from "dotenv";
-dotenv.config();
-import { Db } from "mongodb";
-import {
-  ENABLE_DB,
-  INDEX_MAPPING_FILE_PATH,
-  MONGODB_DBNAME,
-} from "./constants";
-import { IndexMappings, loadIndexMapping } from "./core/index-mapping";
-import { mongoClient } from "./core/mongodb";
+import dotenv from 'dotenv'
+dotenv.config()
+import { Db } from 'mongodb'
+import { ENABLE_DB, INDEX_MAPPING_FILE_PATH, MONGODB_DBNAME } from './constants'
+import { IndexMappings, loadIndexMapping } from './core/index-mapping'
+import { mongoClient } from './core/mongodb'
 
-let indexMapping: () => IndexMappings;
-let mongoDb: Db;
+let indexMapping: () => IndexMappings
+let mongoDb: Db
 
 async function initServer() {
-  indexMapping = await loadIndexMapping(INDEX_MAPPING_FILE_PATH);
+  indexMapping = await loadIndexMapping(INDEX_MAPPING_FILE_PATH)
 
-  const imapping = indexMapping();
+  // const imapping = indexMapping();
 
   if (ENABLE_DB) {
-    await mongoClient.connect();
-    mongoDb = mongoClient.db(MONGODB_DBNAME);
+    await mongoClient.connect()
+    mongoDb = mongoClient.db(MONGODB_DBNAME)
   }
   // await mongoClient.connect();
   // mongoDb = mongoClient.db("ES_LIBR");
@@ -30,7 +26,7 @@ async function initServer() {
 }
 
 async function stopServer() {
-  mongoClient.close();
+  mongoClient.close()
 }
 
-export { indexMapping, initServer, mongoDb, stopServer };
+export { indexMapping, initServer, mongoDb, stopServer }

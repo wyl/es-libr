@@ -1,22 +1,22 @@
-import cors from "@koa/cors";
-import Koa from "koa";
+import cors from '@koa/cors'
+import Koa from 'koa'
 // import { router } from "./apis/constants";
-import { logger } from "../logger";
-import { AxiosProxy, ContextMiddleware } from "./middleware";
+import { logger } from '../logger'
+import { AxiosProxy, ContextMiddleware } from './middleware'
 
-const app = new Koa({ proxy: true });
-app.use(cors());
+const app = new Koa({ proxy: true })
+app.use(cors())
 
 app.use(async function (ctx, next) {
-  const start = performance.now();
+  const start = performance.now()
   await next().then(() => {
     logger.info(
-      `${ctx.request.method.padEnd(10, " ")}${ctx.req.url} ${
+      `${ctx.request.method.padEnd(10, ' ')}${ctx.req.url} ${
         ctx.response.status
       }\t${(performance.now() - start).toFixed(2)} ms`
-    );
-  });
-});
+    )
+  })
+})
 // import Router from "koa-router";
 // export const router = new Router();
 
@@ -24,18 +24,18 @@ app.use(async function (ctx, next) {
 // app.use(router.allowedMethods());
 
 // !! Core Middleware Start
-app.use(ContextMiddleware());
-app.use(AxiosProxy());
+app.use(ContextMiddleware())
+app.use(AxiosProxy())
 // !! Core Middleware End
 
 app.use((ctx) => {
-  ctx.body = "who are you?";
-});
+  ctx.body = 'who are you?'
+})
 
-app.on("error", (err, ctx) => {
-  logger.error("server error", err, ctx);
+app.on('error', (err, ctx) => {
+  logger.error('server error', err, ctx)
   //   logger.warn("server error", err, ctx);
-  logger.info(err);
-});
+  logger.info(err)
+})
 
-export { app };
+export { app }

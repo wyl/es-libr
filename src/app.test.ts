@@ -1,17 +1,17 @@
-import request from "supertest";
-import { app } from "./app";
-import { initServer, stopServer } from "./global";
-import { ELASTICSEARCH_API_KEY } from "./constants";
+import request from 'supertest'
+import { app } from './app'
+import { initServer, stopServer } from './global'
+import { ELASTICSEARCH_API_KEY } from './constants'
 
-beforeAll(initServer);
+beforeAll(initServer)
 
-afterAll(stopServer);
+afterAll(stopServer)
 
-test("Get /", async () => {
+test('Get /', async () => {
   const response = await request(app.callback())
-    .get("/")
-    .set("Authorization", `ApiKey ${ELASTICSEARCH_API_KEY}`);
-  expect(response.status).toBe(200);
+    .get('/')
+    .set('Authorization', `ApiKey ${ELASTICSEARCH_API_KEY}`)
+  expect(response.status).toBe(200)
   // expect(response.text).toMatchSnapshot(`{
   //   name: expect.any(String),
   //   cluster_name: expect.any(String),
@@ -29,4 +29,4 @@ test("Get /", async () => {
   //   },
   //   tagline: "You Know, for Search",
   // }`);
-});
+})

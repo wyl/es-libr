@@ -33,7 +33,7 @@ export const _bulkHandler: TransHandler = (
         streamEach(
           req.pipe(ndjson.parse()),
           (data, next) => {
-            let ndObj = data as Object;
+            const ndObj = data as object;
             const dataKeys = Object.keys(ndObj || {});
 
             if (
@@ -132,7 +132,7 @@ export const _bulkHandler: TransHandler = (
 type BulkData = { action: Option; document: WithId<object> };
 type Option = "index" | "create" | "delete" | "update";
 function createTempData() {
-  let dataOperator: Record<string, Array<BulkData>> = {};
+  const dataOperator: Record<string, Array<BulkData>> = {};
   return (index: string, data: BulkData) => {
     const key = `${index}`;
     if (key in dataOperator) {

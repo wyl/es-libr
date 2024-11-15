@@ -23,7 +23,7 @@ function ContextMiddleware() {
       config.params.params
     );
 
-    if (!!request)
+    if (request)
       ctx.request.body =
         (await traceLog(`${config.title} >`, request, [`apply request()`])) ??
         "";

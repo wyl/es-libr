@@ -1,42 +1,42 @@
-import { LiteTransformer } from "../lite-transformer";
-const mapper = { "foo.bar": "foo_bar", "foo.bar1": "fooBar1" };
+import { LiteTransformer } from '../lite-transformer'
+const mapper = { 'foo.bar': 'foo_bar', 'foo.bar1': 'fooBar1' }
 
 const tables: Array<{
-  data: object;
-  mapper: Record<string, string>;
-  expected: unknown;
+  data: object
+  mapper: Record<string, string>
+  expected: unknown
 }> = [
   {
-    data: { index: "test" },
-    mapper: { index: "indexPP" },
-    expected: { indexPP: "test" },
+    data: { index: 'test' },
+    mapper: { index: 'indexPP' },
+    expected: { indexPP: 'test' },
   },
   {
-    data: { index: "test" },
+    data: { index: 'test' },
     mapper: {},
-    expected: { index: "test" },
+    expected: { index: 'test' },
   },
   {
     data: {
-      index: "your_index",
-      search: { size: 100, form: 0, _source: ["foo.bar"] },
-      sort: [{ "foo.bar": "desc" }],
+      index: 'your_index',
+      search: { size: 100, form: 0, _source: ['foo.bar'] },
+      sort: [{ 'foo.bar': 'desc' }],
       query: {
         bool: {
           must: [
             {
               match: {
-                "foo.bar": 0,
+                'foo.bar': 0,
               },
             },
             {
               match: {
-                "foo.bar1": "bar1",
+                'foo.bar1': 'bar1',
               },
             },
             {
               match: {
-                "foo.bar2": "bar1",
+                'foo.bar2': 'bar1',
               },
             },
           ],
@@ -45,9 +45,9 @@ const tables: Array<{
     },
     mapper: mapper,
     expected: {
-      index: "your_index",
+      index: 'your_index',
       search: { size: 100, form: 0 /**_source: ["foo.bar"]**/ },
-      sort: [{ foo_bar: "desc" }],
+      sort: [{ foo_bar: 'desc' }],
       query: {
         bool: {
           must: [
@@ -58,12 +58,12 @@ const tables: Array<{
             },
             {
               match: {
-                fooBar1: "bar1",
+                fooBar1: 'bar1',
               },
             },
             {
               match: {
-                "foo.bar2": "bar1",
+                'foo.bar2': 'bar1',
               },
             },
           ],
@@ -71,11 +71,11 @@ const tables: Array<{
       },
     },
   },
-];
+]
 
-describe("LiteTransformer Testing", () => {
-  test.each(tables)("makeLiteSearch", ({ data, mapper: _mapper, expected }) => {
-    const liteTransform = new LiteTransformer(data, _mapper);
-    expect(liteTransform.makeLiteSearch()).toEqual(expected);
-  });
-});
+describe('LiteTransformer Testing', () => {
+  test.each(tables)('makeLiteSearch', ({ data, mapper: _mapper, expected }) => {
+    const liteTransform = new LiteTransformer(data, _mapper)
+    expect(liteTransform.makeLiteSearch()).toEqual(expected)
+  })
+})

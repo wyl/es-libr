@@ -1,4 +1,4 @@
-import { traceLog } from "../lib";
+import { traceLog } from '../lib'
 
 // beforeAll(() => console.log("1 - beforeAll"));
 // afterAll(() => console.log("1 - afterAll"));
@@ -15,9 +15,9 @@ import { traceLog } from "../lib";
 //   const doc = expect(sum(1, 2)).toBe(3);
 // });
 
-const tables: Array<any> = [
+const tables: Array<unknown> = [
   0,
-  "FOO",
+  'FOO',
   true,
   false,
   null,
@@ -29,11 +29,11 @@ const tables: Array<any> = [
   0.1,
   -1,
   -0.1,
-];
+]
 
-describe("traceLog", () => {
-  test.each(tables)("traceLog(%p)", async (input) => {
-    const expected = await traceLog("test", () => Promise.resolve(input));
-    expect(expected).toBe(input);
-  });
-});
+describe('traceLog', () => {
+  test.each(tables)('traceLog(%p)', async (input) => {
+    const expected = await traceLog('test', () => Promise.resolve(input))
+    expect(expected).toBe(input)
+  })
+})

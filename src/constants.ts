@@ -1,13 +1,13 @@
-const INDEX_MAPPING_FILE_PATH = "./index-mapping.json";
-const SERVER_PORT = process.env.PORT || "3000";
-const ELASTICSEARCH_HOST = `${process.env.ES_HOST}`;
-const ELASTICSEARCH_API_KEY = `${process.env.ES_API_KEY}`;
+const INDEX_MAPPING_FILE_PATH = './index-mapping.json'
+const SERVER_PORT = process.env.PORT || '3000'
+const ELASTICSEARCH_HOST = `${process.env.ES_HOST}`
+const ELASTICSEARCH_API_KEY = `${process.env.ES_API_KEY}`
 
-const MONGODB_URL = `${process.env.MONGODB_URL}` || "mongodb://localhost:27017";
-const ENABLE_DB = process.env.MONGO_ENABLE === "TRUE";
-const MONGODB_DBNAME = process.env.MONGODB_DBNAME || "eslib";
+const MONGODB_URL = `${process.env.MONGODB_URL}` || 'mongodb://localhost:27017'
+const ENABLE_DB = process.env.MONGO_ENABLE === 'TRUE'
+const MONGODB_DBNAME = process.env.MONGODB_DBNAME || 'eslib'
 
-const JEST_TEST_INDEX_NAME = "caas-cn-zaobao-online";
+const JEST_TEST_INDEX_NAME = 'caas-cn-zaobao-online'
 
 export {
   INDEX_MAPPING_FILE_PATH,
@@ -18,4 +18,4 @@ export {
   ENABLE_DB,
   JEST_TEST_INDEX_NAME,
   MONGODB_DBNAME,
-};
+}

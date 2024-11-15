@@ -58,7 +58,7 @@ export const _searchHandler: TransHandler = (
           const rawData = documents?.find((it) => {
             return it._id.toString() === data._id.padStart(24, "0");
           });
-          if (!!rawData) {
+          if (rawData) {
             data._source = rawData;
           }
         });
