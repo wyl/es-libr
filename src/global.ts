@@ -17,9 +17,6 @@ async function initServer() {
     await mongoClient.connect()
     mongoDb = mongoClient.db(MONGODB_DBNAME)
   }
-  // await mongoClient.connect();
-  // mongoDb = mongoClient.db("ES_LIBR");
-  // mongoDb.collection("data").findOneAndReplace;
 
   // const mapping = getIndexMapper("caas-cn-zaobao-online");
   // todo create or update Es Index
