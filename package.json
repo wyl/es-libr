@@ -1,7 +1,10 @@
 {
   "name": "es-libr",
+  "type": "commonjs",
   "version": "1.0.0",
-  "main": "index.js",
+  "author": "WangYalong <wylfocus@gmail.com>",
+  "description": "A simple library for working with ES data",
+  "main": "index.ts",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
@@ -10,10 +13,13 @@
     "test": "jest --setupFiles dotenv/config",
     "prepare": "husky"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "elasticsearch",
+    "koa",
+    "mongodb",
+    "ndjson"
+  ],
+  "license": "UNLICENSED",
   "dependencies": {
     "@koa/cors": "^5.0.0",
     "@types/content-type": "^1.1.8",
