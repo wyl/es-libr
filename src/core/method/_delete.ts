@@ -18,18 +18,19 @@ export const _deleteHandler: TransHandler = (
     undefined,
 
     async () => {
-      if (isStatusOk(res.status)) {
-        await traceLog('Mongo', () =>
-          mongoDb
-            .collection(index)
-            .deleteOne({ _id: new ObjectId(_id.padStart(24, '0')) }),
-        ).then((it) => {
-          logger.trace(it)
-          return it
-        })
-      } else {
+      if (!isStatusOk(res.status)) {
         logger.error(`Delete status failed: ${res.status}`)
+        return
       }
+
+      await traceLog('Mongo', () =>
+        mongoDb
+          .collection(index)
+          .deleteOne({ _id: new ObjectId(_id.padStart(24, '0')) }),
+      ).then((it) => {
+        logger.trace(it)
+        return it
+      })
     },
   ]
 }

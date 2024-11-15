@@ -35,17 +35,21 @@ export const _createHandler: TransHandler = (
       }),
 
     async () => {
-      if (isStatusOk(res.status)) {
-        const doc = JSON.parse(body || '{}')
-        await traceLog('Mongo', () =>
-          mongoDb
-            .collection(index)
-            .insertOne({ ...doc, _id: new ObjectId(_id.padStart(24, '0')) }),
-        ).then((it) => {
-          logger.trace(it)
-          return it
-        })
+      if (!isStatusOk(res.status)) {
+        logger.error(`Create status failed: ${res.status} `)
+        return
       }
+
+      const doc = JSON.parse(body || '{}')
+
+      await traceLog('Mongo', () =>
+        mongoDb
+          .collection(index)
+          .insertOne({ ...doc, _id: new ObjectId(_id.padStart(24, '0')) }),
+      ).then((it) => {
+        logger.trace(it)
+        return it
+      })
     },
   ]
 }

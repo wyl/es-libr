@@ -7,6 +7,7 @@ import { ObjectId } from 'mongodb'
 import { ParamData } from 'path-to-regexp'
 import { TransHandler } from '.'
 import { isStatusOk, traceLog } from '../../lib'
+import { logger } from '../../../logger'
 
 export const _getHandler: TransHandler = (
   req: IncomingMessage,
@@ -18,15 +19,17 @@ export const _getHandler: TransHandler = (
     undefined,
 
     async () => {
-      if (isStatusOk(res.status)) {
-        const doc = await traceLog('Mongo', () =>
-          mongoDb
-            .collection(index)
-            .findOne({ _id: new ObjectId(_id.padStart(24, '0')) }),
-        )
-        const resData = res.body as ElasticSearchHits<Record<string, unknown>>
-        if (doc) resData._source = doc
+      if (!isStatusOk(res.status)) {
+        logger.error(`Get status failed: ${res.status}`)
+        return
       }
+      const doc = await traceLog('Mongo', () =>
+        mongoDb
+          .collection(index)
+          .findOne({ _id: new ObjectId(_id.padStart(24, '0')) }),
+      )
+      const resData = res.body as ElasticSearchHits<Record<string, unknown>>
+      if (doc) resData._source = doc
     },
   ]
 }

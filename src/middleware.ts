@@ -26,7 +26,7 @@ function ContextMiddleware() {
       invokerSettings.params.params,
     )
 
-    if (request)
+    if (request !== undefined)
       ctx.request.body =
         (await traceLog(`${invokerSettings.title} >`, request, [
           `apply request()`,

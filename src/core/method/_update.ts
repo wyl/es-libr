@@ -37,22 +37,24 @@ export const _updateHandler: TransHandler = (
       }),
 
     async () => {
-      if (isStatusOk(res.status)) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { doc, ...otherFields } = JSON.parse(body || '{}')
-        await traceLog('Mongo', () =>
-          mongoDb
-            .collection(index)
-            .updateOne(
-              { _id: { $eq: new ObjectId(_id.padStart(24, '0')) } },
-              { $set: doc },
-              { upsert: true },
-            ),
-        ).then((it) => {
-          logger.trace(it)
-          return it
-        })
+      if (!isStatusOk(res.status)) {
+        logger.error(`Update status failed: ${res.status}`)
+        return
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { doc, ...otherFields } = JSON.parse(body || '{}')
+      await traceLog('Mongo', () =>
+        mongoDb
+          .collection(index)
+          .updateOne(
+            { _id: { $eq: new ObjectId(_id.padStart(24, '0')) } },
+            { $set: doc },
+            { upsert: true },
+          ),
+      ).then((it) => {
+        logger.trace(it)
+        return it
+      })
     },
   ]
 }

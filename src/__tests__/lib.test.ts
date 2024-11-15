@@ -1,4 +1,5 @@
-import { isStatusOk, replaceKeysInBody, traceLog } from '../lib'
+import { replaceKeysInBody } from '../core/lite-transformer'
+import { isStatusOk, traceLog } from '../lib'
 
 // beforeAll(() => console.log("1 - beforeAll"));
 // afterAll(() => console.log("1 - afterAll"));

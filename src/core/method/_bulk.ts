@@ -84,47 +84,50 @@ export const _bulkHandler: TransHandler = (
     },
 
     async () => {
-      if (isStatusOk(res.status)) {
-        await Promise.all(
-          Object.entries(currDatas).map(([collectionKey, bulkDocuments]) => {
-            const writeBulk = bulkDocuments.map((doc) => {
-              const { action, document } = doc
-              switch (action) {
-                case 'index':
-                  return {
-                    updateOne: {
-                      filter: { _id: document._id },
-                      update: { $set: document },
-                      upsert: true,
-                    },
-                  }
-                case 'create':
-                  return { insertOne: { document } }
-                case 'delete':
-                  return {
-                    deleteOne: { filter: { _id: document._id } },
-                  }
-                case 'update':
-                  return {
-                    updateOne: {
-                      filter: { _id: document._id },
-                      update: { $set: document },
-                    },
-                  }
-              }
-            })
-
-            return traceLog(
-              'Mongo',
-              () => mongoDb.collection(collectionKey).bulkWrite(writeBulk),
-              [collectionKey],
-            ).then((it) => {
-              logger.trace(it)
-              return it
-            })
-          }),
-        )
+      if (!isStatusOk(res.status)) {
+        logger.error(`Bulk status failed: ${res.status}`)
+        return
       }
+
+      await Promise.all(
+        Object.entries(currDatas).map(([collectionKey, bulkDocuments]) => {
+          const writeBulk = bulkDocuments.map((doc) => {
+            const { action, document } = doc
+            switch (action) {
+              case 'index':
+                return {
+                  updateOne: {
+                    filter: { _id: document._id },
+                    update: { $set: document },
+                    upsert: true,
+                  },
+                }
+              case 'create':
+                return { insertOne: { document } }
+              case 'delete':
+                return {
+                  deleteOne: { filter: { _id: document._id } },
+                }
+              case 'update':
+                return {
+                  updateOne: {
+                    filter: { _id: document._id },
+                    update: { $set: document },
+                  },
+                }
+            }
+          })
+
+          return traceLog(
+            'Mongo',
+            () => mongoDb.collection(collectionKey).bulkWrite(writeBulk),
+            [collectionKey],
+          ).then((it) => {
+            logger.trace(it)
+            return it
+          })
+        }),
+      )
     },
   ]
 }

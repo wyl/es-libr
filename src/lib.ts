@@ -29,42 +29,4 @@ async function traceLog<T, K extends string>(
   })
 }
 
-function replaceKeysInBody(
-  source: unknown,
-  mapper?: Record<string, string>,
-): unknown {
-  if (
-    source === undefined ||
-    source === null ||
-    mapper === undefined ||
-    Object.keys(mapper).length === 0
-  ) {
-    return source
-  }
-  if (Array.isArray(source)) {
-    return source.map((item) => replaceKeysInBody(item, mapper))
-  }
-
-  if (typeof source === 'string') {
-    return mapper[source] || source
-  }
-
-  if (typeof source === 'object') {
-    const newObject: Record<string, unknown> = {}
-    const newObject1 = source as Record<string, unknown>
-    for (const key in source) {
-      if (key === '_source') {
-        continue
-      }
-      const newKey = mapper[key] || key
-      newObject[newKey] = replaceKeysInBody(
-        newObject1[key] as Record<string, unknown>,
-        mapper,
-      )
-    }
-    return newObject
-  }
-  return source
-}
-
-export { isStatusOk, replaceKeysInBody, traceLog }
+export { isStatusOk, traceLog }
