@@ -35,7 +35,7 @@ export const _searchHandler: TransHandler = (
       }),
 
     async () => {
-      if (isStatusOk(res)) {
+      if (isStatusOk(res.status)) {
         const resData =
           (res.body as ElasticsearchResponse<Record<string, string>>).hits
             ?.hits || []

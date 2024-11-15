@@ -18,7 +18,7 @@ export const _getHandler: TransHandler = (
     undefined,
 
     async () => {
-      if (isStatusOk(res)) {
+      if (isStatusOk(res.status)) {
         const doc = await traceLog('Mongo', () =>
           mongoDb
             .collection(index)

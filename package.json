@@ -10,6 +10,7 @@
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
     "test1": "jest --setupFiles dotenv/config  -- ./src/__tests__/lib.test.ts",
+    "test2": "jest --setupFiles dotenv/config  -- ./src/core/__tests__/",
     "test": "jest --setupFiles dotenv/config",
     "prepare": "husky"
   },

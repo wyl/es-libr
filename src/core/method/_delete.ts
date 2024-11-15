@@ -18,7 +18,7 @@ export const _deleteHandler: TransHandler = (
     undefined,
 
     async () => {
-      if (isStatusOk(res)) {
+      if (isStatusOk(res.status)) {
         await traceLog('Mongo', () =>
           mongoDb
             .collection(index)

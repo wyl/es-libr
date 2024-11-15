@@ -84,7 +84,7 @@ export const _bulkHandler: TransHandler = (
     },
 
     async () => {
-      if (isStatusOk(res)) {
+      if (isStatusOk(res.status)) {
         await Promise.all(
           Object.entries(currDatas).map(([collectionKey, bulkDocuments]) => {
             const writeBulk = bulkDocuments.map((doc) => {

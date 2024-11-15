@@ -1,10 +1,8 @@
 import { logger } from '../logger'
 import { ENABLE_DB } from './constants'
 
-import Koa from 'koa'
-
-function isStatusOk(res: Koa.Response) {
-  return Math.floor(res.status / 100) * 100 == 200
+function isStatusOk(status: number) {
+  return Math.floor(status / 100) * 100 == 200
 }
 
 async function traceLog<T, K extends string>(

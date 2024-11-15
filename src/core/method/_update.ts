@@ -37,7 +37,7 @@ export const _updateHandler: TransHandler = (
       }),
 
     async () => {
-      if (isStatusOk(res)) {
+      if (isStatusOk(res.status)) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { doc, ...otherFields } = JSON.parse(body || '{}')
         await traceLog('Mongo', () =>

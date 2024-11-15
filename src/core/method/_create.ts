@@ -35,7 +35,7 @@ export const _createHandler: TransHandler = (
       }),
 
     async () => {
-      if (isStatusOk(res)) {
+      if (isStatusOk(res.status)) {
         const doc = JSON.parse(body || '{}')
         await traceLog('Mongo', () =>
           mongoDb

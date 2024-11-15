@@ -39,25 +39,29 @@ export class LiteTransformer {
   protected getValueByPath(path: string): unknown {
     const paths = path.split('.').filter((p) => p !== 'keyword')
     let result = this.data
-    let targetData = undefined
     for (let i = 0; i < paths.length; i++) {
       result = getValueByKey(result, paths[i])
+
       if (result === undefined) break
-      // console.log(i, paths.length, result);
-      if (i === paths.length - 1) {
-        targetData = result as string
-      }
     }
-    return targetData
+
+    if (result === undefined) {
+      logger.error(`not found value by path: ${path}`)
+    }
+    return result
   }
 }
 
-function getValueByKey(source: unknown, path: string | undefined): unknown {
-  if (source === undefined || source === null || path === undefined) {
-    return source
+function getValueByKey(target: unknown, path: string): unknown {
+  if (target === undefined || target === null) {
+    return target
   }
-  if (Array.isArray(source)) {
-    const t = source
+
+  if (typeof target !== 'object') {
+    return undefined
+  }
+  if (Array.isArray(target)) {
+    const t = target
       .map((item: unknown) => getValueByKey(item, path))
       .filter(Boolean)
 
@@ -66,8 +70,12 @@ function getValueByKey(source: unknown, path: string | undefined): unknown {
     }
     return t
   }
-  if (typeof source === 'object') {
-    return (source as Record<string, unknown>)[path]
+  if (typeof target === 'object') {
+    const data = (target as Record<string, unknown>)[path]
+    if (data === undefined) {
+      return data
+    }
+    return data
   }
-  return source
+  return target
 }

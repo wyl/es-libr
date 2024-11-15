@@ -1,40 +1,47 @@
 import { LiteTransformer } from '../lite-transformer'
-const mapper = { 'foo.bar': 'foo_bar', 'foo.bar1': 'fooBar1' }
+const testMapper = { 'foo.bar': 'foo_bar', 'foo.bar1': 'fooBar1' }
 
-const tables: Array<{
-  data: object
-  mapper: Record<string, string>
-  expected: unknown
-}> = [
-  {
-    data: { index: 'test2' },
-    mapper: {},
-    expected: { index: 'test2' },
-  },
-  {
-    data: { foo: 'test2' },
-    mapper: { foo: 'fooPP' },
-    expected: { fooPP: 'test2' },
-  },
-  {
-    data: {
+const testTables: Array<[object, unknown]> = [
+  [{ index: 'test2' }, { index: 'test2' }],
+  [{ delete: 'test2' }, { delete: 'test2' }],
+  [{ create: 'test2' }, { create: 'test2' }],
+  [{ update: 'test2' }, { update: 'test2' }],
+  [{ doc: 'test2' }, { doc: 'test2' }],
+  [{ foo: 'foo' }, { foo_bar: undefined, fooBar1: undefined }],
+  [
+    {
       foo: {
         bar: 'bar',
         bar1: 'bar1',
         bar2: 'bar2',
       },
     },
-    mapper: mapper,
-    expected: {
+    {
       foo_bar: 'bar',
       fooBar1: 'bar1',
     },
-  },
+  ],
 ]
 
+const testMapper2 = undefined
+
+const testTables2: Array<[object, unknown]> = [
+  [{ name: 2 }, { name: 2 }],
+  [
+    { foo: { name: 'foo', bar: 'bar' }, bar: { name: 'bar', bar: 'bar' } },
+    { foo: { name: 'foo', bar: 'bar' }, bar: { name: 'bar', bar: 'bar' } },
+  ],
+]
 describe('LiteTransformer Testing', () => {
-  test.each(tables)('makeLiteBody', ({ data, mapper: _mapper, expected }) => {
-    const liteTransform = new LiteTransformer(data, _mapper)
+  test.each(testTables)('makeLiteBody mapper is correct', (data, expected) => {
+    const liteTransform = new LiteTransformer(data, testMapper)
     expect(liteTransform.makeLiteBody()).toEqual(expected)
   })
+  test.each(testTables2)(
+    'makeLiteBody mapper is invalid ',
+    (data, expected) => {
+      const liteTransform = new LiteTransformer(data, testMapper2)
+      expect(liteTransform.makeLiteBody()).toEqual(expected)
+    },
+  )
 })
