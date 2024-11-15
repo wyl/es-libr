@@ -57,7 +57,9 @@ function getValueByKey(source: unknown, path: string | undefined): unknown {
     return source
   }
   if (Array.isArray(source)) {
-    const t = source.map((item: unknown) => getValueByKey(item, path)).filter(Boolean)
+    const t = source
+      .map((item: unknown) => getValueByKey(item, path))
+      .filter(Boolean)
 
     if (t.every((item) => Array.isArray(item))) {
       return t.flat()

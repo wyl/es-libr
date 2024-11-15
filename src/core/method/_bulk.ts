@@ -36,7 +36,11 @@ export const _bulkHandler: TransHandler = (
             const ndObj = data as object
             const dataKeys = Object.keys(ndObj || {})
 
-            if (['index', 'delete', 'create', 'update'].some((key) => dataKeys.includes(key))) {
+            if (
+              ['index', 'delete', 'create', 'update'].some((key) =>
+                dataKeys.includes(key),
+              )
+            ) {
               _type = dataKeys.at(0) || ''
               _id = Object.values(ndObj).at(0)['_id']
               _index = Object.values(ndObj).at(0)['_index'] || _index
@@ -110,9 +114,11 @@ export const _bulkHandler: TransHandler = (
               }
             })
 
-            return traceLog('Mongo', () => mongoDb.collection(collectionKey).bulkWrite(writeBulk), [
-              collectionKey,
-            ]).then((it) => {
+            return traceLog(
+              'Mongo',
+              () => mongoDb.collection(collectionKey).bulkWrite(writeBulk),
+              [collectionKey],
+            ).then((it) => {
               logger.trace(it)
               return it
             })

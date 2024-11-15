@@ -6,7 +6,7 @@ const successPaths = ['index-mapping.json']
 describe('loadIndexMapping Testing', () => {
   test.each(failedPaths)('Wrong path [%s]', (path) => {
     expect(loadIndexMapping(path)).rejects.toThrow(
-      'load index mapping error from'
+      'load index mapping error from',
     )
   })
 
@@ -18,7 +18,7 @@ describe('loadIndexMapping Testing', () => {
     expect(mapping).toHaveProperty('caas-cn-zaobao-online')
     expect(mapping).toHaveProperty(
       'caas-cn-zaobao-online.index',
-      'caas-cn-zaobao-online'
+      'caas-cn-zaobao-online',
     )
     expect(mapping).toHaveProperty('caas-cn-zaobao-online.mapping')
     expect(mapping).toMatchSnapshot()

@@ -16,7 +16,9 @@ type FieldsMapper = {
 async function loadIndexMapping(filePath: string) {
   let indexMappings: IndexMappings = {}
   try {
-    const tmp = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as Array<IndexMapping>
+    const tmp = JSON.parse(
+      fs.readFileSync(filePath, 'utf-8'),
+    ) as Array<IndexMapping>
     indexMappings = Object.fromEntries(
       tmp.map((it) => {
         return [it.index, new IndexMappingTool(it)]

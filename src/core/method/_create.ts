@@ -38,7 +38,9 @@ export const _createHandler: TransHandler = (
       if (isStatusOk(res)) {
         const doc = JSON.parse(body || '{}')
         await traceLog('Mongo', () =>
-          mongoDb.collection(index).insertOne({ ...doc, _id: new ObjectId(_id.padStart(24, '0')) }),
+          mongoDb
+            .collection(index)
+            .insertOne({ ...doc, _id: new ObjectId(_id.padStart(24, '0')) }),
         ).then((it) => {
           logger.trace(it)
           return it

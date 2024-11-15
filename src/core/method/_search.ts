@@ -36,7 +36,9 @@ export const _searchHandler: TransHandler = (
 
     async () => {
       if (isStatusOk(res)) {
-        const resData = (res.body as ElasticsearchResponse<Record<string, string>>).hits?.hits || []
+        const resData =
+          (res.body as ElasticsearchResponse<Record<string, string>>).hits
+            ?.hits || []
         const ids = resData.map((it) => new ObjectId(it._id.padStart(24, '0')))
 
         const documents = await traceLog(
@@ -46,7 +48,9 @@ export const _searchHandler: TransHandler = (
               .collection(target)
               .find(
                 { _id: { $in: ids } },
-                { projection: Object.fromEntries(_source.map((it) => [it, 1])) },
+                {
+                  projection: Object.fromEntries(_source.map((it) => [it, 1])),
+                },
               )
               .toArray(),
           [target],

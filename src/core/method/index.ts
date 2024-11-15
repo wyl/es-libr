@@ -14,7 +14,12 @@ import { _createHandler } from './_create'
 export const transHandlerList: Array<TransHandlerSettings> = [
   {
     title: 'Search API',
-    routes: ['GET /:target/_search', 'GET /_search', 'POST /:target/_search', 'POST /_search'],
+    routes: [
+      'GET /:target/_search',
+      'GET /_search',
+      'POST /:target/_search',
+      'POST /_search',
+    ],
     handler: _searchHandler,
   },
   {
@@ -69,7 +74,10 @@ export const transHandlerList: Array<TransHandlerSettings> = [
   },
 ]
 
-export function getTransHandler(url: string, method: string): TransHandlerResponse | undefined {
+export function getHandlerInvoker(
+  url: string,
+  method: string,
+): TransHandlerResponse | undefined {
   const route = transHandlerList.find((it) =>
     it.routes.find((router) => {
       const [_method, path] = router.split(' ')

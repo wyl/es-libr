@@ -23,13 +23,18 @@ async function traceLog<T, K extends string>(
   }
 
   return func().then((res) => {
-    logger.info(`[${type}] ${context} ${(performance.now() - t0).toFixed(2)} ms `)
+    logger.info(
+      `[${type}] ${context} ${(performance.now() - t0).toFixed(2)} ms `,
+    )
     logger.trace(JSON.stringify(res))
     return res
   })
 }
 
-function replaceKeysInBody(source: unknown, mapper?: Record<string, string>): unknown {
+function replaceKeysInBody(
+  source: unknown,
+  mapper?: Record<string, string>,
+): unknown {
   if (
     source === undefined ||
     source === null ||
@@ -54,7 +59,10 @@ function replaceKeysInBody(source: unknown, mapper?: Record<string, string>): un
         continue
       }
       const newKey = mapper[key] || key
-      newObject[newKey] = replaceKeysInBody(newObject1[key] as Record<string, unknown>, mapper)
+      newObject[newKey] = replaceKeysInBody(
+        newObject1[key] as Record<string, unknown>,
+        mapper,
+      )
     }
     return newObject
   }

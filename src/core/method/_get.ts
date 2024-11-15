@@ -20,7 +20,9 @@ export const _getHandler: TransHandler = (
     async () => {
       if (isStatusOk(res)) {
         const doc = await traceLog('Mongo', () =>
-          mongoDb.collection(index).findOne({ _id: new ObjectId(_id.padStart(24, '0')) }),
+          mongoDb
+            .collection(index)
+            .findOne({ _id: new ObjectId(_id.padStart(24, '0')) }),
         )
         const resData = res.body as ElasticSearchHits<Record<string, unknown>>
         if (doc) resData._source = doc

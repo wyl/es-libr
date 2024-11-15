@@ -3,25 +3,39 @@ import https from 'https'
 import koa from 'koa'
 import { logger } from '../logger'
 import { ELASTICSEARCH_API_KEY, ELASTICSEARCH_HOST } from './constants'
-import { getTransHandler } from './core/method'
+import { getHandlerInvoker } from './core/method'
 import { traceLog } from './lib'
 
 function ContextMiddleware() {
   return async function (ctx: koa.Context, next: koa.Next) {
-    const config = getTransHandler(ctx.req.url || '', ctx.req.method || '')
-    logger.debug(`Ctx Middleware: ${ctx.req.url} => ${JSON.stringify(config?.params.params)}`)
+    const invokerSettings = getHandlerInvoker(
+      ctx.req.url || '',
+      ctx.req.method || '',
+    )
+    logger.debug(
+      `Ctx Middleware: ${ctx.req.url} => ${JSON.stringify(
+        invokerSettings?.params.params,
+      )}`,
+    )
 
-    if (!config) return next()
+    if (!invokerSettings) return next()
 
-    const [request, response] = config.handler(ctx.req, ctx.response, config.params.params)
+    const [request, response] = invokerSettings.handler(
+      ctx.req,
+      ctx.response,
+      invokerSettings.params.params,
+    )
 
     if (request)
-      ctx.request.body = (await traceLog(`${config.title} >`, request, [`apply request()`])) ?? ''
+      ctx.request.body =
+        (await traceLog(`${invokerSettings.title} >`, request, [
+          `apply request()`,
+        ])) ?? ''
 
     if (!response) return next()
 
     await next()
-    await traceLog(`${config.title} <`, response, [`apply response()`])
+    await traceLog(`${invokerSettings.title} <`, response, [`apply response()`])
   }
 }
 
@@ -47,7 +61,10 @@ function AxiosProxy() {
 
 const _axios = axios.create()
 _axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false })
-async function ExpressToAxios(param: { url: string; apiKey: string }, request: koa.Request) {
+async function ExpressToAxios(
+  param: { url: string; apiKey: string },
+  request: koa.Request,
+) {
   const reqUrl = `${param.url}${request.url}`
   const urlInfo = new URL(reqUrl)
   delete request.headers['content-length']

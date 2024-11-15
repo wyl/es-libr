@@ -11,9 +11,9 @@ app.use(async function (ctx, next) {
   const start = performance.now()
   await next().then(() => {
     logger.info(
-      `${ctx.request.method.padEnd(10, ' ')}${ctx.req.url} ${ctx.response.status}\t${(
-        performance.now() - start
-      ).toFixed(2)} ms`,
+      `${ctx.request.method.padEnd(10, ' ')}${ctx.req.url} ${
+        ctx.response.status
+      }\t${(performance.now() - start).toFixed(2)} ms`,
     )
   })
 })
