@@ -15,7 +15,9 @@ async function traceLog<T, K extends string>(
 
   if (ignore) {
     logger.warn(
-      `[${type}] ${context} Operatoinal data not enabled! Pretend that the data is returned correctly.Ignore this warning message!`,
+      `[${type}] ${
+        context || ''
+      } Operatoinal data not enabled! Pretend that the data is returned correctly.Ignore this warning message!`,
     )
     return undefined
   }
