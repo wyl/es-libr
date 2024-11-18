@@ -1,3 +1,5 @@
+import { AsyncLocalStorage } from 'node:async_hooks'
+
 const INDEX_MAPPING_FILE_PATH = './index-mapping.json'
 const SERVER_PORT = process.env.PORT || '3000'
 const ELASTICSEARCH_HOST = `${process.env.ES_HOST}`
@@ -9,13 +11,20 @@ const MONGODB_DBNAME = process.env.MONGODB_DBNAME || 'eslib'
 
 const JEST_TEST_INDEX_NAME = 'caas-cn-zaobao-online'
 
+interface IAsyncLocalStorage {
+  'x-request-id': string
+}
+
+const asyncLocalStorage = new AsyncLocalStorage<IAsyncLocalStorage>()
+
 export {
-  INDEX_MAPPING_FILE_PATH,
-  SERVER_PORT,
   ELASTICSEARCH_API_KEY,
   ELASTICSEARCH_HOST,
-  MONGODB_URL,
   ENABLE_DB,
+  INDEX_MAPPING_FILE_PATH,
   JEST_TEST_INDEX_NAME,
   MONGODB_DBNAME,
+  MONGODB_URL,
+  SERVER_PORT,
+  asyncLocalStorage,
 }

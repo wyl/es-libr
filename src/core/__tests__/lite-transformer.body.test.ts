@@ -6,7 +6,6 @@ const testTables: Array<[object, unknown]> = [
   [{ delete: 'test2' }, { delete: 'test2' }],
   [{ create: 'test2' }, { create: 'test2' }],
   [{ update: 'test2' }, { update: 'test2' }],
-  [{ doc: 'test2' }, { doc: 'test2' }],
   [{ foo: 'foo' }, { foo_bar: undefined, fooBar1: undefined }],
   [
     {
@@ -33,12 +32,15 @@ const testTables2: Array<[object, unknown]> = [
   ],
 ]
 describe('LiteTransformer Testing', () => {
-  test.each(testTables)('makeLiteBody mapper is correct', (data, expected) => {
-    const liteTransform = new LiteTransformer(data, testMapper)
-    expect(liteTransform.makeLiteBody()).toEqual(expected)
-  })
+  test.each(testTables)(
+    'makeLiteBody mapper need convert',
+    (data, expected) => {
+      const liteTransform = new LiteTransformer(data, testMapper)
+      expect(liteTransform.makeLiteBody()).toEqual(expected)
+    },
+  )
   test.each(testTables2)(
-    'makeLiteBody mapper is invalid ',
+    'makeLiteBody mapper not need convert',
     (data, expected) => {
       const liteTransform = new LiteTransformer(data, testMapper2)
       expect(liteTransform.makeLiteBody()).toEqual(expected)

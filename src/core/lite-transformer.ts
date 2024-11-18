@@ -11,7 +11,7 @@ export class LiteTransformer {
 
   makeLiteBody(): Record<string, unknown> {
     if (
-      ['index', 'delete', 'create', 'update', 'doc'].some((key) =>
+      ['index', 'delete', 'create', 'update'].some((key) =>
         Object.keys(this.data || {}).includes(key),
       )
     ) {
@@ -54,10 +54,10 @@ function getValueByKey(target: unknown, path: string): unknown {
   if (target === undefined || target === null) {
     return target
   }
-
-  if (typeof target !== 'object') {
-    return undefined
-  }
+  // console.log(typeof target, target)
+  // if (typeof target !== 'object') {
+  //   return undefined
+  // }
   if (Array.isArray(target)) {
     const t = target
       .map((item: unknown) => getValueByKey(item, path))
@@ -74,8 +74,10 @@ function getValueByKey(target: unknown, path: string): unknown {
       return data
     }
     return data
+  } else {
+    return undefined
   }
-  return target
+  // return target
 }
 
 /** @private */

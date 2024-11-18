@@ -1,4 +1,5 @@
 import { Logger, TLogLevelName } from 'tslog'
+import { asyncLocalStorage } from './constants'
 
 const logger: Logger = new Logger({
   dateTimeTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -8,7 +9,7 @@ const logger: Logger = new Logger({
   colorizePrettyLogs: true,
   minLevel: process.env.LOGLEVEL?.toLowerCase() as TLogLevelName,
 
-  //requestId: ()=> asyncLocalTraceStorage?.getStore()?.['x-request-id']
+  requestId: () => asyncLocalStorage?.getStore()?.['x-request-id'],
 })
 
 export { logger }

@@ -23,7 +23,7 @@ async function initServer() {
   }
 
   // const mapping = getIndexMapper("caas-cn-zaobao-online");
-  // todo create or update Es Index
+  // TODO create or update Es Index
 }
 
 async function stopServer() {

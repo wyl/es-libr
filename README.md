@@ -6,8 +6,8 @@
 
 ## Features
 
-- [x] ES 数据结构已打平，nested 语句特殊处理
-- [ ] ES \_reindex 的功能需要考虑如何实现
-- [ ] aggregate 语法的支持
+- [x] 数据结构已打平，需要打平 nested 数据结构
+- [ ] ES /\_reindex 的功能需要考虑如何实现
+- [ ] ~~aggregate 语法的支持~~
 - [ ] 支持更多的语法
 - [x] 一些对 Mongo 操作的语法，需要依赖 ES 返回状态。

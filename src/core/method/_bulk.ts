@@ -54,15 +54,15 @@ export const _bulkHandler: TransHandler = (
               })
             }
 
-            // todo {doc: xxx} 需要处理 2024/11/14
-            // if (dataKeys.length === 1 && dataKeys.at(0) === "doc") {
-            //   ndObj = ndObj["doc"] as Object;
-            // }
-
             const mapping = indexMapping()[_index]?.mapping()
-            const trans = new LiteTransformer(ndObj, mapping)
-
-            lines.write(trans.makeLiteBody())
+            if (dataKeys.length === 1 && 'doc' in dataKeys) {
+              const { doc, ...otherDoc } = ndObj as { doc: object }
+              const trans = new LiteTransformer(doc, mapping)
+              lines.write({ doc: trans.makeLiteBody, ...otherDoc })
+            } else {
+              const trans = new LiteTransformer(ndObj, mapping)
+              lines.write(trans.makeLiteBody())
+            }
             next()
           },
           (err) => {
