@@ -1,13 +1,13 @@
-import { IncomingMessage } from 'node:http'
-import { mongoDb } from '../../global'
-import { ElasticSearchHits } from '../../types'
-
 import Koa from 'koa'
 import { ObjectId } from 'mongodb'
+import { IncomingMessage } from 'node:http'
 import { ParamData } from 'path-to-regexp'
+
+import { mongoDb } from '@eslibr/global'
+import { isStatusOk, traceLog } from '@eslibr/lib'
+import { logger } from '@eslibr/logger'
+import { ElasticSearchHits } from '@eslibr/types'
 import { TransHandler } from '.'
-import { isStatusOk, traceLog } from '../../lib'
-import { logger } from '../../../logger'
 
 export const _getHandler: TransHandler = (
   req: IncomingMessage,

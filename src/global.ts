@@ -1,9 +1,13 @@
+import {
+  ENABLE_DB,
+  INDEX_MAPPING_FILE_PATH,
+  MONGODB_DBNAME,
+} from '@eslibr/constants'
+import { IndexMappings, loadIndexMapping } from '@eslibr/core/index-mapping'
+import { mongoClient } from '@eslibr/core/mongodb'
 import dotenv from 'dotenv'
-dotenv.config()
 import { Db } from 'mongodb'
-import { ENABLE_DB, INDEX_MAPPING_FILE_PATH, MONGODB_DBNAME } from './constants'
-import { IndexMappings, loadIndexMapping } from './core/index-mapping'
-import { mongoClient } from './core/mongodb'
+dotenv.config()
 
 let indexMapping: () => IndexMappings
 let mongoDb: Db

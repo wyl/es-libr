@@ -1,12 +1,13 @@
 import { IncomingMessage } from 'node:http'
-import { mongoDb } from '../../global'
+import { mongoDb } from '@eslibr/global'
 
 import Koa from 'koa'
 import { ObjectId } from 'mongodb'
 import { ParamData } from 'path-to-regexp'
 import { TransHandler } from '.'
-import { logger } from '../../../logger'
-import { isStatusOk, traceLog } from '../../lib'
+import { isStatusOk, traceLog } from '@eslibr/lib'
+import { logger } from '@eslibr/logger'
+// import { logger } from 'src/logger'
 
 export const _deleteHandler: TransHandler = (
   req: IncomingMessage,

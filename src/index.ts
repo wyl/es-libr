@@ -1,10 +1,10 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { logger } from '../logger'
-import { SERVER_PORT } from './constants'
-import { initServer } from './global'
-import { app } from './app'
+import { app } from '@eslibr/app'
+import { SERVER_PORT } from '@eslibr/constants'
+import { initServer } from '@eslibr/global'
+import { logger } from '@eslibr/logger'
 
 async function run() {
   await initServer()

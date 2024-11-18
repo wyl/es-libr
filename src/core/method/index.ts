@@ -1,14 +1,14 @@
-import { IncomingMessage } from 'node:http'
-import { _searchHandler } from './_search'
-
 import Koa from 'koa'
+import { IncomingMessage } from 'node:http'
 import { match, MatchResult, ParamData } from 'path-to-regexp'
-import { _bulkHandler } from './_bulk'
-import { _deleteHandler } from './_delete'
-import { _emptyHandler } from './_empty'
-import { _getHandler } from './_get'
-import { _updateHandler } from './_update'
-import { _createHandler } from './_create'
+
+import { _bulkHandler } from '@eslibr/core/method/_bulk'
+import { _createHandler } from '@eslibr/core/method/_create'
+import { _deleteHandler } from '@eslibr/core/method/_delete'
+import { _emptyHandler } from '@eslibr/core/method/_empty'
+import { _getHandler } from '@eslibr/core/method/_get'
+import { _searchHandler } from '@eslibr/core/method/_search'
+import { _updateHandler } from '@eslibr/core/method/_update'
 
 /** @private */
 export const transHandlerList: Array<TransHandlerSettings> = [

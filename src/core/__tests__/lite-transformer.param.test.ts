@@ -1,4 +1,4 @@
-import { LiteTransformer } from '../lite-transformer'
+import { LiteTransformer } from '@eslibr/core/lite-transformer'
 const mapper = { 'foo.bar': 'foo_bar', 'foo.bar1': 'fooBar1' }
 
 const tables: Array<{

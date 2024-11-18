@@ -1,4 +1,4 @@
-import { logger } from '../../logger'
+import { logger } from '@eslibr/logger'
 export class LiteTransformer {
   data: object | unknown
   mapper?: Record<string, string>

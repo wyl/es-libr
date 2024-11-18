@@ -2,7 +2,7 @@ import Koa from 'koa'
 import { IncomingMessage } from 'node:http'
 import { ParamData } from 'path-to-regexp'
 import { TransHandler } from '.'
-import { logger } from '../../../logger'
+import { logger } from '@eslibr/logger'
 
 export const _emptyHandler: TransHandler = (
   req: IncomingMessage,

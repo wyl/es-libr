@@ -1,4 +1,4 @@
-import { loadIndexMapping } from '../index-mapping'
+import { loadIndexMapping } from '@eslibr/core/index-mapping'
 
 const failedPaths = ['error path', 'undefined', '']
 const successPaths = ['index-mapping.json']

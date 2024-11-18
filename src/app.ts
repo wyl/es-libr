@@ -1,8 +1,7 @@
+import { logger } from '@eslibr/logger'
+import { AxiosProxy, ContextMiddleware } from '@eslibr/middleware'
 import cors from '@koa/cors'
 import Koa from 'koa'
-// import { router } from "./apis/constants";
-import { logger } from '../logger'
-import { AxiosProxy, ContextMiddleware } from './middleware'
 
 const app = new Koa({ proxy: true })
 app.use(cors())

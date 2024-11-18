@@ -1,14 +1,14 @@
+import { LiteTransformer } from '@eslibr/core/lite-transformer'
+import { indexMapping, mongoDb } from '@eslibr/global'
+import { ElasticsearchResponse } from '@eslibr/types'
 import { IncomingMessage } from 'node:http'
-import { indexMapping, mongoDb } from '../../global'
-import { ElasticsearchResponse } from '../../types'
-import { LiteTransformer } from '../lite-transformer'
 
+import { isStatusOk, traceLog } from '@eslibr/lib'
+import { logger } from '@eslibr/logger'
 import Koa from 'koa'
 import { ObjectId } from 'mongodb'
 import { ParamData } from 'path-to-regexp'
-import { isStatusOk, traceLog } from '../../lib'
 import { TransHandler } from '.'
-import { logger } from '../../../logger'
 
 export const _searchHandler: TransHandler = (
   req: IncomingMessage,

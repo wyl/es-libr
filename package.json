@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "WangYalong <wylfocus@gmail.com>",
   "description": "A simple library for working with ES data",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
@@ -63,34 +63,5 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.14.0"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "ts",
-      "tsx"
-    ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/*.{ts,js}",
-      "!**/node_modules/**",
-      "!**/build/**",
-      "!**/coverage/**"
-    ],
-    "transform": {
-      "\\.ts$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "coverageReporters": [
-      "text",
-      "text-summary"
-    ],
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)x?$",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
-      "/coverage/"
-    ]
   }
 }

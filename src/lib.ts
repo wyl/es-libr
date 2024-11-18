@@ -1,5 +1,5 @@
-import { logger } from '../logger'
-import { ENABLE_DB } from './constants'
+import { logger } from '@eslibr/logger'
+import { ENABLE_DB } from '@eslibr/constants'
 
 function isStatusOk(status: number) {
   return Math.floor(status / 100) * 100 == 200

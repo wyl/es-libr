@@ -7,10 +7,10 @@ import { ObjectId, WithId } from 'mongodb'
 import ndjson from 'ndjson'
 import { ParamData } from 'path-to-regexp'
 import { TransHandler } from '.'
-import { logger } from '../../../logger'
-import { indexMapping, mongoDb } from '../../global'
-import { isStatusOk, traceLog } from '../../lib'
-import { LiteTransformer } from '../lite-transformer'
+import { indexMapping, mongoDb } from '@eslibr/global'
+import { isStatusOk, traceLog } from '@eslibr/lib'
+import { LiteTransformer } from '@eslibr/core/lite-transformer'
+import { logger } from '@eslibr/logger'
 
 export const _bulkHandler: TransHandler = (
   req: IncomingMessage,
