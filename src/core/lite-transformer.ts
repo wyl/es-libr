@@ -27,7 +27,7 @@ export class LiteTransformer {
     }
 
     const targetData = extractFields(this.data, this.mapper)
-    // logger.debug(JSON.stringify(targetData, null, 2))
+    logger.debug(JSON.stringify(targetData, null, 2))
     return targetData
   }
 
