@@ -676,12 +676,12 @@ const mapping: T.IndicesPutMappingRequest = {
                 // sticky: {
                 //   type: 'boolean',
                 // },
-                zbcomFlag: {
-                  type: 'boolean',
-                },
-                // zbsgFlag: {
+                // zbcomFlag: {
                 //   type: 'boolean',
                 // },
+                zbsgFlag: {
+                  type: 'boolean',
+                },
               },
             },
             // edited: {
