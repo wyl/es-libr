@@ -1,12 +1,11 @@
-import { IncomingMessage } from 'node:http'
 import { mongoDb } from '@eslibr/init'
+import { IncomingMessage } from 'node:http'
 
-import Koa from 'koa'
-import { ObjectId } from 'mongodb'
-import { ParamData } from 'path-to-regexp'
-import { TransHandler } from '.'
 import { isStatusOk, traceLog } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
+import Koa from 'koa'
+import { ParamData } from 'path-to-regexp'
+import { TransHandler } from '.'
 // import { logger } from 'src/logger'
 
 export const _deleteHandler: TransHandler = (
@@ -14,7 +13,10 @@ export const _deleteHandler: TransHandler = (
   res: Koa.Response,
   params: ParamData,
 ) => {
-  const { index, _id } = params as { index: string; _id: string }
+  const { index, _id } = params as {
+    index: string
+    _id: string
+  }
   return [
     undefined,
 
@@ -26,8 +28,12 @@ export const _deleteHandler: TransHandler = (
 
       await traceLog('Mongo', () =>
         mongoDb
-          .collection(index)
-          .deleteOne({ _id: new ObjectId(_id.padStart(24, '0')) }),
+          .collection<{
+            _id: string
+          }>(index)
+          .deleteOne({
+            _id: _id,
+          }),
       ).then((it) => {
         logger.trace(it)
         return it

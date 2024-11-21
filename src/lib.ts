@@ -16,7 +16,8 @@ async function traceLog<T, K extends string>(
 
   if (ignore) {
     logger.warn(
-      `[${type}] ${context || ''
+      `[${type}] ${
+        context || ''
       } Operatoinal data not enabled! Pretend that the data is returned correctly.Ignore this warning message!`,
     )
     return undefined
@@ -41,24 +42,29 @@ type MappingProperties = T.IndicesPutMappingRequest['properties']
 function makeIndexLinkNode(mapping: MappingProperties): Array<ExtractLinkNode> {
   return Object.entries(mapping || {}).map(([key, value]) => ({
     key,
-    next: 'properties' in value ? makeIndexLinkNode(value.properties || {}) : undefined
+    next:
+      'properties' in value
+        ? makeIndexLinkNode(value.properties || {})
+        : undefined,
   }))
 }
 
-
 type Optional<T> = {
   [K in keyof T]?: T[K]
-};
+}
 
 type MaybeOptional<T> = Optional<T> | Array<Optional<T>>
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-function extractFieldsWithNode<T extends unknown, U extends keyof T>(obj: T, node: ExtractLinkNode): [U, MaybeOptional<T>] {
+function extractFieldsWithNode<T extends unknown, U extends keyof T>(
+  obj: T,
+  node: ExtractLinkNode,
+): [U, MaybeOptional<T>] {
   const { key, next } = node
   let value = obj[key as keyof T] as MaybeOptional<T>
   if (next) {
     if (Array.isArray(value)) {
-      value = value.map(item => extractFields(item, next || []))
+      value = value.map((item) => extractFields(item, next || []))
     } else {
       value = extractFields<typeof value>(value, next || [])
     }
@@ -67,11 +73,12 @@ function extractFieldsWithNode<T extends unknown, U extends keyof T>(obj: T, nod
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-function extractFields<T extends unknown>(obj: T, cfg: Array<ExtractLinkNode>): Optional<T> {
-  const tmpData = cfg.map(it => extractFieldsWithNode(obj, it))
+function extractFields<T extends unknown>(
+  obj: T,
+  cfg: Array<ExtractLinkNode>,
+): Optional<T> {
+  const tmpData = cfg.map((it) => extractFieldsWithNode(obj, it))
   return Object.fromEntries(tmpData) as Optional<T>
 }
 
-
 export { extractFields, isStatusOk, makeIndexLinkNode, traceLog }
-

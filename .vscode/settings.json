@@ -3,10 +3,6 @@
     "source.fixAll": "explicit",
     "source.fixAll.eslint": "explicit"
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
 
   "eslint.enable": true,
   "eslint.run": "onType",
@@ -20,5 +16,14 @@
     "typescriptreact"
   ],
   "eslint.format.enable": true,
-  "typescript.validate.enable": true
+  "typescript.validate.enable": true,
+  "editor.formatOnSave": true,
+  "files.trimTrailingWhitespaceInRegexAndStrings": true,
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "notebook.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

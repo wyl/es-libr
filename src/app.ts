@@ -1,27 +1,28 @@
 import { logger } from '@eslibr/logger'
 import { AxiosProxy, ContextMiddleware } from '@eslibr/middleware'
 import cors from '@koa/cors'
+import { randomBytes } from 'crypto'
 import Koa from 'koa'
 import { router } from './apis'
 import { asyncLocalStorage } from './constants'
-import { randomBytes } from 'crypto'
 
 const app = new Koa({ proxy: true })
 app.use(cors())
 
 app.use(async function (ctx, next) {
   const start = performance.now()
+  const { request, response } = ctx
 
   const xRequestId =
-    (ctx.request.headers['x-request-id'] as string) ||
+    (request.headers['x-request-id'] as string) ||
     randomBytes(16).toString('hex')
 
   await asyncLocalStorage.run({ 'x-request-id': xRequestId }, async () => {
     return await next().then(() => {
       logger.info(
-        `${ctx.request.method.padEnd(10, ' ')}${ctx.req.url} ${
-          ctx.response.status
-        }\t${(performance.now() - start).toFixed(2)} ms`,
+        `${request.method.padEnd(10, ' ')}${ctx.req.url} ${response.status}\t${(
+          performance.now() - start
+        ).toFixed(2)} ms`,
       )
     })
   })

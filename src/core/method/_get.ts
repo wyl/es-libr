@@ -1,12 +1,11 @@
 import Koa from 'koa'
-import { ObjectId } from 'mongodb'
 import { IncomingMessage } from 'node:http'
 import { ParamData } from 'path-to-regexp'
 
 import { mongoDb } from '@eslibr/init'
 import { isStatusOk, traceLog } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
-import { ElasticSearchHits } from '@eslibr/types'
+import { SearchHit } from '@elastic/elasticsearch/lib/api/types'
 import { TransHandler } from '.'
 
 export const _getHandler: TransHandler = (
@@ -25,10 +24,15 @@ export const _getHandler: TransHandler = (
       }
       const doc = await traceLog('Mongo', () =>
         mongoDb
-          .collection(index)
-          .findOne({ _id: new ObjectId(_id.padStart(24, '0')) }),
+          .collection<{
+            _id: string
+          }>(index)
+          .findOne({
+            _id,
+          }),
       )
-      const resData = res.body as ElasticSearchHits<Record<string, unknown>>
+
+      const resData = res.body as SearchHit
       if (doc) resData._source = doc
     },
   ]

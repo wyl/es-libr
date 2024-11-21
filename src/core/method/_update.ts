@@ -1,5 +1,4 @@
 import Koa from 'koa'
-import { ObjectId } from 'mongodb'
 import { IncomingMessage } from 'node:http'
 import { ParamData } from 'path-to-regexp'
 
@@ -46,12 +45,8 @@ export const _updateHandler: TransHandler = (
       const { doc, ...otherFields } = JSON.parse(body || '{}')
       await traceLog('Mongo', () =>
         mongoDb
-          .collection(index)
-          .updateOne(
-            { _id: { $eq: new ObjectId(_id.padStart(24, '0')) } },
-            { $set: doc },
-            { upsert: true },
-          ),
+          .collection<{ _id: string }>(index)
+          .updateOne({ _id: { $eq: _id } }, { $set: doc }, { upsert: true }),
       ).then((it) => {
         logger.trace(it)
         return it

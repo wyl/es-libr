@@ -6,19 +6,41 @@ import axios, { Method } from 'axios'
 import https from 'https'
 import koa from 'koa'
 
+function receiveKoaBody(ctx: koa.Context) {
+  const readable = ctx.req
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const chunks: any = []
+  readable.on('readable', () => {
+    let chunk
+    while (null !== (chunk = readable.read())) {
+      chunks.push(chunk)
+    }
+  })
+  readable.on('end', () => {
+    if (chunks.length > 0) {
+      ctx.request.body = chunks.join('')
+    }
+  })
+}
+
 function ContextMiddleware() {
   return async function (ctx: koa.Context, next: koa.Next) {
     const invokerSettings = getHandlerInvoker(
       ctx.req.url || '',
       ctx.req.method || '',
     )
+
     logger.debug(
       `Ctx Middleware: ${ctx.req.url} => ${JSON.stringify(
         invokerSettings?.params.params,
       )}`,
     )
 
-    if (!invokerSettings) return next()
+    if (!invokerSettings) {
+      receiveKoaBody(ctx)
+      return next()
+    }
 
     const [request, response] = invokerSettings.handler(
       ctx.req,
@@ -85,21 +107,7 @@ async function ExpressToAxios(
     params: request.query,
     data: request.body,
   }
-  logger.debug(
-    '>>>>>>',
-    reqUrl,
-    JSON.stringify(
-      {
-        ...options,
-        data:
-          typeof request.body === 'string'
-            ? JSON.parse(request.body)
-            : request.body,
-      },
-      null,
-      2,
-    ),
-  )
+  logger.debug('>>>>>>', reqUrl, JSON.stringify(options, null, 2))
   const axiosRes = _axios
     .request(options)
     .then((it) => {

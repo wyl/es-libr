@@ -1,22 +1,15 @@
-import {
-  ENABLE_DB,
-  MONGODB_DBNAME
-} from '@eslibr/constants'
+import { ENABLE_DB, MONGODB_DBNAME } from '@eslibr/constants'
 import { mongoClient } from '@eslibr/core/mongodb'
 import dotenv from 'dotenv'
+import { getIndexLinkNode } from '@eslibrRoot/index-mappings'
 import { Db } from 'mongodb'
-import * as o from '../index-mappings'
 dotenv.config()
 
-
-
-const getLinkNode = o.getIndexLinkNode()
-
+const getLinkNode = getIndexLinkNode()
 
 let mongoDb: Db
 
 async function initServer() {
-
   // const imapping = indexMapping();
 
   if (ENABLE_DB) {

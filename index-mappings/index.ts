@@ -3,15 +3,17 @@ import { mapping } from './caas-cn-zaobao-online'
 
 const indexMappingList = [mapping]
 
-
-function generateIndexLinkNodeMapping(): Record<string, Array<ExtractLinkNode>> {
+function generateIndexLinkNodeMapping(): Record<
+  string,
+  Array<ExtractLinkNode>
+> {
   return Object.fromEntries(
-    indexMappingList.map((mapping) =>
-      [mapping.index.toString(), makeIndexLinkNode(mapping.properties)]
-    )
+    indexMappingList.map((mapping) => [
+      mapping.index.toString(),
+      makeIndexLinkNode(mapping.properties),
+    ]),
   )
 }
-
 
 function getIndexLinkNode(): (index: string) => Array<ExtractLinkNode> {
   let result: Record<string, Array<ExtractLinkNode>>
@@ -23,4 +25,4 @@ function getIndexLinkNode(): (index: string) => Array<ExtractLinkNode> {
   }
 }
 
-export { getIndexLinkNode }
+export { getIndexLinkNode, generateIndexLinkNodeMapping, indexMappingList }

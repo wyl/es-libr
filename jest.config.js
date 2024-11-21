@@ -17,6 +17,7 @@ const config = {
   //   rootDir: './',
   moduleNameMapper: {
     '@eslibr/(.*)': ['<rootDir>/src/$1'],
+    '@eslibrRoot/(.*)': ['<rootDir>/$1'],
   },
 }
 // eslint-disable-next-line no-undef
