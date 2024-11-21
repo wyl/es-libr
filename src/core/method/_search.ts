@@ -38,7 +38,7 @@ export const _searchHandler: TransHandler = (
             _source_excludes = reqBody._source_excludes
             _source_includes = reqBody._source_includes
 
-            reqBody._source = false
+            reqBody._source = !reqBody._source
             const trans = new LiteTransformer(reqBody, linkNode)
 
             resolve(JSON.stringify(trans.makeLiteSearch()))

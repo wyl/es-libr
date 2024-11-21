@@ -6,21 +6,21 @@ import axios, { Method } from 'axios'
 import https from 'https'
 import koa from 'koa'
 
-function receiveKoaBody(ctx: koa.Context) {
-  const readable = ctx.req
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const chunks: any = []
-  readable.on('readable', () => {
-    let chunk
-    while (null !== (chunk = readable.read())) {
-      chunks.push(chunk)
-    }
-  })
-  readable.on('end', () => {
-    if (chunks.length > 0) {
-      ctx.request.body = chunks.join('')
-    }
+async function receiveKoaBody(ctx: koa.Context) {
+  return new Promise((resolve, reject) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const chunks: any = []
+    ctx.req
+      .on('data', (data) => {
+        chunks.push(data)
+      })
+      .on('end', () => {
+        if (chunks.length > 0) {
+          ctx.request.body = Buffer.concat(chunks).toString()
+        }
+        resolve('')
+      })
+      .on('error', (err) => reject(err))
   })
 }
 
@@ -38,7 +38,7 @@ function ContextMiddleware() {
     )
 
     if (!invokerSettings) {
-      receiveKoaBody(ctx)
+      await receiveKoaBody(ctx)
       return next()
     }
 
