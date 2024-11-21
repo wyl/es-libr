@@ -1,4 +1,3 @@
-import { replaceKeysInBody } from '@eslibr/core/lite-transformer'
 import { isStatusOk, traceLog } from '@eslibr/lib'
 
 // beforeAll(() => console.log("1 - beforeAll"));
@@ -51,45 +50,4 @@ describe('isStatusOk Testing', () => {
   test.each(isStatusOkTables)('isStatusOk(%p)', (input, expected) => {
     expect(isStatusOk(input)).toBe(expected)
   })
-})
-
-const defaultMapper = {
-  'data.source.id': 'data_source_id',
-  'data.source.name': 'data_source_name',
-  'data.source.age': 'data_source_age',
-}
-
-const replaceKeysInBodyTables: Array<[unknown, unknown]> = [
-  [{ 'data.source.id': '1' }, { data_source_id: '1' }],
-  [
-    { 'data.source.id': '1', 'data.source.name': 'foo' },
-    { data_source_id: '1', data_source_name: 'foo' },
-  ],
-  [
-    { 'data.source.id': '1', 'data.source.name': 'foo', 'data.source.age': 20 },
-    { data_source_id: '1', data_source_name: 'foo', data_source_age: 20 },
-  ],
-  [
-    {
-      'data.source.id': '1',
-      'data.source.name': 'foo',
-      'data.source.age': 20,
-      'data.source.name2': 'foo2',
-    },
-    {
-      data_source_id: '1',
-      data_source_name: 'foo',
-      data_source_age: 20,
-      'data.source.name2': 'foo2',
-    },
-  ],
-]
-
-describe('replaceKeysInBody Testing', () => {
-  test.each(replaceKeysInBodyTables)(
-    'replaceKeysInBody(%p)',
-    (input, expected) => {
-      expect(replaceKeysInBody(input, defaultMapper)).toStrictEqual(expected)
-    },
-  )
 })

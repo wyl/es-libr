@@ -3,7 +3,7 @@ dotenv.config()
 
 import { app } from '@eslibr/app'
 import { SERVER_PORT } from '@eslibr/constants'
-import { initServer } from '@eslibr/global'
+import { initServer } from '@eslibr/init'
 import { logger } from '@eslibr/logger'
 
 async function run() {

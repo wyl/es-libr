@@ -1,5 +1,5 @@
 import { IncomingMessage } from 'node:http'
-import { mongoDb } from '@eslibr/global'
+import { mongoDb } from '@eslibr/init'
 
 import Koa from 'koa'
 import { ObjectId } from 'mongodb'

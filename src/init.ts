@@ -1,19 +1,21 @@
 import {
   ENABLE_DB,
-  INDEX_MAPPING_FILE_PATH,
-  MONGODB_DBNAME,
+  MONGODB_DBNAME
 } from '@eslibr/constants'
-import { IndexMappings, loadIndexMapping } from '@eslibr/core/index-mapping'
 import { mongoClient } from '@eslibr/core/mongodb'
 import dotenv from 'dotenv'
 import { Db } from 'mongodb'
+import * as o from '../index-mappings'
 dotenv.config()
 
-let indexMapping: () => IndexMappings
+
+
+const getLinkNode = o.getIndexLinkNode()
+
+
 let mongoDb: Db
 
 async function initServer() {
-  indexMapping = await loadIndexMapping(INDEX_MAPPING_FILE_PATH)
 
   // const imapping = indexMapping();
 
@@ -30,4 +32,4 @@ async function stopServer() {
   mongoClient.close()
 }
 
-export { indexMapping, initServer, mongoDb, stopServer }
+export { initServer, mongoDb, stopServer, getLinkNode }

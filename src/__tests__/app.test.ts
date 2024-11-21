@@ -1,6 +1,6 @@
 import { app } from '@eslibr/app'
 import { ELASTICSEARCH_API_KEY } from '@eslibr/constants'
-import { initServer, stopServer } from '@eslibr/global'
+import { initServer, stopServer } from '@eslibr/init'
 import request from 'supertest'
 
 beforeAll(initServer)

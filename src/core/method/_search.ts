@@ -1,8 +1,8 @@
 import { LiteTransformer } from '@eslibr/core/lite-transformer'
-import { indexMapping, mongoDb } from '@eslibr/global'
-import { ElasticsearchResponse } from '@eslibr/types'
+import { getLinkNode, mongoDb } from '@eslibr/init'
 import { IncomingMessage } from 'node:http'
 
+import { FleetSearchResponse } from '@elastic/elasticsearch/lib/api/types'
 import { isStatusOk, traceLog } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 import Koa from 'koa'
@@ -21,15 +21,15 @@ export const _searchHandler: TransHandler = (
     async () =>
       new Promise<string>((resolve, reject) => {
         let body = ''
-        const currMapping = indexMapping()[target].mapping()
         req
           .on('data', (data) => {
             body += data.toString()
           })
           .on('end', () => {
             const reqBody = JSON.parse(body || '{}')
+            const linkNode = getLinkNode(target)
             _source = reqBody._source
-            const trans = new LiteTransformer(reqBody, currMapping)
+            const trans = new LiteTransformer(reqBody, linkNode)
             resolve(JSON.stringify(trans.makeLiteSearch()))
           })
           .on('error', (err) => reject(err))
@@ -42,9 +42,11 @@ export const _searchHandler: TransHandler = (
       }
 
       const resData =
-        (res.body as ElasticsearchResponse<Record<string, string>>).hits
-          ?.hits || []
-      const ids = resData.map((it) => new ObjectId(it._id.padStart(24, '0')))
+        (res.body as FleetSearchResponse<Record<string, string>>).hits?.hits ||
+        []
+      const ids = resData.map(
+        (it) => new ObjectId(it._id || ''.padStart(24, '0')),
+      )
 
       const documents = await traceLog(
         `Mongo`,
@@ -63,12 +65,14 @@ export const _searchHandler: TransHandler = (
 
       resData.forEach((data) => {
         const rawData = documents?.find((it) => {
-          return it._id.toString() === data._id.padStart(24, '0')
+          return it._id.toString() === data._id || ''.padStart(24, '0')
         })
         if (rawData) {
           data._source = rawData
         } else {
-          logger.error(`Can't find data with id: ${data._id.padStart(24, '0')}`)
+          logger.error(
+            `Can't find data with id: ${data._id || ''.padStart(24, '0')}`,
+          )
         }
       })
     },

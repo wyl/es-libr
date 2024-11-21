@@ -4,7 +4,7 @@ import { IncomingMessage } from 'node:http'
 import { ParamData } from 'path-to-regexp'
 
 import { LiteTransformer } from '@eslibr/core/lite-transformer'
-import { indexMapping, mongoDb } from '@eslibr/global'
+import { getLinkNode, mongoDb } from '@eslibr/init'
 import { isStatusOk, traceLog } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 import { TransHandler } from '.'
@@ -20,14 +20,15 @@ export const _updateHandler: TransHandler = (
   return [
     async () =>
       new Promise((resolve, reject) => {
-        const currMapping = indexMapping()[index]?.mapping()
         req
           .on('data', (data) => {
             body += data.toString()
           })
           .on('end', () => {
             const { doc, ...otherFields } = JSON.parse(body || '{}')
-            const trans = new LiteTransformer(doc, currMapping)
+            const linkNode = getLinkNode(index)
+
+            const trans = new LiteTransformer(doc, linkNode)
 
             resolve(
               JSON.stringify({ doc: trans.makeLiteBody(), ...otherFields }),

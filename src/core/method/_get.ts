@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb'
 import { IncomingMessage } from 'node:http'
 import { ParamData } from 'path-to-regexp'
 
-import { mongoDb } from '@eslibr/global'
+import { mongoDb } from '@eslibr/init'
 import { isStatusOk, traceLog } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 import { ElasticSearchHits } from '@eslibr/types'

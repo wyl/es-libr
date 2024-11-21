@@ -1,7 +1,7 @@
 import { IncomingMessage } from 'node:http'
 
 import { LiteTransformer } from '@eslibr/core/lite-transformer'
-import { indexMapping, mongoDb } from '@eslibr/global'
+import { getLinkNode, mongoDb } from '@eslibr/init'
 import { isStatusOk, traceLog } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 import Koa from 'koa'
@@ -14,21 +14,30 @@ export const _createHandler: TransHandler = (
   res: Koa.Response,
   params: ParamData,
 ) => {
-  const { index, _id } = params as { index: string; _id: string }
+  const { index, _id } = params as {
+    index: string
+    _id: string
+  }
   let body = ''
 
   return [
     async () =>
       new Promise<string>((resolve, reject) => {
-        const currMapping = indexMapping()[index]?.mapping()
         req
           .on('data', (data) => {
             body += data.toString()
           })
           .on('end', async () => {
             const doc = JSON.parse(body || '{}')
-            const trans = new LiteTransformer(doc, currMapping)
-            trans.makeLiteBody()
+
+
+            const linkNode = getLinkNode(index)
+
+            const trans = new LiteTransformer(doc, linkNode)
+            // const trans = new LiteTransformer(doc, testPaths)
+            // trans.makeLiteBody()
+            console.log(linkNode)
+
             resolve(JSON.stringify(trans.makeLiteBody()))
           })
           .on('error', (err) => reject(err))

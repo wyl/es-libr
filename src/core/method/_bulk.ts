@@ -2,15 +2,15 @@ import { IncomingMessage } from 'node:http'
 import streamEach from 'stream-each'
 import through2 from 'through2'
 
+import { LiteTransformer } from '@eslibr/core/lite-transformer'
+import { getLinkNode, mongoDb } from '@eslibr/init'
+import { isStatusOk, traceLog } from '@eslibr/lib'
+import { logger } from '@eslibr/logger'
 import Koa from 'koa'
 import { ObjectId, WithId } from 'mongodb'
 import ndjson from 'ndjson'
 import { ParamData } from 'path-to-regexp'
 import { TransHandler } from '.'
-import { indexMapping, mongoDb } from '@eslibr/global'
-import { isStatusOk, traceLog } from '@eslibr/lib'
-import { LiteTransformer } from '@eslibr/core/lite-transformer'
-import { logger } from '@eslibr/logger'
 
 export const _bulkHandler: TransHandler = (
   req: IncomingMessage,
@@ -29,7 +29,6 @@ export const _bulkHandler: TransHandler = (
 
       return new Promise<string>((resolve, reject) => {
         let body = ''
-
         streamEach(
           req.pipe(ndjson.parse()),
           (data, next) => {
@@ -53,14 +52,14 @@ export const _bulkHandler: TransHandler = (
                 },
               })
             }
+            const linkNode = getLinkNode(_index)
 
-            const mapping = indexMapping()[_index]?.mapping()
             if (dataKeys.length === 1 && 'doc' in dataKeys) {
               const { doc, ...otherDoc } = ndObj as { doc: object }
-              const trans = new LiteTransformer(doc, mapping)
-              lines.write({ doc: trans.makeLiteBody, ...otherDoc })
+              const trans = new LiteTransformer(doc, linkNode)
+              lines.write({ doc: trans.makeLiteBody(), ...otherDoc })
             } else {
-              const trans = new LiteTransformer(ndObj, mapping)
+              const trans = new LiteTransformer(ndObj, linkNode)
               lines.write(trans.makeLiteBody())
             }
             next()
