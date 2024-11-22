@@ -55,10 +55,12 @@ Fetch Phase，协调节点计算出这一组 ID 的 shared, **shard_num = hash(\
 >
 > (string) Comma-separated list of source fields to return. Wildcard (\*) patterns are supported.
 
-![Search 100 doc](image/search-duratoin.png)
+![_source:true](image/search-with-_source-true.png)
 
-不设置 \_source 或将 \_source 设置为 true 时，response duration 耗时 1.5-5s 左右，偶尔 response duration 会达到 10s，受 ES 当时状态影响较大。
-将 \_source 设置为 false 时，response duratoin 在 170-400ms 左右，时长较稳定。
+![_source:false](image/search-with-_source-false.png)
+
+不设置 \_source 或将 \_source 设置为 true 时，response duration 耗时 2 左右，偶尔 response duration 会达到 10s，受 ES 当时状态影响较大。
+将 \_source 设置为 false 时，response duratoin 在 200ms 左右，时长较稳定。
 将 \_source 返回部分属性 `_source: ["data.context.id"] ` 效果也还行，但会经过 Fetch Phase 阶段，效率有一定影响。
 
 ## Nested 类型 [Nested Objects](https://www.elastic.co/guide/en/elasticsearch/guide/current/nested-objects.html)
