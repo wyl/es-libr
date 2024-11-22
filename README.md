@@ -152,7 +152,7 @@ Nested 结构查询 comment 同时具备多个条件
 
 ![MongoDB VS Elasticsearch](image/mongo-vs-elasticsearch.png)
 
-仅需定义搜索业务需要的索引即可，展示需要的索引不需要定义或少量定义。主要目的就是减少 ES 索引及数据存储的大小。[Index Mapping Demo](index-mappings/caas-cn-zaobao-online.ts)
+事先声明搜索业务需要的索引，展示需要的索引不需要定义或少量定义。主要目的就是减少 ES 索引及数据存储的文件大小。 [Index Mapping Demo](index-mappings/caas-cn-zaobao-online.ts)
 
 **使用 ES Query Phase 部分，返回一组数据的 ID，Mongo find by those ids 和 projection 来约束返回数据的属性信息。**
 
@@ -164,14 +164,15 @@ Nested 结构查询 comment 同时具备多个条件
 
 在处理 `_delete` 时，也可以删除 Mongodb 数据。
 
-但是这里支持不是很好的地方
+TODO：
+[ ] \_reindex 更换数据库，应依赖 Mongo 的 oplog 重新索引 Mongo 数据承载部分
+[ ] Delete Index 需要删除 Mongo Collection
+[ ] Mongodb Alias 更改后应如何处理
+
+不重要的部分
 
 - \_delete_by_query
 - \_update_by_query
-- \_reindex 可以使用，但我们已定义好索引 Mapping ，可能会弱化这个功能。
-- \_alias 可能需要多思考一些
-
-mongo oplog 可将数据重新洗入 Elasticsearch
 
 参考：
 
