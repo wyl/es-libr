@@ -2,7 +2,7 @@ import Koa from 'koa'
 import { IncomingMessage } from 'node:http'
 import { ParamData } from 'path-to-regexp'
 
-import { mongoDb } from '@eslibr/init'
+import { getLinkNode, mongoDb } from '@eslibr/init'
 import { isStatusOk, traceLog } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 import { SearchHit } from '@elastic/elasticsearch/lib/api/types'
@@ -14,6 +14,12 @@ export const _getHandler: TransHandler = (
   params: ParamData,
 ) => {
   const { index, _id } = params as { index: string; _id: string }
+
+  const linkNode = getLinkNode(index)
+  if (!linkNode) {
+    return [undefined, undefined]
+  }
+
   return [
     undefined,
 

@@ -1,4 +1,4 @@
-import { mongoDb } from '@eslibr/init'
+import { getLinkNode, mongoDb } from '@eslibr/init'
 import { IncomingMessage } from 'node:http'
 
 import { isStatusOk, traceLog } from '@eslibr/lib'
@@ -17,6 +17,12 @@ export const _deleteHandler: TransHandler = (
     index: string
     _id: string
   }
+
+  const linkNode = getLinkNode(index)
+  if (!linkNode) {
+    return [undefined, undefined]
+  }
+
   return [
     undefined,
 

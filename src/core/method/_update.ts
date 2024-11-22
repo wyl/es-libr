@@ -15,6 +15,10 @@ export const _updateHandler: TransHandler = (
 ) => {
   const { index, _id } = params as { index: string; _id: string }
   let body = ''
+  const linkNode = getLinkNode(index)
+  if (!linkNode) {
+    return [undefined, undefined]
+  }
 
   return [
     async () =>
@@ -25,7 +29,6 @@ export const _updateHandler: TransHandler = (
           })
           .on('end', () => {
             const { doc, ...otherFields } = JSON.parse(body || '{}')
-            const linkNode = getLinkNode(index)
 
             const trans = new LiteTransformer(doc, linkNode)
 

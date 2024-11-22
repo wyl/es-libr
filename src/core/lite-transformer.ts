@@ -1,8 +1,6 @@
 import { extractFields, ExtractLinkNode } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 
-
-
 export class LiteTransformer {
   data: object | unknown
   mapper?: Array<ExtractLinkNode>
@@ -27,12 +25,11 @@ export class LiteTransformer {
     }
 
     const targetData = extractFields(this.data, this.mapper)
-    logger.debug(JSON.stringify(targetData, null, 2))
+    logger.trace(JSON.stringify(targetData, null, 2))
     return targetData
   }
 
   makeLiteSearch() {
     return this.data
   }
-
 }

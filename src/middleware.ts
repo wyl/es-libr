@@ -3,25 +3,27 @@ import { getHandlerInvoker } from '@eslibr/core/method'
 import { traceLog } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 import axios, { Method } from 'axios'
+import { IncomingMessage } from 'http'
 import https from 'https'
 import koa from 'koa'
 
-async function receiveKoaBody(ctx: koa.Context) {
-  return new Promise((resolve, reject) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const chunks: any = []
-    ctx.req
-      .on('data', (data) => {
-        chunks.push(data)
-      })
-      .on('end', () => {
-        if (chunks.length > 0) {
-          ctx.request.body = Buffer.concat(chunks).toString()
-        }
-        resolve('')
-      })
-      .on('error', (err) => reject(err))
-  })
+function defaultReceiveBody(req: IncomingMessage) {
+  return () =>
+    new Promise((resolve, reject) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const chunks: any = []
+      req
+        .on('data', (data) => {
+          chunks.push(data)
+        })
+        .on('end', () => {
+          if (chunks.length > 0) {
+            resolve(Buffer.concat(chunks).toString())
+          }
+          resolve(undefined)
+        })
+        .on('error', (err) => reject(err))
+    })
 }
 
 function ContextMiddleware() {
@@ -37,22 +39,27 @@ function ContextMiddleware() {
       )}`,
     )
 
+    // 如果未配置路径，仍要接收 Body 信息，向下传递。
     if (!invokerSettings) {
-      await receiveKoaBody(ctx)
+      ctx.request.body = await defaultReceiveBody(ctx.req)()
       return next()
     }
 
     const [request, response] = invokerSettings.handler(
       ctx.req,
       ctx.response,
-      invokerSettings.params.params,
+      invokerSettings?.params.params,
     )
+    // 如果配置了路径需要处理，但未配置索引，需要接收 Body 信息，向下传递。
+    const doRequest = request ?? defaultReceiveBody(ctx.req)
 
-    if (request !== undefined)
-      ctx.request.body =
-        (await traceLog(`${invokerSettings.title} >`, request, [
-          `apply request()`,
-        ])) ?? ''
+    if (doRequest) {
+      ctx.request.body = await traceLog(
+        `${invokerSettings.title} >`,
+        doRequest,
+        [`apply request()`],
+      )
+    }
 
     if (!response) return next()
 

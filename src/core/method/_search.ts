@@ -23,6 +23,12 @@ export const _searchHandler: TransHandler = (
   let _source: SearchSourceConfig | undefined = true
   let _source_excludes: Fields | undefined = undefined
   let _source_includes: Fields | undefined = undefined
+
+  const linkNode = getLinkNode(target)
+  if (!linkNode) {
+    return [undefined, undefined]
+  }
+
   return [
     async () =>
       new Promise<string>((resolve, reject) => {
@@ -33,7 +39,7 @@ export const _searchHandler: TransHandler = (
           })
           .on('end', () => {
             const reqBody = JSON.parse(body || '{}') as SearchRequest
-            const linkNode = getLinkNode(target)
+
             _source = reqBody._source
             _source_excludes = reqBody._source_excludes
             _source_includes = reqBody._source_includes

@@ -19,6 +19,10 @@ export const _createHandler: TransHandler = (
   }
   let body = ''
 
+  const linkNode = getLinkNode(index)
+  if (!linkNode) {
+    return [undefined, undefined]
+  }
   return [
     async () =>
       new Promise<string>((resolve, reject) => {
@@ -28,8 +32,6 @@ export const _createHandler: TransHandler = (
           })
           .on('end', async () => {
             const doc = JSON.parse(body || '{}')
-
-            const linkNode = getLinkNode(index)
 
             const trans = new LiteTransformer(doc, linkNode)
             resolve(JSON.stringify(trans.makeLiteBody()))

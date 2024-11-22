@@ -1,5 +1,6 @@
 import { ExtractLinkNode, makeIndexLinkNode } from '@eslibr/lib'
 import { mapping } from './caas-cn-zaobao-online'
+import { logger } from '@eslibr/logger'
 
 const indexMappingList = [mapping]
 
@@ -15,13 +16,19 @@ function generateIndexLinkNodeMapping(): Record<
   )
 }
 
-function getIndexLinkNode(): (index: string) => Array<ExtractLinkNode> {
+function getIndexLinkNode(): (
+  index: string,
+) => Array<ExtractLinkNode> | undefined {
   let result: Record<string, Array<ExtractLinkNode>>
   return function (_index: string) {
     if (!result) {
       result = generateIndexLinkNodeMapping()
     }
-    return result[_index]
+    const node = result[_index]
+    if (node === undefined) {
+      logger.warn(`Can't find index node: ${_index}`)
+    }
+    return node
   }
 }
 
