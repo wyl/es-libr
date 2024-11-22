@@ -183,7 +183,11 @@ Query Nested 结构查询， comment 同时满足多个条件
 
 ![KOA Onion Model](image/image-20241112-080341.png)
 
-**使用 ES Query Phase 部分，返回一组数据的 ID，Mongo find by those ids 和 projection 来约束返回数据的属性信息。**
+## 未定义搜索 mapping
+
+此时这个服务就是 Elasticsearch，没有任何变化。
+
+## 定义了搜索 mapping
 
 在处理 `_update/_create/_bulk`请求时，序列化 Request Body 序列化仅搜索需要的数据。原始数据存入 MongoDB。
 
@@ -191,7 +195,7 @@ Query Nested 结构查询， comment 同时满足多个条件
 
 > Query Phase 返回 ID List，Mongo 查询这组 ID，再遍历覆盖 \_source ，使用参数习惯不变的情况下与直接使用 ES 得到一样的结果。
 >
-> Query Phase 200ms + Mongo find 100ms 左右，既是是做同样查询响应时长，可以从 2-10s **缩减至 300 ms 左右**。理想状态下服务会更稳定。
+> Query Phase 200ms + Mongo find 100ms 左右，即使是做同样查询响应时长，可以从 2-10s **缩减至 300 ms 左右**。理想状态下服务会更稳定。
 
 在处理 `DELETE /:index/_doc/:_id` 时，也删除 Mongo 文档数据。
 
