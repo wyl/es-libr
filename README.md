@@ -33,10 +33,15 @@ Fetch Phase，计算 ID shared ~shard_num = hash(\_routing) % num_primary_shards
 > (Optional) Indicates which source fields are returned for matching documents. These fields are returned in the hits.\_source property of the search response. Defaults to true. See source filtering.
 >
 > true
+>
 > (Boolean) The entire document source is returned.
+>
 > false
+>
 > (Boolean) The document source is not returned.
+>
 > <string>
+>
 > (string) Comma-separated list of source fields to return. Wildcard (\*) patterns are supported.
 
 不设置 \_source 或将 \_source 设置为 true 时，response duration 耗时 1.5-5s 左右。
@@ -91,7 +96,7 @@ Fetch Phase，计算 ID shared ~shard_num = hash(\_routing) % num_primary_shards
 指定索引是 Nested 类型，会生成多个层级的 simple-key 对象。
 
 > The correlation between Alice and 31, or between John and 2014-09-01, has been irretrievably lost. While fields of type object (see Multilevel Objects) are useful for storing a single object, they are useless, from a search point of view, for storing an array of objects.
-
+>
 > This is the problem that nested objects are designed to solve. By mapping the comments field as type nested instead of type object, each nested object is indexed as a hidden separate document, something like this:
 
 ```
