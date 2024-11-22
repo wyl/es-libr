@@ -148,7 +148,7 @@ Nested 结构查询 comment 同时具备多个条件
 
 # 介绍
 
-这个程序是为了替换掉正在成熟使用的 Elasticsearch 角色，技术选型选择了 Mongodb 两者都是文档数据库，在使用语法语义上有很多相似之处。 `_bulk => bulkWrite` `Search API _source => mongo find projectoin`
+这个程序是为了替换掉正在成熟使用的 Elasticsearch 角色，技术选型选择了 Mongodb 两者都是文档数据库，在使用语法语义上有很多相似之处。 `_bulk => bulkWrite` `Search API _source => Mongo find projectoin`
 
 ![MongoDB VS Elasticsearch](image/mongo-vs-elasticsearch.png)
 
