@@ -166,16 +166,12 @@ Query Nested 结构查询， comment 同时满足多个条件
 }
 ```
 
-**ES 对仅返回 ID 类型的搜索效果很好，但返回文档或进行聚合计算 Aggregate 效果会大大打折。应尽量减少 ES 文档的属性，全文索引会检索所有的属性。在使用时应尽量减少返回的数据属性，可以满足搜索需求就好，返回完整数据通过数据中台或其他策略完成。**
-
 **ES 对仅返回 ID 类型的搜索效果很好，且比较稳定。对返回文档或对文档进行聚合剂算 Aggregate 效果会大大打折，会随着 ES 当时的状态有较大的波动。**
 
 **使用 ES 时应遵守的准则，应尽量减少写入文档的属性，结构不要设计的复杂，全文索引会检索所有的属性。查询结果应尽量减少返回的属性，最好是不使用 ES 内的数据，仅使用`_id`，至于返回完整数据通过数据中台或使用本服务来完成**
 
-重点：
-
-- 减少 Query Phase 时的索引检索压力，`减少文档属性` & `按需使用 nested 结构`
-- 减少 Fetch Phase 的耗时，`减少返回属性` or `_source: false` 不返回数据
+> - 减少 Query Phase 时的索引检索压力，`减少文档属性` & `按需使用 nested 结构`
+> - 减少 Fetch Phase 的耗时，`减少返回属性` or `_source: false` 不返回数据
 
 这个程序是为了替换掉正在成熟使用的 Elasticsearch 角色，技术选型选择了 Mongodb 两者都是文档数据库，在使用语法语义上有很多相似之处。 `_bulk => bulkWrite` `Search API _source => Mongo find projectoin`，是 Elasticsearch & Mongo 优点的结合。
 
