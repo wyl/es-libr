@@ -21,8 +21,7 @@
   "files.trimTrailingWhitespaceInRegexAndStrings": true,
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "notebook.defaultFormatter": "esbenp.prettier-vscode",
+  // "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
