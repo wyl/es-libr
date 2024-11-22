@@ -191,7 +191,7 @@ Query Nested 结构查询， comment 同时满足多个条件
 
 > Query Phase 返回 ID List，Mongo 查询这组 ID，再遍历覆盖 \_source ，使用参数习惯不变的情况下与直接使用 ES 得到一样的结果。
 >
-> Query Phase 1-300ms + Mongo find 100ms 左右，既是是做同样查询响应时长，可以从 2-10s 缩减至 300 ms 左右。理想状态下服务会更稳定。
+> Query Phase 200ms + Mongo find 100ms 左右，既是是做同样查询响应时长，可以从 2-10s **缩减至 300 ms 左右**。理想状态下服务会更稳定。
 
 在处理 `DELETE /:index/_doc/:_id` 时，也删除 Mongo 文档数据。
 
