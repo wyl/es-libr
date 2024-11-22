@@ -50,42 +50,42 @@ export const _searchHandler: TransHandler = (
       if (!isStatusOk(res.status)) {
         logger.error(`Search status failed: ${res.status}`)
         return
-      }
+      } else {
+        const resData =
+          (res.body as SearchResponse<Record<string, string>>).hits?.hits || []
 
-      const resData =
-        (res.body as SearchResponse<Record<string, string>>).hits?.hits || []
+        const ids = resData.map((it) => it._id || '')
 
-      const ids = resData.map((it) => it._id || '')
+        const documents = await traceLog(
+          `Mongo`,
+          () =>
+            mongoDb
+              .collection<{ _id: string }>(target)
+              .find(
+                { _id: { $in: ids } },
+                {
+                  projection: mockMongoFields(
+                    _source,
+                    _source_excludes,
+                    _source_includes,
+                  ),
+                },
+              )
+              .toArray(),
+          [target],
+        )
 
-      const documents = await traceLog(
-        `Mongo`,
-        () =>
-          mongoDb
-            .collection<{ _id: string }>(target)
-            .find(
-              { _id: { $in: ids } },
-              {
-                projection: mockMongoFields(
-                  _source,
-                  _source_excludes,
-                  _source_includes,
-                ),
-              },
+        resData.forEach((data) => {
+          const rawData = documents?.find((it) => it._id === data._id)
+          if (rawData) {
+            data._source = rawData
+          } else {
+            logger.error(
+              `Can't find data with collection: ${target} id:  ${data._id}`,
             )
-            .toArray(),
-        [target],
-      )
-
-      resData.forEach((data) => {
-        const rawData = documents?.find((it) => it._id === data._id)
-        if (rawData) {
-          data._source = rawData
-        } else {
-          logger.error(
-            `Can't find data with collection: ${target} id:  ${data._id}`,
-          )
-        }
-      })
+          }
+        })
+      }
     },
   ]
 }

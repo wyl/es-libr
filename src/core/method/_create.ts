@@ -41,16 +41,15 @@ export const _createHandler: TransHandler = (
       if (!isStatusOk(res.status)) {
         logger.error(`Create status failed: ${res.status} `)
         return
+      } else {
+        const doc = JSON.parse(body || '{}')
+        await traceLog('Mongo', () =>
+          mongoDb.collection<{ _id: string }>(index).insertOne({ ...doc, _id }),
+        ).then((it) => {
+          logger.trace(it)
+          return it
+        })
       }
-
-      const doc = JSON.parse(body || '{}')
-
-      await traceLog('Mongo', () =>
-        mongoDb.collection<{ _id: string }>(index).insertOne({ ...doc, _id }),
-      ).then((it) => {
-        logger.trace(it)
-        return it
-      })
     },
   ]
 }

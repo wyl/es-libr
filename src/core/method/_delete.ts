@@ -24,14 +24,14 @@ export const _deleteHandler: TransHandler = (
       if (!isStatusOk(res.status)) {
         logger.error(`Delete status failed: ${res.status}`)
         return
+      } else {
+        await traceLog('Mongo', () =>
+          mongoDb.collection<{ _id: string }>(index).deleteOne({ _id: _id }),
+        ).then((it) => {
+          logger.trace(it)
+          return it
+        })
       }
-
-      await traceLog('Mongo', () =>
-        mongoDb.collection<{ _id: string }>(index).deleteOne({ _id: _id }),
-      ).then((it) => {
-        logger.trace(it)
-        return it
-      })
     },
   ]
 }

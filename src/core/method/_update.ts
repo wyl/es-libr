@@ -40,17 +40,18 @@ export const _updateHandler: TransHandler = (
       if (!isStatusOk(res.status)) {
         logger.error(`Update status failed: ${res.status}`)
         return
+      } else {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { doc, ...otherFields } = JSON.parse(body || '{}')
+        await traceLog('Mongo', () =>
+          mongoDb
+            .collection<{ _id: string }>(index)
+            .updateOne({ _id: { $eq: _id } }, { $set: doc }, { upsert: true }),
+        ).then((it) => {
+          logger.trace(it)
+          return it
+        })
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { doc, ...otherFields } = JSON.parse(body || '{}')
-      await traceLog('Mongo', () =>
-        mongoDb
-          .collection<{ _id: string }>(index)
-          .updateOne({ _id: { $eq: _id } }, { $set: doc }, { upsert: true }),
-      ).then((it) => {
-        logger.trace(it)
-        return it
-      })
     },
   ]
 }

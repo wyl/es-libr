@@ -21,19 +21,20 @@ export const _getHandler: TransHandler = (
       if (!isStatusOk(res.status)) {
         logger.error(`Get status failed: ${res.status}`)
         return
-      }
-      const doc = await traceLog('Mongo', () =>
-        mongoDb
-          .collection<{
-            _id: string
-          }>(index)
-          .findOne({
-            _id,
-          }),
-      )
+      } else {
+        const doc = await traceLog('Mongo', () =>
+          mongoDb
+            .collection<{
+              _id: string
+            }>(index)
+            .findOne({
+              _id,
+            }),
+        )
 
-      const resData = res.body as SearchHit
-      if (doc) resData._source = doc
+        const resData = res.body as SearchHit
+        if (doc) resData._source = doc
+      }
     },
   ]
 }
