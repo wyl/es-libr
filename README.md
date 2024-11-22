@@ -154,6 +154,7 @@ Nested 结构查询 comment 同时具备多个条件
 e.g.:
 es \_bulk ,mongodb bulkWrite
 ES search API 中的 \_source ,mongodb find projection
+![MongoDB VS Elasticsearch](image/mongo-vs-elasticsearch.png)
 
 仅需定义搜索业务需要的索引即可，展示需要的索引不需要定义或少量定义。主要目的就是减少 ES 索引及数据存储的大小。[Index Mapping Demo](index-mappings/caas-cn-zaobao-online.ts)
 
