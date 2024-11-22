@@ -150,9 +150,10 @@ Nested 结构查询 comment 同时具备多个条件
 
 这个程序是为了替换掉正在成熟使用的 Elasticsearch 角色，技术选型选择了 Mongodb，两者都是文档数据库，在使用语法语义上有很多相似之处
 
-(xx)
 e.g.:
+
 es \_bulk ,mongodb bulkWrite
+
 ES search API 中的 \_source ,mongodb find projection
 ![MongoDB VS Elasticsearch](image/mongo-vs-elasticsearch.png)
 
@@ -163,7 +164,9 @@ ES search API 中的 \_source ,mongodb find projection
 ![KOA Onion Model](image/image-20241112-080341.png)
 
 在处理 `_update/_create/_bulk`请求时，序列化 Request Body 序列化仅搜索需要的数据。原始数据存入 Mongo DB。
+
 在处理 `_search` 请求时，请求时，\_source 会被重写为 \_source: false ，仅使用 ES 的搜索功能。而 `_source/_source_excludes/_source_includes` 会被转换成 [Mongo find projection](https://www.mongodb.com/zh-cn/docs/manual/reference/method/db.collection.find/)，结构。
+
 在处理 `_delete` 时，也可以删除 Mongodb 数据。
 
 但是这里支持不是很好的地方
