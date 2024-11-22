@@ -25,7 +25,7 @@ async function traceLog<T, K extends string>(
 
   return func().then((res) => {
     logger.info(
-      `[${type}] ${context} ${(performance.now() - t0).toFixed(2)} ms `,
+      `[${type}] ${context || ''} ${(performance.now() - t0).toFixed(2)} ms `,
     )
     logger.trace(JSON.stringify(res))
     return res

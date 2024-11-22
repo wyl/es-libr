@@ -81,7 +81,9 @@ export const _searchHandler: TransHandler = (
         if (rawData) {
           data._source = rawData
         } else {
-          logger.error(`Can't find data with id: ${data._id}`)
+          logger.error(
+            `Can't find data with collection: ${target} id:  ${data._id}`,
+          )
         }
       })
     },

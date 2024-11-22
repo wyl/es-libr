@@ -27,13 +27,7 @@ export const _deleteHandler: TransHandler = (
       }
 
       await traceLog('Mongo', () =>
-        mongoDb
-          .collection<{
-            _id: string
-          }>(index)
-          .deleteOne({
-            _id: _id,
-          }),
+        mongoDb.collection<{ _id: string }>(index).deleteOne({ _id: _id }),
       ).then((it) => {
         logger.trace(it)
         return it

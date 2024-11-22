@@ -7,7 +7,7 @@ import { getLinkNode, mongoDb } from '@eslibr/init'
 import { isStatusOk, traceLog } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 import Koa from 'koa'
-import { ObjectId, WithId } from 'mongodb'
+import { WithId } from 'mongodb'
 import ndjson from 'ndjson'
 import { ParamData } from 'path-to-regexp'
 import { TransHandler } from '.'
@@ -48,7 +48,7 @@ export const _bulkHandler: TransHandler = (
                 action: _type as Option,
                 document: {
                   ...ndObj,
-                  _id: new ObjectId(_id.padStart(24, '0')),
+                  _id: _id,
                 },
               })
             }
@@ -119,7 +119,10 @@ export const _bulkHandler: TransHandler = (
 
           return traceLog(
             'Mongo',
-            () => mongoDb.collection(collectionKey).bulkWrite(writeBulk),
+            () =>
+              mongoDb
+                .collection<{ _id: string }>(collectionKey)
+                .bulkWrite(writeBulk),
             [collectionKey],
           ).then((it) => {
             logger.trace(it)
@@ -131,7 +134,7 @@ export const _bulkHandler: TransHandler = (
   ]
 }
 
-type BulkData = { action: Option; document: WithId<object> }
+type BulkData = { action: Option; document: WithId<{ _id: string } & object> }
 type Option = 'index' | 'create' | 'delete' | 'update'
 function createTempData() {
   const dataOperator: Record<string, Array<BulkData>> = {}
