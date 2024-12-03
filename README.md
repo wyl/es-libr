@@ -172,17 +172,17 @@ MONGODB_DBNAME=<dev>
 
 - 多个 index 搜索 `/<index1,index2,*>/_search`
 
-![elasticsearch distributed search](https://github.com/wyl/es-libr/blob/main/elasticsearch%20distributed%20search.md)
+![Elasticsearch Distributed Search](https://github.com/wyl/es-libr/blob/main/elasticsearch%20distributed%20search.md)
 
 <details>
 <summary>Q: 如上报数据的索引未被定义会发生什么？</summary>
 A:此时此服务就是 ES，直接转发任何请求至 ES。
-<details>
+</details>
 
 <details>
 <summary>Q: 认证 API-KEY 是怎么处理的？</summary>
 A:API-KEY 是后端的 ES 的 API-KEY，权限认证、状态码等都是 ES 的真实响应
-<details>
+</details>
 
 <details>
 <summary>Q: 启用 Mongo 后 搜索语句中的 `_source/_source_excludes/_source_includes` 是如何处理的？</summary>
@@ -193,7 +193,7 @@ Phase 02 查询`_source` 被转换成 [Mongo find projection](https://www.mongod
 
 ```
 
-<details>
+</details>
 
 <details>
 <summary>Q:响应速度可能被优化到多少？</summary>
@@ -201,4 +201,4 @@ Phase 02 查询`_source` 被转换成 [Mongo find projection](https://www.mongod
 从做的一些实验上来看 150ms(Query Phase) + 2s(Fetch Phase) + ?ms(Mongo ) = 总耗时。
 如果 Mongo 稳定在 200 ms 左右，那搜索可被稳定在 350 ms 左右。
 
-<details>
+</details>
