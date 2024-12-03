@@ -126,6 +126,8 @@ const indexMappingList = [mapping, blogPostIndexMapping]
 - 除搜索需求之外，简单的附加属性
 - 除搜索需求之外，附加一些业务展示需求的属性
 - 原始数据结构
+<details>
+<summary>启用 Mongo 作为数据载体</summary>
 
 ## 启用 Mongo 作为数据载体（Option）
 
@@ -149,6 +151,7 @@ MONGODB_DBNAME=<dev>
 
 ```
 
+</details>
 ![KOA Onion Model](image/image-20241112-080341.png)
 
 - [x] 支持 Aggregate
