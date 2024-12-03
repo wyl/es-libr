@@ -37,8 +37,8 @@
 
 如上，我们有一个原始文档。搜索需求需要根据 `title`、`tags` 和 `comments` 中的 `age`、`stars` 做检索。
 
-- 在上报数据之前，修改 body 与搜索结果匹配，(OK 转身离开，下面不用看了)
-- 使用此服务，定义如下 Index mapping
+- 在上报数据之前，修改 body 与搜索姿势匹配，(OK 转身离开，下面不用看了)
+- 使用此服务，确定使用姿势，定义如下 Index mapping，替代 Elasticsearch
 
 ```
 const blogPostIndexMapping: T.IndicesPutMappingRequest =
