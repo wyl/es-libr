@@ -42,9 +42,9 @@ ES 作为搜索引擎，搜索引擎内的数据结构一定要比原始数据�
 
 使用 ES 做分页时，由于 sorted 的属性值可能出现相同数据的情况，下一页的数据和上一页的数据有重合的情况。因为 ES 是个分布式搜索引擎，两次请求漂移到不同的节点，在发送请求时带上 Session ID，多次请求会命中在同一节点。`perference=<session_id>`
 
-![_source:true](image/search-with-_source-true.png)
+![_source:true](./image/search-with-_source-true.png)
 
-![_source:false](image/search-with-_source-false.png)
+![_source:false](./image/search-with-_source-false.png)
 
 不设置 \_source 或将 \_source 设置为 true 时，response duration 耗时 2 左右，偶尔 response duration 会达到 10s，受 ES 当时状态影响较大。
 

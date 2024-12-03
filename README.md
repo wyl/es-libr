@@ -150,17 +150,18 @@ MONGODB_DBNAME=<dev>
 ```
 
 ![KOA Onion Model](image/image-20241112-080341.png)
-[√] 支持 Aggregate
-[√] `<index>/_bulk`
-[√] `<index>/_create`
-[√] `<index>/_delete `
-[√] `<index>/_get `
-[√] `<index>/_search `
-[√] `<index>/_update `
-[ ] `_reindex`，如果需要考虑从 Mongo Oplog 到 ES，避免原始数据丢失
-[ ] Delete Index 需要 Delete Mongo Collection
-[ ] `_alias` 需要考虑
-[ ] `_msearch`
+
+- [√] 支持 Aggregate
+- [√] `<index>/_bulk`
+- [√] `<index>/_create`
+- [√] `<index>/_delete `
+- [√] `<index>/_get `
+- [√] `<index>/_search `
+- [√] `<index>/_update `
+- [ ] `_reindex`，如果需要考虑从 Mongo Oplog 到 ES，避免原始数据丢失
+- [ ] Delete Index 需要 Delete Mongo Collection
+- [ ] `_alias` 需要考虑
+- [ ] `_msearch`
 
 不重要部分
 
@@ -171,7 +172,7 @@ MONGODB_DBNAME=<dev>
 
 - 多个 index 搜索 `/<index1,index2,*>/_search`
 
-![elasticsearch distributed search](elasticsearch distributed search.md)
+![elasticsearch distributed search](./elasticsearch%20distributed%20search.md)
 
 Questsion：如上报数据的索引未被定义会发生什么？
 Answer: 此时此服务就是 ES，直接转发任何请求至 ES。
