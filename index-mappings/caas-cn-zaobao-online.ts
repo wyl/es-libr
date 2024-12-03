@@ -1,6 +1,5 @@
 import * as T from '@elastic/elasticsearch/lib/api/types'
 
-
 const mapping: T.IndicesPutMappingRequest = {
   index: 'caas-cn-zaobao-online',
   properties: {
@@ -4200,4 +4199,4 @@ const mapping: T.IndicesPutMappingRequest = {
   },
 }
 
-export { mapping }
+export default mapping

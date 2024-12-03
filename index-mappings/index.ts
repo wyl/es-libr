@@ -1,8 +1,9 @@
 import { ExtractLinkNode, makeIndexLinkNode } from '@eslibr/lib'
-import { mapping } from './caas-cn-zaobao-online'
+import zbOnlineMapping from './caas-cn-zaobao-online'
 import { logger } from '@eslibr/logger'
+import postBlogMapping from './blog-post'
 
-const indexMappingList = [mapping]
+const indexMappingList = [zbOnlineMapping, postBlogMapping]
 
 function generateIndexLinkNodeMapping(): Record<
   string,
