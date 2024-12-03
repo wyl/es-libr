@@ -176,12 +176,12 @@ MONGODB_DBNAME=<dev>
 
 <details>
 <summary>Q: 如上报数据的索引未被定义会发生什么？</summary>
-A:此时此服务就是 ES，直接转发任何请求至 ES。
+此时此服务就是 ES，直接转发任何请求至 ES。
 </details>
 
 <details>
 <summary>Q: 认证 API-KEY 是怎么处理的？</summary>
-A:API-KEY 是后端的 ES 的 API-KEY，权限认证、状态码等都是 ES 的真实响应
+API-KEY 是后端的 ES 的 API-KEY，权限认证、状态码等都是 ES 的真实响应
 </details>
 
 <details>
