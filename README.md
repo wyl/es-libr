@@ -174,25 +174,31 @@ MONGODB_DBNAME=<dev>
 
 ![elasticsearch distributed search](https://github.com/wyl/es-libr/blob/main/elasticsearch%20distributed%20search.md)
 
-Questsion：如上报数据的索引未被定义会发生什么？
+<details>
+<summary>Q: 如上报数据的索引未被定义会发生什么？</summary>
+A:此时此服务就是 ES，直接转发任何请求至 ES。
+<details>
 
-Answer: 此时此服务就是 ES，直接转发任何请求至 ES。
+<details>
+<summary>Q: 认证 API-KEY 是怎么处理的？</summary>
+A:API-KEY 是后端的 ES 的 API-KEY，权限认证、状态码等都是 ES 的真实响应
+<details>
 
-Question： 权限系统 API-KEY 是怎么处理的？
-
-Answer：API-KEY 是后端的 ES 的 API-KEY，权限认证、状态码等都是 ES 的真实响应
-
-Question： 启用 Mongo 后 搜索语句中的 `_source/_source_excludes/_source_includes` 是如何处理的
-
-Answer:
-
-```
-Part01 查询 ES 时，`_source` 是 false。跳过 Fetch Phase
-Part02 查询`_source` 被转换成 [Mongo find projection](https://www.mongodb.com/zh-cn/docs/manual/reference/method/db.collection.find/)，此时 Mongo 返回的数据结构与 ES 的`_source` 同等效果。
+<details>
+<summary>Q: 启用 Mongo 后 搜索语句中的 `_source/_source_excludes/_source_includes` 是如何处理的？</summary>
 
 ```
+Phase 01 查询 ES 时，`_source` 是 false。跳过 Fetch Phase
+Phase 02 查询`_source` 被转换成 [Mongo find projection](https://www.mongodb.com/zh-cn/docs/manual/reference/method/db.collection.find/)，此时 Mongo 返回的数据结构与 ES 的`_source` 同等效果。
 
-Question：响应速度可能被优化到多少？
+```
 
-Answer：从做的一些实验上来看 150ms(Query Phase) + 2s(Fetch Phase) + ?ms(Mongo ) = 总耗时。
+<details>
+
+<details>
+<summary>Q:响应速度可能被优化到多少？</summary>
+
+从做的一些实验上来看 150ms(Query Phase) + 2s(Fetch Phase) + ?ms(Mongo ) = 总耗时。
 如果 Mongo 稳定在 200 ms 左右，那搜索可被稳定在 350 ms 左右。
+
+<details>
