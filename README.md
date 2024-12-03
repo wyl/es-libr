@@ -174,6 +174,8 @@ MONGODB_DBNAME=<dev>
 
 ![Elasticsearch Distributed Search](https://github.com/wyl/es-libr/blob/main/elasticsearch%20distributed%20search.md)
 
+### Q/A
+
 <details>
 <summary>Q: 如上报数据的索引未被定义会发生什么？</summary>
 此时此服务就是 ES，直接转发任何请求至 ES。
