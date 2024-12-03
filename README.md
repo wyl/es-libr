@@ -172,7 +172,7 @@ MONGODB_DBNAME=<dev>
 
 - 多个 index 搜索 `/<index1,index2,*>/_search`
 
-[elasticsearch distributed search](./elasticsearch%20distributed%20search.md)
+![elasticsearch distributed search](https://github.com/wyl/es-libr/blob/main/elasticsearch%20distributed%20search.md)
 
 Questsion：如上报数据的索引未被定义会发生什么？
 
