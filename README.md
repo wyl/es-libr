@@ -151,17 +151,17 @@ MONGODB_DBNAME=<dev>
 
 ![KOA Onion Model](image/image-20241112-080341.png)
 
-- [√] 支持 Aggregate
-- [√] `<index>/_bulk`
-- [√] `<index>/_create`
-- [√] `<index>/_delete `
-- [√] `<index>/_get `
-- [√] `<index>/_search `
-- [√] `<index>/_update `
-- [ ] `_reindex`，如果需要考虑从 Mongo Oplog 到 ES，避免原始数据丢失
-- [ ] Delete Index 需要 Delete Mongo Collection
-- [ ] `_alias` 需要考虑
-- [ ] `_msearch`
+[√] 支持 Aggregate
+[√] `<index>/_bulk`
+[√] `<index>/_create`
+[√] `<index>/_delete `
+[√] `<index>/_get `
+[√] `<index>/_search `
+[√] `<index>/_update `
+[ ] `_reindex`，如果需要考虑从 Mongo Oplog 到 ES，避免原始数据丢失
+[ ] Delete Index 需要 Delete Mongo Collection
+[ ] `_alias` 需要考虑
+[ ] `_msearch`
 
 不重要部分
 
