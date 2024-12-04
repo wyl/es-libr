@@ -1,6 +1,7 @@
 # Overview
 
-清晰明确 ES 存储的数据结构，通过中间件减少存储 ES 的数据大小，从而减少索引及数据压力，来 ES 的工作提升效率。可以像使用 ES 一样去使用此服务。
+清晰明确 Elasticsearch 存储的数据结构，通过中间件减少存储的数据大小，从而减少索引及数据压力，来提升 ES 的工作效率。
+**定义好索引后，像使用 ES 一样去使用此服务。**
 
 ## 关心 ES 使用姿势：
 
@@ -125,7 +126,7 @@ const indexMappingList = [mapping, blogPostIndexMapping]
 
 可以看到 data 内的数据结构即是定义的索引结构，确保不会因为提交数据的更多而引起 ES Index Mapping 的变更。
 
-将更多的关注度放在，ES 的需求选择上。
+将更多的注意力放在，业务上。
 
 <details>
 <summary>启用 Mongo 作为数据载体</summary>
