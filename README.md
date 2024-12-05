@@ -1,7 +1,10 @@
 # Overview
 
-清晰明确 Elasticsearch 存储的数据结构，通过中间件减少存储的数据大小，从而减少索引及数据压力，来提升 ES 的工作效率。
-**定义好索引后，像使用 ES 一样去使用此服务。**
+通过明确 ES 索引结构，约束上报至 ES 内的数据。来减少索引检索及数据计算传输的压力，来提升 ES 的工作效率和降低成本。
+
+> 服务使用 NodeJs Koa 框架开发，使用 Middleware 来拦截修改请求数据，在 Request 和 Response 中修改数据逻辑，请求路径和返回值都是 Elasticsearch 的数据。
+
+> **定义好索引后，像使用 ES 一样去使用此服务。**
 
 ## 关心 ES 使用姿势：
 
@@ -135,7 +138,11 @@ const indexMappingList = [mapping, blogPostIndexMapping]
 
 ![MongoDB VS Elasticsearch](image/mongo-vs-elasticsearch.png)
 
-把 ES 仅做为搜索引擎使用，Mongo 作为数据数据载体时。`_search` 代理到 ES 时 `_source` 为 false，此时 ES 会跳过 Fetch Phase，搜索效率会大大提高。ES response 的 ID List 会去 Mongo 中查询，并做数据富华，最终返回结果和直接使用 ES 一样。
+当 ES 使用方式极简时，**仅满足搜索条件的数据结构**，此时搜索 Response 中仅有**\_id**有意义，为了保障使用此服务前后是一样的使用习惯。获取原始数据可通过数据中台来加载原始数据，或启用 Mongo 选项。
+
+![Enable Mongodb Processing when search](./image/enable-mongo-process.png)
+
+启用 Mongo 后，`_search` 代理到 ES 时 `_source` 为 false，此时 ES 会跳过 Fetch Phase，搜索效率稳定且很快。ES response 的 ID List 会去 Mongo 中查询，并做数据富华，最终返回结果和直接使用 ES 一样。
 
 启用 Mongo 后，可能面临的问题是费用的提升，但搜索服务会更稳定。
 
