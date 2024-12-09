@@ -6,6 +6,8 @@ Elasticsearch 是一个基于 Apache Lucene(TM) 的开源搜索引擎。一个�
 
 [Distributed Search Execution](https://www.elastic.co/guide/en/elasticsearch/guide/current/distributed-search.html)
 
+https://stackoverflow.com/questions/74197894/elastic-search-query-performance-when-fetch-phase-source-is-disabled
+
 ES 作为搜索引擎，搜索引擎内的数据结构一定要比原始数据结构小，毕竟初衷是 “使用 ES 快速相应搜索结果”。
 
 ## ES 内的数据结构：
@@ -20,6 +22,8 @@ ES 作为搜索引擎，搜索引擎内的数据结构一定要比原始数据�
 ## Search API
 
 **Request**
+
+### \_source
 
 > \_source
 > (Optional) Indicates which source fields are returned for matching documents. These fields are returned in the hits.\_source property of the search response. Defaults to true. See source filtering.
@@ -38,9 +42,13 @@ ES 作为搜索引擎，搜索引擎内的数据结构一定要比原始数据�
 
 当请求 `_search` 时，`_source` 设置为 `false`，ES 只会经过 Query Phase，跳过 Fetch Phase 效率比较高且更稳定一般在 130ms 以内。此时 response 中含返回结果的一组 ID，可在其他系统上进行查询返回原始数据。Fetch Phase 效率较低。
 
+### perference
+
 [`/<index>/_search?perference=<session_id>`](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html#search-search-api-path-params)
 
-使用 ES 做分页时，由于 sorted 的属性值可能出现相同数据的情况，下一页的数据和上一页的数据有重合的情况。因为 ES 是个分布式搜索引擎，两次请求漂移到不同的节点，在发送请求时带上 Session ID，多次请求会命中在同一节点。`perference=<session_id>`
+使用 ES 做分页时，由于 sorted 的属性值可能出现相同数据的情况，下一页的数据和上一页的数据有重合的情况。因为 ES 是个分布式搜索引擎，两次请求漂移到不同的节点，在发送请求时带上 Session ID，多次请求会命中在同一节点。
+
+```GET your_index/_search?perference=<session_id>`
 
 ![_source:true](./image/search-with-_source-true.png)
 
@@ -51,6 +59,17 @@ ES 作为搜索引擎，搜索引擎内的数据结构一定要比原始数据�
 将 \_source 设置为 false 时，response duratoin 在 200ms 左右，时长较稳定。
 
 将 \_source 返回部分属性 `_source: ["data.context.id"] ` 效果也还行，但会经过 Fetch Phase 阶段，效率有一定影响。
+
+### request_cache
+
+request_cache
+(Optional, Boolean) If true, the caching of search results is enabled for requests where size is 0. See Shard request cache settings. Defaults to index level settings.
+
+```
+GET your_index/_search?request_cache=false
+```
+
+![alt text](./image/image-1.png)
 
 **Response**
 
