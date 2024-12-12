@@ -37,6 +37,21 @@ export type ExtractLinkNode<> = {
   next?: Array<ExtractLinkNode>
 }
 
+export function buildPaths(
+  node: ExtractLinkNode,
+  parentPath: string = '',
+): string[] {
+  const currentPath = parentPath ? `${parentPath}.${node.key}` : node.key
+  let paths: string[] = []
+  if (node.next) {
+    node.next.forEach((child) => {
+      paths = paths.concat(buildPaths(child, currentPath))
+    })
+  } else {
+    paths.push(currentPath)
+  }
+  return paths
+}
 type MappingProperties = T.IndicesPutMappingRequest['properties']
 
 function makeIndexLinkNode(mapping: MappingProperties): Array<ExtractLinkNode> {
@@ -61,6 +76,15 @@ function extractFieldsWithNode<T extends unknown, U extends keyof T>(
   node: ExtractLinkNode,
 ): [U, MaybeOptional<T>] {
   const { key, next } = node
+  // console.log({ obj, key, P: JSON.stringify(node) })
+  if (
+    obj === undefined ||
+    obj === null ||
+    !Object.keys(obj || {}).includes(key)
+  )
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return [undefined, undefined] as any
+
   let value = obj[key as keyof T] as MaybeOptional<T>
   if (next) {
     if (Array.isArray(value)) {

@@ -61,6 +61,7 @@ function ContextMiddleware() {
       )
     }
 
+    // ctx.response.body = ctx.request.body
     if (!response) return next()
 
     await next()

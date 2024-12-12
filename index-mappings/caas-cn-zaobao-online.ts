@@ -429,15 +429,15 @@ const mapping: T.IndicesPutMappingRequest = {
                         //     'date_time||date_time_no_millis||date_hour_minute_second_millis',
                         //   ignore_malformed: true,
                         // },
-                        // urlPath: {
-                        //   type: 'text',
-                        //   fields: {
-                        //     keyword: {
-                        //       type: 'keyword',
-                        //       ignore_above: 256,
-                        //     },
-                        //   },
-                        // },
+                        urlPath: {
+                          type: 'text',
+                          fields: {
+                            keyword: {
+                              type: 'keyword',
+                              ignore_above: 256,
+                            },
+                          },
+                        },
                         // urlPathHistory: {
                         //   type: 'text',
                         //   fields: {
@@ -615,9 +615,9 @@ const mapping: T.IndicesPutMappingRequest = {
                     },
                   },
                 },
-                // displayHeadline: {
-                //   type: 'text',
-                // },
+                displayHeadline: {
+                  type: 'text',
+                },
                 // displayHeadlineZBCom: {
                 //   type: 'text',
                 //   fields: {
@@ -627,9 +627,9 @@ const mapping: T.IndicesPutMappingRequest = {
                 //     },
                 //   },
                 // },
-                // displayType: {
-                //   type: 'text',
-                // },
+                displayType: {
+                  type: 'text',
+                },
                 // englishHeadline: {
                 //   type: 'text',
                 //   fields: {
@@ -639,18 +639,18 @@ const mapping: T.IndicesPutMappingRequest = {
                 //     },
                 //   },
                 // },
-                // externalURL: {
-                //   type: 'text',
-                // },
+                externalURL: {
+                  type: 'text',
+                },
                 // hasAffiliateLabel: {
                 //   type: 'boolean',
                 // },
-                // hasUpdatedTimeDisplayed: {
-                //   type: 'boolean',
-                // },
-                // hideAuthorFlag: {
-                //   type: 'boolean',
-                // },
+                hasUpdatedTimeDisplayed: {
+                  type: 'boolean',
+                },
+                hideAuthorFlag: {
+                  type: 'boolean',
+                },
                 // hideFromBreakingNewsListing: {
                 //   type: 'boolean',
                 // },
@@ -675,9 +675,9 @@ const mapping: T.IndicesPutMappingRequest = {
                 // sticky: {
                 //   type: 'boolean',
                 // },
-                // zbcomFlag: {
-                //   type: 'boolean',
-                // },
+                zbcomFlag: {
+                  type: 'boolean',
+                },
                 zbsgFlag: {
                   type: 'boolean',
                 },
@@ -696,1324 +696,1324 @@ const mapping: T.IndicesPutMappingRequest = {
                 children: {
                   type: 'text',
                 },
-                // fields: {
-                //   type: 'nested',
-                //   properties: {
-                //     annotations: {
-                //       type: 'nested',
-                //       properties: {
-                //         index: {
-                //           type: 'integer',
-                //         },
-                //         length: {
-                //           type: 'integer',
-                //           index: false,
-                //         },
-                //         name: {
-                //           type: 'text',
-                //         },
-                //         value: {
-                //           type: 'text',
-                //         },
-                //       },
-                //     },
-                //     booleanValue: {
-                //       type: 'boolean',
-                //     },
-                //     name: {
-                //       type: 'text',
-                //     },
-                //     value: {
-                //       type: 'text',
-                //       term_vector: 'with_positions_offsets',
-                //       analyzer: 'ik_smart',
-                //     },
-                //   },
-                // },
-                // id: {
-                //   type: 'keyword',
-                // },
-                // relation: {
-                //   properties: {
-                //     alternates: {
-                //       properties: {
-                //         BASE_FREE: {
-                //           properties: {
-                //             auto: {
-                //               type: 'boolean',
-                //             },
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //             x: {
-                //               type: 'long',
-                //             },
-                //             y: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         BASE_LANDSCAPE: {
-                //           properties: {
-                //             auto: {
-                //               type: 'boolean',
-                //             },
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //             x: {
-                //               type: 'long',
-                //             },
-                //             y: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         BASE_PORTRAIT: {
-                //           properties: {
-                //             auto: {
-                //               type: 'boolean',
-                //             },
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //             x: {
-                //               type: 'long',
-                //             },
-                //             y: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         BASE_SQUARE: {
-                //           properties: {
-                //             auto: {
-                //               type: 'boolean',
-                //             },
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //             x: {
-                //               type: 'long',
-                //             },
-                //             y: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         BASE_SQUARE_30_26: {
-                //           properties: {
-                //             auto: {
-                //               type: 'boolean',
-                //             },
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //             x: {
-                //               type: 'long',
-                //             },
-                //             y: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         BASE_WIDE: {
-                //           properties: {
-                //             auto: {
-                //               type: 'boolean',
-                //             },
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //             x: {
-                //               type: 'long',
-                //             },
-                //             y: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         ORIGINAL: {
-                //           properties: {
-                //             auto: {
-                //               type: 'boolean',
-                //             },
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //             x: {
-                //               type: 'long',
-                //             },
-                //             y: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         com_escenic_master: {
-                //           properties: {
-                //             auto: {
-                //               type: 'boolean',
-                //             },
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //             x: {
-                //               type: 'long',
-                //             },
-                //             y: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         poi: {
-                //           properties: {
-                //             auto: {
-                //               type: 'boolean',
-                //             },
-                //             left: {
-                //               type: 'long',
-                //             },
-                //             top: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //       },
-                //     },
-                //     binary: {
-                //       properties: {
-                //         filename: {
-                //           type: 'text',
-                //         },
-                //         url: {
-                //           type: 'text',
-                //         },
-                //       },
-                //     },
-                //     binaryLink: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //     },
-                //     bucketName: {
-                //       type: 'text',
-                //     },
-                //     fields: {
-                //       properties: {
-                //         brightcoveId: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         byline: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         caption: {
-                //           type: 'text',
-                //           term_vector: 'with_positions_offsets',
-                //           analyzer: 'ik_smart',
-                //         },
-                //         com_escenic_defaultmetadata: {
-                //           type: 'nested',
-                //           properties: {
-                //             key: {
-                //               type: 'text',
-                //             },
-                //             value: {
-                //               type: 'text',
-                //             },
-                //           },
-                //         },
-                //         credit: {
-                //           type: 'text',
-                //         },
-                //         description: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         freecrop: {
-                //           properties: {
-                //             height: {
-                //               type: 'integer',
-                //               index: false,
-                //             },
-                //             url: {
-                //               type: 'text',
-                //             },
-                //             width: {
-                //               type: 'integer',
-                //               index: false,
-                //             },
-                //           },
-                //         },
-                //         'freecrop-caas': {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         landscape: {
-                //           properties: {
-                //             height: {
-                //               type: 'integer',
-                //               index: false,
-                //             },
-                //             url: {
-                //               type: 'text',
-                //             },
-                //             width: {
-                //               type: 'integer',
-                //               index: false,
-                //             },
-                //           },
-                //         },
-                //         'landscape-caas': {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         landscape1024: {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             href_full: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         'landscape1024-caas': {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         landscape480: {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             href_full: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         'landscape480-caas': {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         original: {
-                //           properties: {
-                //             height: {
-                //               type: 'integer',
-                //               index: false,
-                //             },
-                //             url: {
-                //               type: 'text',
-                //             },
-                //             width: {
-                //               type: 'integer',
-                //               index: false,
-                //             },
-                //           },
-                //         },
-                //         'original-caas': {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         portrait: {
-                //           properties: {
-                //             height: {
-                //               type: 'integer',
-                //               index: false,
-                //             },
-                //             url: {
-                //               type: 'text',
-                //             },
-                //             width: {
-                //               type: 'integer',
-                //               index: false,
-                //             },
-                //           },
-                //         },
-                //         'portrait-caas': {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         square: {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         'square-caas': {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         square_30_26: {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         'square_30_26-caas': {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         title: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         wide: {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         'wide-caas': {
-                //           properties: {
-                //             height: {
-                //               type: 'long',
-                //             },
-                //             url: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             width: {
-                //               type: 'long',
-                //             },
-                //           },
-                //         },
-                //         youtubeId: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //       },
-                //     },
-                //     href: {
-                //       type: 'text',
-                //     },
-                //     id: {
-                //       type: 'keyword',
-                //     },
-                //     linkFollow: {
-                //       properties: {
-                //         alternates: {
-                //           properties: {
-                //             BASE_FREE: {
-                //               properties: {
-                //                 auto: {
-                //                   type: 'boolean',
-                //                 },
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //                 x: {
-                //                   type: 'long',
-                //                 },
-                //                 y: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             BASE_LANDSCAPE: {
-                //               properties: {
-                //                 auto: {
-                //                   type: 'boolean',
-                //                 },
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //                 x: {
-                //                   type: 'long',
-                //                 },
-                //                 y: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             BASE_PORTRAIT: {
-                //               properties: {
-                //                 auto: {
-                //                   type: 'boolean',
-                //                 },
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //                 x: {
-                //                   type: 'long',
-                //                 },
-                //                 y: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             BASE_SQUARE: {
-                //               properties: {
-                //                 auto: {
-                //                   type: 'boolean',
-                //                 },
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //                 x: {
-                //                   type: 'long',
-                //                 },
-                //                 y: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             BASE_SQUARE_30_26: {
-                //               properties: {
-                //                 auto: {
-                //                   type: 'boolean',
-                //                 },
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //                 x: {
-                //                   type: 'long',
-                //                 },
-                //                 y: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             BASE_WIDE: {
-                //               properties: {
-                //                 auto: {
-                //                   type: 'boolean',
-                //                 },
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //                 x: {
-                //                   type: 'long',
-                //                 },
-                //                 y: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             ORIGINAL: {
-                //               properties: {
-                //                 auto: {
-                //                   type: 'boolean',
-                //                 },
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //                 x: {
-                //                   type: 'long',
-                //                 },
-                //                 y: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             com_escenic_master: {
-                //               properties: {
-                //                 auto: {
-                //                   type: 'boolean',
-                //                 },
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //                 x: {
-                //                   type: 'long',
-                //                 },
-                //                 y: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             poi: {
-                //               properties: {
-                //                 auto: {
-                //                   type: 'boolean',
-                //                 },
-                //                 left: {
-                //                   type: 'long',
-                //                 },
-                //                 top: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //           },
-                //         },
-                //         binaryLink: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         fields: {
-                //           properties: {
-                //             caption: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             com_escenic_defaultmetadata: {
-                //               properties: {
-                //                 key: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 value: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //               },
-                //             },
-                //             credit: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             freecrop: {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             'freecrop-caas': {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             landscape: {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             'landscape-caas': {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             landscape1024: {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 href_full: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             'landscape1024-caas': {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             landscape480: {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 href_full: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             'landscape480-caas': {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             original: {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             'original-caas': {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             portrait: {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             'portrait-caas': {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             square: {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             'square-caas': {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             square_30_26: {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             'square_30_26-caas': {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             wide: {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //             'wide-caas': {
-                //               properties: {
-                //                 height: {
-                //                   type: 'long',
-                //                 },
-                //                 url: {
-                //                   type: 'text',
-                //                   fields: {
-                //                     keyword: {
-                //                       type: 'keyword',
-                //                       ignore_above: 256,
-                //                     },
-                //                   },
-                //                 },
-                //                 width: {
-                //                   type: 'long',
-                //                 },
-                //               },
-                //             },
-                //           },
-                //         },
-                //         id: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         source: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         sourceId: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         type: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //       },
-                //     },
-                //     published: {
-                //       type: 'date',
-                //       store: true,
-                //       format:
-                //         'date_time||date_time_no_millis||date_hour_minute_second_millis',
-                //       ignore_malformed: true,
-                //     },
-                //     source: {
-                //       type: 'text',
-                //     },
-                //     sourceId: {
-                //       type: 'text',
-                //     },
-                //     title: {
-                //       type: 'text',
-                //       term_vector: 'with_positions_offsets',
-                //       analyzer: 'ik_smart',
-                //     },
-                //     type: {
-                //       type: 'text',
-                //     },
-                //     urlPath: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //     },
-                //   },
-                // },
-                // type: {
-                //   type: 'text',
-                // },
+                fields: {
+                  type: 'nested',
+                  properties: {
+                    annotations: {
+                      type: 'nested',
+                      properties: {
+                        index: {
+                          type: 'integer',
+                        },
+                        length: {
+                          type: 'integer',
+                          index: false,
+                        },
+                        name: {
+                          type: 'text',
+                        },
+                        value: {
+                          type: 'text',
+                        },
+                      },
+                    },
+                    booleanValue: {
+                      type: 'boolean',
+                    },
+                    name: {
+                      type: 'text',
+                    },
+                    value: {
+                      type: 'text',
+                      term_vector: 'with_positions_offsets',
+                      analyzer: 'ik_smart',
+                    },
+                  },
+                },
+                id: {
+                  type: 'keyword',
+                },
+                type: {
+                  type: 'text',
+                },
+                relation: {
+                  properties: {
+                    // alternates: {
+                    //   properties: {
+                    //     BASE_FREE: {
+                    //       properties: {
+                    //         auto: {
+                    //           type: 'boolean',
+                    //         },
+                    //         height: {
+                    //           type: 'long',
+                    //         },
+                    //         width: {
+                    //           type: 'long',
+                    //         },
+                    //         x: {
+                    //           type: 'long',
+                    //         },
+                    //         y: {
+                    //           type: 'long',
+                    //         },
+                    //       },
+                    //     },
+                    //     BASE_LANDSCAPE: {
+                    //       properties: {
+                    //         auto: {
+                    //           type: 'boolean',
+                    //         },
+                    //         height: {
+                    //           type: 'long',
+                    //         },
+                    //         width: {
+                    //           type: 'long',
+                    //         },
+                    //         x: {
+                    //           type: 'long',
+                    //         },
+                    //         y: {
+                    //           type: 'long',
+                    //         },
+                    //       },
+                    //     },
+                    //     BASE_PORTRAIT: {
+                    //       properties: {
+                    //         auto: {
+                    //           type: 'boolean',
+                    //         },
+                    //         height: {
+                    //           type: 'long',
+                    //         },
+                    //         width: {
+                    //           type: 'long',
+                    //         },
+                    //         x: {
+                    //           type: 'long',
+                    //         },
+                    //         y: {
+                    //           type: 'long',
+                    //         },
+                    //       },
+                    //     },
+                    //     BASE_SQUARE: {
+                    //       properties: {
+                    //         auto: {
+                    //           type: 'boolean',
+                    //         },
+                    //         height: {
+                    //           type: 'long',
+                    //         },
+                    //         width: {
+                    //           type: 'long',
+                    //         },
+                    //         x: {
+                    //           type: 'long',
+                    //         },
+                    //         y: {
+                    //           type: 'long',
+                    //         },
+                    //       },
+                    //     },
+                    //     BASE_SQUARE_30_26: {
+                    //       properties: {
+                    //         auto: {
+                    //           type: 'boolean',
+                    //         },
+                    //         height: {
+                    //           type: 'long',
+                    //         },
+                    //         width: {
+                    //           type: 'long',
+                    //         },
+                    //         x: {
+                    //           type: 'long',
+                    //         },
+                    //         y: {
+                    //           type: 'long',
+                    //         },
+                    //       },
+                    //     },
+                    //     BASE_WIDE: {
+                    //       properties: {
+                    //         auto: {
+                    //           type: 'boolean',
+                    //         },
+                    //         height: {
+                    //           type: 'long',
+                    //         },
+                    //         width: {
+                    //           type: 'long',
+                    //         },
+                    //         x: {
+                    //           type: 'long',
+                    //         },
+                    //         y: {
+                    //           type: 'long',
+                    //         },
+                    //       },
+                    //     },
+                    //     ORIGINAL: {
+                    //       properties: {
+                    //         auto: {
+                    //           type: 'boolean',
+                    //         },
+                    //         height: {
+                    //           type: 'long',
+                    //         },
+                    //         width: {
+                    //           type: 'long',
+                    //         },
+                    //         x: {
+                    //           type: 'long',
+                    //         },
+                    //         y: {
+                    //           type: 'long',
+                    //         },
+                    //       },
+                    //     },
+                    //     com_escenic_master: {
+                    //       properties: {
+                    //         auto: {
+                    //           type: 'boolean',
+                    //         },
+                    //         height: {
+                    //           type: 'long',
+                    //         },
+                    //         width: {
+                    //           type: 'long',
+                    //         },
+                    //         x: {
+                    //           type: 'long',
+                    //         },
+                    //         y: {
+                    //           type: 'long',
+                    //         },
+                    //       },
+                    //     },
+                    //     poi: {
+                    //       properties: {
+                    //         auto: {
+                    //           type: 'boolean',
+                    //         },
+                    //         left: {
+                    //           type: 'long',
+                    //         },
+                    //         top: {
+                    //           type: 'long',
+                    //         },
+                    //       },
+                    //     },
+                    //   },
+                    // },
+                    // binary: {
+                    //   properties: {
+                    //     filename: {
+                    //       type: 'text',
+                    //     },
+                    //     url: {
+                    //       type: 'text',
+                    //     },
+                    //   },
+                    // },
+                    // binaryLink: {
+                    //   type: 'text',
+                    //   fields: {
+                    //     keyword: {
+                    //       type: 'keyword',
+                    //       ignore_above: 256,
+                    //     },
+                    //   },
+                    // },
+                    // bucketName: {
+                    //   type: 'text',
+                    // },
+                    fields: {
+                      properties: {
+                        // brightcoveId: {
+                        //   type: 'text',
+                        //   fields: {
+                        //     keyword: {
+                        //       type: 'keyword',
+                        //       ignore_above: 256,
+                        //     },
+                        //   },
+                        // },
+                        // byline: {
+                        //   type: 'text',
+                        //   fields: {
+                        //     keyword: {
+                        //       type: 'keyword',
+                        //       ignore_above: 256,
+                        //     },
+                        //   },
+                        // },
+                        // caption: {
+                        //   type: 'text',
+                        //   term_vector: 'with_positions_offsets',
+                        //   analyzer: 'ik_smart',
+                        // },
+                        // com_escenic_defaultmetadata: {
+                        //   type: 'nested',
+                        //   properties: {
+                        //     key: {
+                        //       type: 'text',
+                        //     },
+                        //     value: {
+                        //       type: 'text',
+                        //     },
+                        //   },
+                        // },
+                        // credit: {
+                        //   type: 'text',
+                        // },
+                        // description: {
+                        //   type: 'text',
+                        //   fields: {
+                        //     keyword: {
+                        //       type: 'keyword',
+                        //       ignore_above: 256,
+                        //     },
+                        //   },
+                        // },
+                        // freecrop: {
+                        //   properties: {
+                        //     height: {
+                        //       type: 'integer',
+                        //       index: false,
+                        //     },
+                        //     url: {
+                        //       type: 'text',
+                        //     },
+                        //     width: {
+                        //       type: 'integer',
+                        //       index: false,
+                        //     },
+                        //   },
+                        // },
+                        'freecrop-caas': {
+                          properties: {
+                            height: {
+                              type: 'long',
+                            },
+                            url: {
+                              type: 'text',
+                              fields: {
+                                keyword: {
+                                  type: 'keyword',
+                                  ignore_above: 256,
+                                },
+                              },
+                            },
+                            width: {
+                              type: 'long',
+                            },
+                          },
+                        },
+                        // landscape: {
+                        //   properties: {
+                        //     height: {
+                        //       type: 'integer',
+                        //       index: false,
+                        //     },
+                        //     url: {
+                        //       type: 'text',
+                        //     },
+                        //     width: {
+                        //       type: 'integer',
+                        //       index: false,
+                        //     },
+                        //   },
+                        // },
+                        'landscape-caas': {
+                          properties: {
+                            height: {
+                              type: 'long',
+                            },
+                            url: {
+                              type: 'text',
+                              fields: {
+                                keyword: {
+                                  type: 'keyword',
+                                  ignore_above: 256,
+                                },
+                              },
+                            },
+                            width: {
+                              type: 'long',
+                            },
+                          },
+                        },
+                        // landscape1024: {
+                        //   properties: {
+                        //     height: {
+                        //       type: 'long',
+                        //     },
+                        //     href_full: {
+                        //       type: 'text',
+                        //       fields: {
+                        //         keyword: {
+                        //           type: 'keyword',
+                        //           ignore_above: 256,
+                        //         },
+                        //       },
+                        //     },
+                        //     url: {
+                        //       type: 'text',
+                        //       fields: {
+                        //         keyword: {
+                        //           type: 'keyword',
+                        //           ignore_above: 256,
+                        //         },
+                        //       },
+                        //     },
+                        //     width: {
+                        //       type: 'long',
+                        //     },
+                        //   },
+                        // },
+                        'landscape1024-caas': {
+                          properties: {
+                            height: {
+                              type: 'long',
+                            },
+                            url: {
+                              type: 'text',
+                              fields: {
+                                keyword: {
+                                  type: 'keyword',
+                                  ignore_above: 256,
+                                },
+                              },
+                            },
+                            width: {
+                              type: 'long',
+                            },
+                          },
+                        },
+                        // landscape480: {
+                        //   properties: {
+                        //     height: {
+                        //       type: 'long',
+                        //     },
+                        //     href_full: {
+                        //       type: 'text',
+                        //       fields: {
+                        //         keyword: {
+                        //           type: 'keyword',
+                        //           ignore_above: 256,
+                        //         },
+                        //       },
+                        //     },
+                        //     url: {
+                        //       type: 'text',
+                        //       fields: {
+                        //         keyword: {
+                        //           type: 'keyword',
+                        //           ignore_above: 256,
+                        //         },
+                        //       },
+                        //     },
+                        //     width: {
+                        //       type: 'long',
+                        //     },
+                        //   },
+                        // },
+                        'landscape480-caas': {
+                          properties: {
+                            height: {
+                              type: 'long',
+                            },
+                            url: {
+                              type: 'text',
+                              fields: {
+                                keyword: {
+                                  type: 'keyword',
+                                  ignore_above: 256,
+                                },
+                              },
+                            },
+                            width: {
+                              type: 'long',
+                            },
+                          },
+                        },
+                        // original: {
+                        //   properties: {
+                        //     height: {
+                        //       type: 'integer',
+                        //       index: false,
+                        //     },
+                        //     url: {
+                        //       type: 'text',
+                        //     },
+                        //     width: {
+                        //       type: 'integer',
+                        //       index: false,
+                        //     },
+                        //   },
+                        // },
+                        'original-caas': {
+                          properties: {
+                            height: {
+                              type: 'long',
+                            },
+                            url: {
+                              type: 'text',
+                              fields: {
+                                keyword: {
+                                  type: 'keyword',
+                                  ignore_above: 256,
+                                },
+                              },
+                            },
+                            width: {
+                              type: 'long',
+                            },
+                          },
+                        },
+                        // portrait: {
+                        //   properties: {
+                        //     height: {
+                        //       type: 'integer',
+                        //       index: false,
+                        //     },
+                        //     url: {
+                        //       type: 'text',
+                        //     },
+                        //     width: {
+                        //       type: 'integer',
+                        //       index: false,
+                        //     },
+                        //   },
+                        // },
+                        'portrait-caas': {
+                          properties: {
+                            height: {
+                              type: 'long',
+                            },
+                            url: {
+                              type: 'text',
+                              fields: {
+                                keyword: {
+                                  type: 'keyword',
+                                  ignore_above: 256,
+                                },
+                              },
+                            },
+                            width: {
+                              type: 'long',
+                            },
+                          },
+                        },
+                        // square: {
+                        //   properties: {
+                        //     height: {
+                        //       type: 'long',
+                        //     },
+                        //     url: {
+                        //       type: 'text',
+                        //       fields: {
+                        //         keyword: {
+                        //           type: 'keyword',
+                        //           ignore_above: 256,
+                        //         },
+                        //       },
+                        //     },
+                        //     width: {
+                        //       type: 'long',
+                        //     },
+                        //   },
+                        // },
+                        'square-caas': {
+                          properties: {
+                            height: {
+                              type: 'long',
+                            },
+                            url: {
+                              type: 'text',
+                              fields: {
+                                keyword: {
+                                  type: 'keyword',
+                                  ignore_above: 256,
+                                },
+                              },
+                            },
+                            width: {
+                              type: 'long',
+                            },
+                          },
+                        },
+                        // square_30_26: {
+                        //   properties: {
+                        //     height: {
+                        //       type: 'long',
+                        //     },
+                        //     url: {
+                        //       type: 'text',
+                        //       fields: {
+                        //         keyword: {
+                        //           type: 'keyword',
+                        //           ignore_above: 256,
+                        //         },
+                        //       },
+                        //     },
+                        //     width: {
+                        //       type: 'long',
+                        //     },
+                        //   },
+                        // },
+                        'square_30_26-caas': {
+                          properties: {
+                            height: {
+                              type: 'long',
+                            },
+                            url: {
+                              type: 'text',
+                              fields: {
+                                keyword: {
+                                  type: 'keyword',
+                                  ignore_above: 256,
+                                },
+                              },
+                            },
+                            width: {
+                              type: 'long',
+                            },
+                          },
+                        },
+                        // title: {
+                        //   type: 'text',
+                        //   fields: {
+                        //     keyword: {
+                        //       type: 'keyword',
+                        //       ignore_above: 256,
+                        //     },
+                        //   },
+                        // },
+                        // wide: {
+                        //   properties: {
+                        //     height: {
+                        //       type: 'long',
+                        //     },
+                        //     url: {
+                        //       type: 'text',
+                        //       fields: {
+                        //         keyword: {
+                        //           type: 'keyword',
+                        //           ignore_above: 256,
+                        //         },
+                        //       },
+                        //     },
+                        //     width: {
+                        //       type: 'long',
+                        //     },
+                        //   },
+                        // },
+                        'wide-caas': {
+                          properties: {
+                            height: {
+                              type: 'long',
+                            },
+                            url: {
+                              type: 'text',
+                              fields: {
+                                keyword: {
+                                  type: 'keyword',
+                                  ignore_above: 256,
+                                },
+                              },
+                            },
+                            width: {
+                              type: 'long',
+                            },
+                          },
+                        },
+                        // youtubeId: {
+                        //   type: 'text',
+                        //   fields: {
+                        //     keyword: {
+                        //       type: 'keyword',
+                        //       ignore_above: 256,
+                        //     },
+                        //   },
+                        // },
+                      },
+                    },
+                    // href: {
+                    //   type: 'text',
+                    // },
+                    // id: {
+                    //   type: 'keyword',
+                    // },
+                    linkFollow: {
+                      properties: {
+                        // alternates: {
+                        //   properties: {
+                        //     BASE_FREE: {
+                        //       properties: {
+                        //         auto: {
+                        //           type: 'boolean',
+                        //         },
+                        //         height: {
+                        //           type: 'long',
+                        //         },
+                        //         width: {
+                        //           type: 'long',
+                        //         },
+                        //         x: {
+                        //           type: 'long',
+                        //         },
+                        //         y: {
+                        //           type: 'long',
+                        //         },
+                        //       },
+                        //     },
+                        //     BASE_LANDSCAPE: {
+                        //       properties: {
+                        //         auto: {
+                        //           type: 'boolean',
+                        //         },
+                        //         height: {
+                        //           type: 'long',
+                        //         },
+                        //         width: {
+                        //           type: 'long',
+                        //         },
+                        //         x: {
+                        //           type: 'long',
+                        //         },
+                        //         y: {
+                        //           type: 'long',
+                        //         },
+                        //       },
+                        //     },
+                        //     BASE_PORTRAIT: {
+                        //       properties: {
+                        //         auto: {
+                        //           type: 'boolean',
+                        //         },
+                        //         height: {
+                        //           type: 'long',
+                        //         },
+                        //         width: {
+                        //           type: 'long',
+                        //         },
+                        //         x: {
+                        //           type: 'long',
+                        //         },
+                        //         y: {
+                        //           type: 'long',
+                        //         },
+                        //       },
+                        //     },
+                        //     BASE_SQUARE: {
+                        //       properties: {
+                        //         auto: {
+                        //           type: 'boolean',
+                        //         },
+                        //         height: {
+                        //           type: 'long',
+                        //         },
+                        //         width: {
+                        //           type: 'long',
+                        //         },
+                        //         x: {
+                        //           type: 'long',
+                        //         },
+                        //         y: {
+                        //           type: 'long',
+                        //         },
+                        //       },
+                        //     },
+                        //     BASE_SQUARE_30_26: {
+                        //       properties: {
+                        //         auto: {
+                        //           type: 'boolean',
+                        //         },
+                        //         height: {
+                        //           type: 'long',
+                        //         },
+                        //         width: {
+                        //           type: 'long',
+                        //         },
+                        //         x: {
+                        //           type: 'long',
+                        //         },
+                        //         y: {
+                        //           type: 'long',
+                        //         },
+                        //       },
+                        //     },
+                        //     BASE_WIDE: {
+                        //       properties: {
+                        //         auto: {
+                        //           type: 'boolean',
+                        //         },
+                        //         height: {
+                        //           type: 'long',
+                        //         },
+                        //         width: {
+                        //           type: 'long',
+                        //         },
+                        //         x: {
+                        //           type: 'long',
+                        //         },
+                        //         y: {
+                        //           type: 'long',
+                        //         },
+                        //       },
+                        //     },
+                        //     ORIGINAL: {
+                        //       properties: {
+                        //         auto: {
+                        //           type: 'boolean',
+                        //         },
+                        //         height: {
+                        //           type: 'long',
+                        //         },
+                        //         width: {
+                        //           type: 'long',
+                        //         },
+                        //         x: {
+                        //           type: 'long',
+                        //         },
+                        //         y: {
+                        //           type: 'long',
+                        //         },
+                        //       },
+                        //     },
+                        //     com_escenic_master: {
+                        //       properties: {
+                        //         auto: {
+                        //           type: 'boolean',
+                        //         },
+                        //         height: {
+                        //           type: 'long',
+                        //         },
+                        //         width: {
+                        //           type: 'long',
+                        //         },
+                        //         x: {
+                        //           type: 'long',
+                        //         },
+                        //         y: {
+                        //           type: 'long',
+                        //         },
+                        //       },
+                        //     },
+                        //     poi: {
+                        //       properties: {
+                        //         auto: {
+                        //           type: 'boolean',
+                        //         },
+                        //         left: {
+                        //           type: 'long',
+                        //         },
+                        //         top: {
+                        //           type: 'long',
+                        //         },
+                        //       },
+                        //     },
+                        //   },
+                        // },
+                        // binaryLink: {
+                        //   type: 'text',
+                        //   fields: {
+                        //     keyword: {
+                        //       type: 'keyword',
+                        //       ignore_above: 256,
+                        //     },
+                        //   },
+                        // },
+                        fields: {
+                          properties: {
+                            // caption: {
+                            //   type: 'text',
+                            //   fields: {
+                            //     keyword: {
+                            //       type: 'keyword',
+                            //       ignore_above: 256,
+                            //     },
+                            //   },
+                            // },
+                            // com_escenic_defaultmetadata: {
+                            //   properties: {
+                            //     key: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     value: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //   },
+                            // },
+                            // credit: {
+                            //   type: 'text',
+                            //   fields: {
+                            //     keyword: {
+                            //       type: 'keyword',
+                            //       ignore_above: 256,
+                            //     },
+                            //   },
+                            // },
+                            // freecrop: {
+                            //   properties: {
+                            //     height: {
+                            //       type: 'long',
+                            //     },
+                            //     url: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     width: {
+                            //       type: 'long',
+                            //     },
+                            //   },
+                            // },
+                            // 'freecrop-caas': {
+                            //   properties: {
+                            //     height: {
+                            //       type: 'long',
+                            //     },
+                            //     url: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     width: {
+                            //       type: 'long',
+                            //     },
+                            //   },
+                            // },
+                            // landscape: {
+                            //   properties: {
+                            //     height: {
+                            //       type: 'long',
+                            //     },
+                            //     url: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     width: {
+                            //       type: 'long',
+                            //     },
+                            //   },
+                            // },
+                            'landscape-caas': {
+                              properties: {
+                                height: {
+                                  type: 'long',
+                                },
+                                url: {
+                                  type: 'text',
+                                  fields: {
+                                    keyword: {
+                                      type: 'keyword',
+                                      ignore_above: 256,
+                                    },
+                                  },
+                                },
+                                width: {
+                                  type: 'long',
+                                },
+                              },
+                            },
+                            // landscape1024: {
+                            //   properties: {
+                            //     height: {
+                            //       type: 'long',
+                            //     },
+                            //     href_full: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     url: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     width: {
+                            //       type: 'long',
+                            //     },
+                            //   },
+                            // },
+                            'landscape1024-caas': {
+                              properties: {
+                                height: {
+                                  type: 'long',
+                                },
+                                url: {
+                                  type: 'text',
+                                  fields: {
+                                    keyword: {
+                                      type: 'keyword',
+                                      ignore_above: 256,
+                                    },
+                                  },
+                                },
+                                width: {
+                                  type: 'long',
+                                },
+                              },
+                            },
+                            // landscape480: {
+                            //   properties: {
+                            //     height: {
+                            //       type: 'long',
+                            //     },
+                            //     href_full: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     url: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     width: {
+                            //       type: 'long',
+                            //     },
+                            //   },
+                            // },
+                            'landscape480-caas': {
+                              properties: {
+                                height: {
+                                  type: 'long',
+                                },
+                                url: {
+                                  type: 'text',
+                                  fields: {
+                                    keyword: {
+                                      type: 'keyword',
+                                      ignore_above: 256,
+                                    },
+                                  },
+                                },
+                                width: {
+                                  type: 'long',
+                                },
+                              },
+                            },
+                            // original: {
+                            //   properties: {
+                            //     height: {
+                            //       type: 'long',
+                            //     },
+                            //     url: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     width: {
+                            //       type: 'long',
+                            //     },
+                            //   },
+                            // },
+                            'original-caas': {
+                              properties: {
+                                height: {
+                                  type: 'long',
+                                },
+                                url: {
+                                  type: 'text',
+                                  fields: {
+                                    keyword: {
+                                      type: 'keyword',
+                                      ignore_above: 256,
+                                    },
+                                  },
+                                },
+                                width: {
+                                  type: 'long',
+                                },
+                              },
+                            },
+                            // portrait: {
+                            //   properties: {
+                            //     height: {
+                            //       type: 'long',
+                            //     },
+                            //     url: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     width: {
+                            //       type: 'long',
+                            //     },
+                            //   },
+                            // },
+                            'portrait-caas': {
+                              properties: {
+                                height: {
+                                  type: 'long',
+                                },
+                                url: {
+                                  type: 'text',
+                                  fields: {
+                                    keyword: {
+                                      type: 'keyword',
+                                      ignore_above: 256,
+                                    },
+                                  },
+                                },
+                                width: {
+                                  type: 'long',
+                                },
+                              },
+                            },
+                            // square: {
+                            //   properties: {
+                            //     height: {
+                            //       type: 'long',
+                            //     },
+                            //     url: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     width: {
+                            //       type: 'long',
+                            //     },
+                            //   },
+                            // },
+                            'square-caas': {
+                              properties: {
+                                height: {
+                                  type: 'long',
+                                },
+                                url: {
+                                  type: 'text',
+                                  fields: {
+                                    keyword: {
+                                      type: 'keyword',
+                                      ignore_above: 256,
+                                    },
+                                  },
+                                },
+                                width: {
+                                  type: 'long',
+                                },
+                              },
+                            },
+                            // square_30_26: {
+                            //   properties: {
+                            //     height: {
+                            //       type: 'long',
+                            //     },
+                            //     url: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     width: {
+                            //       type: 'long',
+                            //     },
+                            //   },
+                            // },
+                            'square_30_26-caas': {
+                              properties: {
+                                height: {
+                                  type: 'long',
+                                },
+                                url: {
+                                  type: 'text',
+                                  fields: {
+                                    keyword: {
+                                      type: 'keyword',
+                                      ignore_above: 256,
+                                    },
+                                  },
+                                },
+                                width: {
+                                  type: 'long',
+                                },
+                              },
+                            },
+                            // wide: {
+                            //   properties: {
+                            //     height: {
+                            //       type: 'long',
+                            //     },
+                            //     url: {
+                            //       type: 'text',
+                            //       fields: {
+                            //         keyword: {
+                            //           type: 'keyword',
+                            //           ignore_above: 256,
+                            //         },
+                            //       },
+                            //     },
+                            //     width: {
+                            //       type: 'long',
+                            //     },
+                            //   },
+                            // },
+                            'wide-caas': {
+                              properties: {
+                                height: {
+                                  type: 'long',
+                                },
+                                url: {
+                                  type: 'text',
+                                  fields: {
+                                    keyword: {
+                                      type: 'keyword',
+                                      ignore_above: 256,
+                                    },
+                                  },
+                                },
+                                width: {
+                                  type: 'long',
+                                },
+                              },
+                            },
+                          },
+                        },
+                        // id: {
+                        //   type: 'text',
+                        //   fields: {
+                        //     keyword: {
+                        //       type: 'keyword',
+                        //       ignore_above: 256,
+                        //     },
+                        //   },
+                        // },
+                        // source: {
+                        //   type: 'text',
+                        //   fields: {
+                        //     keyword: {
+                        //       type: 'keyword',
+                        //       ignore_above: 256,
+                        //     },
+                        //   },
+                        // },
+                        // sourceId: {
+                        //   type: 'text',
+                        //   fields: {
+                        //     keyword: {
+                        //       type: 'keyword',
+                        //       ignore_above: 256,
+                        //     },
+                        //   },
+                        // },
+                        // type: {
+                        //   type: 'text',
+                        //   fields: {
+                        //     keyword: {
+                        //       type: 'keyword',
+                        //       ignore_above: 256,
+                        //     },
+                        //   },
+                        // },
+                      },
+                    },
+                    // published: {
+                    //   type: 'date',
+                    //   store: true,
+                    //   format:
+                    //     'date_time||date_time_no_millis||date_hour_minute_second_millis',
+                    //   ignore_malformed: true,
+                    // },
+                    // source: {
+                    //   type: 'text',
+                    // },
+                    // sourceId: {
+                    //   type: 'text',
+                    // },
+                    title: {
+                      type: 'text',
+                      term_vector: 'with_positions_offsets',
+                      analyzer: 'ik_smart',
+                    },
+                    // type: {
+                    //   type: 'text',
+                    // },
+                    // urlPath: {
+                    //   type: 'text',
+                    //   fields: {
+                    //     keyword: {
+                    //       type: 'keyword',
+                    //       ignore_above: 256,
+                    //     },
+                    //   },
+                    // },
+                  },
+                },
               },
             },
-            // embedcodes: {
-            //   type: 'nested',
-            //   properties: {
-            //     html: {
-            //       type: 'text',
-            //     },
-            //     id: {
-            //       type: 'keyword',
-            //     },
-            //   },
-            // },
+            embedcodes: {
+              type: 'nested',
+              properties: {
+                html: {
+                  type: 'text',
+                },
+                id: {
+                  type: 'keyword',
+                },
+              },
+            },
             // expired: {
             //   type: 'text',
             // },
@@ -2023,10 +2023,10 @@ const mapping: T.IndicesPutMappingRequest = {
             id: {
               type: 'keyword',
             },
-            lastmodified: {
-              type: 'date',
-              ignore_malformed: true,
-            },
+            // lastmodified: {
+            //   type: 'date',
+            //   ignore_malformed: true,
+            // },
             // media: {
             //   properties: {
             //     content: {
@@ -2684,111 +2684,111 @@ const mapping: T.IndicesPutMappingRequest = {
             //     },
             //   },
             // },
-            // ogFields: {
-            //   properties: {
-            //     ogDescription: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //     ogTitle: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //   },
-            // },
-            // others: {
-            //   properties: {
-            //     authoring: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //     customUrlAlias: {
-            //       type: 'boolean',
-            //     },
-            //     editorialTag: {
-            //       type: 'text',
-            //     },
-            //     removeAuthor: {
-            //       type: 'boolean',
-            //     },
-            //     storySource: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //     storySourceMetadata: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //     storyThread: {
-            //       type: 'text',
-            //     },
-            //     storyThreadMetadata: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //     urlAlias: {
-            //       type: 'text',
-            //     },
-            //     urlHistory: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //   },
-            // },
-            // paywall: {
-            //   properties: {
-            //     agencySource: {
-            //       type: 'text',
-            //     },
-            //     automateFlag: {
-            //       type: 'boolean',
-            //     },
-            //     contentAccess: {
-            //       type: 'text',
-            //     },
-            //     copyright: {
-            //       type: 'text',
-            //     },
-            //     printFlag: {
-            //       type: 'boolean',
-            //     },
-            //   },
-            // },
+            ogFields: {
+              properties: {
+                ogDescription: {
+                  type: 'text',
+                  fields: {
+                    keyword: {
+                      type: 'keyword',
+                      ignore_above: 256,
+                    },
+                  },
+                },
+                ogTitle: {
+                  type: 'text',
+                  fields: {
+                    keyword: {
+                      type: 'keyword',
+                      ignore_above: 256,
+                    },
+                  },
+                },
+              },
+            },
+            others: {
+              properties: {
+                authoring: {
+                  type: 'text',
+                  fields: {
+                    keyword: {
+                      type: 'keyword',
+                      ignore_above: 256,
+                    },
+                  },
+                },
+                // customUrlAlias: {
+                //   type: 'boolean',
+                // },
+                // editorialTag: {
+                //   type: 'text',
+                // },
+                removeAuthor: {
+                  type: 'boolean',
+                },
+                // storySource: {
+                //   type: 'text',
+                //   fields: {
+                //     keyword: {
+                //       type: 'keyword',
+                //       ignore_above: 256,
+                //     },
+                //   },
+                // },
+                // storySourceMetadata: {
+                //   type: 'text',
+                //   fields: {
+                //     keyword: {
+                //       type: 'keyword',
+                //       ignore_above: 256,
+                //     },
+                //   },
+                // },
+                // storyThread: {
+                //   type: 'text',
+                // },
+                // storyThreadMetadata: {
+                //   type: 'text',
+                //   fields: {
+                //     keyword: {
+                //       type: 'keyword',
+                //       ignore_above: 256,
+                //     },
+                //   },
+                // },
+                // urlAlias: {
+                //   type: 'text',
+                // },
+                // urlHistory: {
+                //   type: 'text',
+                //   fields: {
+                //     keyword: {
+                //       type: 'keyword',
+                //       ignore_above: 256,
+                //     },
+                //   },
+                // },
+              },
+            },
+            paywall: {
+              properties: {
+                // agencySource: {
+                //   type: 'text',
+                // },
+                // automateFlag: {
+                //   type: 'boolean',
+                // },
+                contentAccess: {
+                  type: 'text',
+                },
+                copyright: {
+                  type: 'text',
+                },
+                printFlag: {
+                  type: 'boolean',
+                },
+              },
+            },
             // previewSourceId: {
             //   type: 'text',
             // },
@@ -3419,216 +3419,216 @@ const mapping: T.IndicesPutMappingRequest = {
             //     },
             //   },
             // },
-            // relatedStories: {
-            //   type: 'nested',
-            //   properties: {
-            //     content: {
-            //       properties: {
-            //         fields: {
-            //           properties: {
-            //             title: {
-            //               type: 'text',
-            //               term_vector: 'with_positions_offsets',
-            //               analyzer: 'text_analyzer',
-            //               search_analyzer: 'phrase_analyzer',
-            //               similarity: 'BM25',
-            //             },
-            //           },
-            //         },
-            //         href: {
-            //           type: 'text',
-            //         },
-            //         id: {
-            //           type: 'keyword',
-            //         },
-            //         source: {
-            //           type: 'text',
-            //         },
-            //         sourceId: {
-            //           type: 'text',
-            //         },
-            //         type: {
-            //           type: 'text',
-            //         },
-            //         urlPath: {
-            //           type: 'text',
-            //           fields: {
-            //             keyword: {
-            //               type: 'keyword',
-            //               ignore_above: 256,
-            //             },
-            //           },
-            //         },
-            //       },
-            //     },
-            //     href: {
-            //       type: 'keyword',
-            //     },
-            //   },
-            // },
+            relatedStories: {
+              type: 'nested',
+              properties: {
+                content: {
+                  properties: {
+                    // fields: {
+                    //   properties: {
+                    //     title: {
+                    //       type: 'text',
+                    //       term_vector: 'with_positions_offsets',
+                    //       analyzer: 'text_analyzer',
+                    //       search_analyzer: 'phrase_analyzer',
+                    //       similarity: 'BM25',
+                    //     },
+                    //   },
+                    // },
+                    // href: {
+                    //   type: 'text',
+                    // },
+                    id: {
+                      type: 'keyword',
+                    },
+                    // source: {
+                    //   type: 'text',
+                    // },
+                    // sourceId: {
+                    //   type: 'text',
+                    // },
+                    // type: {
+                    //   type: 'text',
+                    // },
+                    // urlPath: {
+                    //   type: 'text',
+                    //   fields: {
+                    //     keyword: {
+                    //       type: 'keyword',
+                    //       ignore_above: 256,
+                    //     },
+                    //   },
+                    // },
+                  },
+                },
+                // href: {
+                //   type: 'keyword',
+                // },
+              },
+            },
             // scheduled: {
             //   type: 'text',
             // },
-            // sections: {
-            //   type: 'nested',
-            //   properties: {
-            //     directoryName: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //     href: {
-            //       type: 'text',
-            //     },
-            //     name: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //       term_vector: 'with_positions_offsets',
-            //       analyzer: 'autocomplete',
-            //       search_analyzer: 'autocomplete_search',
-            //       similarity: 'BM25',
-            //     },
-            //     parameters: {
-            //       properties: {
-            //         key: {
-            //           type: 'text',
-            //         },
-            //         value: {
-            //           type: 'text',
-            //         },
-            //       },
-            //     },
-            //     parent: {
-            //       properties: {
-            //         directoryName: {
-            //           type: 'text',
-            //         },
-            //         name: {
-            //           type: 'text',
-            //           fields: {
-            //             keyword: {
-            //               type: 'keyword',
-            //               ignore_above: 256,
-            //             },
-            //           },
-            //           term_vector: 'with_positions_offsets',
-            //           analyzer: 'autocomplete',
-            //           search_analyzer: 'autocomplete_search',
-            //           similarity: 'BM25',
-            //         },
-            //         parent: {
-            //           properties: {
-            //             directoryName: {
-            //               type: 'text',
-            //               fields: {
-            //                 keyword: {
-            //                   type: 'keyword',
-            //                   ignore_above: 256,
-            //                 },
-            //               },
-            //             },
-            //             name: {
-            //               type: 'text',
-            //               fields: {
-            //                 keyword: {
-            //                   type: 'keyword',
-            //                   ignore_above: 256,
-            //                 },
-            //               },
-            //             },
-            //             uniqueName: {
-            //               type: 'text',
-            //               fields: {
-            //                 keyword: {
-            //                   type: 'keyword',
-            //                   ignore_above: 256,
-            //                 },
-            //               },
-            //             },
-            //           },
-            //         },
-            //         uniqueName: {
-            //           type: 'text',
-            //           term_vector: 'with_positions_offsets',
-            //           analyzer: 'autocomplete',
-            //           search_analyzer: 'autocomplete_search',
-            //           similarity: 'BM25',
-            //         },
-            //       },
-            //     },
-            //     uniqueName: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //       term_vector: 'with_positions_offsets',
-            //       analyzer: 'autocomplete',
-            //       search_analyzer: 'autocomplete_search',
-            //       similarity: 'BM25',
-            //     },
-            //   },
-            // },
-            // seoFields: {
-            //   properties: {
-            //     canonicalUrl: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //     metaDescription: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //     metaRobots: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //     metaTitle: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //     yoastMeta: {
-            //       type: 'text',
-            //       fields: {
-            //         keyword: {
-            //           type: 'keyword',
-            //           ignore_above: 256,
-            //         },
-            //       },
-            //     },
-            //   },
-            // },
+            sections: {
+              type: 'nested',
+              properties: {
+                // directoryName: {
+                //   type: 'text',
+                //   fields: {
+                //     keyword: {
+                //       type: 'keyword',
+                //       ignore_above: 256,
+                //     },
+                //   },
+                // },
+                // href: {
+                //   type: 'text',
+                // },
+                // name: {
+                //   type: 'text',
+                //   fields: {
+                //     keyword: {
+                //       type: 'keyword',
+                //       ignore_above: 256,
+                //     },
+                //   },
+                //   term_vector: 'with_positions_offsets',
+                //   analyzer: 'autocomplete',
+                //   search_analyzer: 'autocomplete_search',
+                //   similarity: 'BM25',
+                // },
+                // parameters: {
+                //   properties: {
+                //     key: {
+                //       type: 'text',
+                //     },
+                //     value: {
+                //       type: 'text',
+                //     },
+                //   },
+                // },
+                // parent: {
+                //   properties: {
+                //     directoryName: {
+                //       type: 'text',
+                //     },
+                //     name: {
+                //       type: 'text',
+                //       fields: {
+                //         keyword: {
+                //           type: 'keyword',
+                //           ignore_above: 256,
+                //         },
+                //       },
+                //       term_vector: 'with_positions_offsets',
+                //       analyzer: 'autocomplete',
+                //       search_analyzer: 'autocomplete_search',
+                //       similarity: 'BM25',
+                //     },
+                //     parent: {
+                //       properties: {
+                //         directoryName: {
+                //           type: 'text',
+                //           fields: {
+                //             keyword: {
+                //               type: 'keyword',
+                //               ignore_above: 256,
+                //             },
+                //           },
+                //         },
+                //         name: {
+                //           type: 'text',
+                //           fields: {
+                //             keyword: {
+                //               type: 'keyword',
+                //               ignore_above: 256,
+                //             },
+                //           },
+                //         },
+                //         uniqueName: {
+                //           type: 'text',
+                //           fields: {
+                //             keyword: {
+                //               type: 'keyword',
+                //               ignore_above: 256,
+                //             },
+                //           },
+                //         },
+                //       },
+                //     },
+                //     uniqueName: {
+                //       type: 'text',
+                //       term_vector: 'with_positions_offsets',
+                //       analyzer: 'autocomplete',
+                //       search_analyzer: 'autocomplete_search',
+                //       similarity: 'BM25',
+                //     },
+                //   },
+                // },
+                uniqueName: {
+                  type: 'text',
+                  fields: {
+                    keyword: {
+                      type: 'keyword',
+                      ignore_above: 256,
+                    },
+                  },
+                  term_vector: 'with_positions_offsets',
+                  analyzer: 'autocomplete',
+                  search_analyzer: 'autocomplete_search',
+                  similarity: 'BM25',
+                },
+              },
+            },
+            seoFields: {
+              properties: {
+                canonicalUrl: {
+                  type: 'text',
+                  fields: {
+                    keyword: {
+                      type: 'keyword',
+                      ignore_above: 256,
+                    },
+                  },
+                },
+                metaDescription: {
+                  type: 'text',
+                  fields: {
+                    keyword: {
+                      type: 'keyword',
+                      ignore_above: 256,
+                    },
+                  },
+                },
+                metaRobots: {
+                  type: 'text',
+                  fields: {
+                    keyword: {
+                      type: 'keyword',
+                      ignore_above: 256,
+                    },
+                  },
+                },
+                metaTitle: {
+                  type: 'text',
+                  fields: {
+                    keyword: {
+                      type: 'keyword',
+                      ignore_above: 256,
+                    },
+                  },
+                },
+                // yoastMeta: {
+                //   type: 'text',
+                //   fields: {
+                //     keyword: {
+                //       type: 'keyword',
+                //       ignore_above: 256,
+                //     },
+                //   },
+                // },
+              },
+            },
             // source: {
             //   type: 'text',
             // },
@@ -3669,22 +3669,22 @@ const mapping: T.IndicesPutMappingRequest = {
             //     },
             //   },
             // },
-            // storyContent: {
-            //   properties: {
-            //     blurb: {
-            //       type: 'text',
-            //     },
-            //     shortURL: {
-            //       type: 'text',
-            //     },
-            //     stockCode: {
-            //       type: 'text',
-            //     },
-            //   },
-            // },
-            // storyline: {
-            //   type: 'text',
-            // },
+            storyContent: {
+              properties: {
+                blurb: {
+                  type: 'text',
+                },
+                // shortURL: {
+                //   type: 'text',
+                // },
+                // stockCode: {
+                //   type: 'text',
+                // },
+              },
+            },
+            storyline: {
+              type: 'text',
+            },
             tags: {
               type: 'nested',
               properties: {
@@ -3706,28 +3706,28 @@ const mapping: T.IndicesPutMappingRequest = {
                 //     },
                 //   },
                 // },
-                // fields: {
-                //   properties: {
-                //     key: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //     },
-                //     value: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //     },
-                //   },
-                // },
+                fields: {
+                  properties: {
+                    key: {
+                      type: 'text',
+                      fields: {
+                        keyword: {
+                          type: 'keyword',
+                          ignore_above: 256,
+                        },
+                      },
+                    },
+                    value: {
+                      type: 'text',
+                      fields: {
+                        keyword: {
+                          type: 'keyword',
+                          ignore_above: 256,
+                        },
+                      },
+                    },
+                  },
+                },
                 id: {
                   type: 'keyword',
                 },
@@ -3742,153 +3742,153 @@ const mapping: T.IndicesPutMappingRequest = {
                   term_vector: 'with_positions_offsets',
                   analyzer: 'ik_smart',
                 },
-                // parent: {
-                //   type: 'nested',
-                //   properties: {
-                //     aliases: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //     },
-                //     description: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //     },
-                //     fields: {
-                //       properties: {
-                //         key: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         value: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //       },
-                //     },
-                //     id: {
-                //       type: 'keyword',
-                //     },
-                //     name: {
-                //       type: 'text',
-                //     },
-                //     parent: {
-                //       type: 'nested',
-                //       properties: {
-                //         aliases: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         description: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         fields: {
-                //           properties: {
-                //             key: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //             value: {
-                //               type: 'text',
-                //               fields: {
-                //                 keyword: {
-                //                   type: 'keyword',
-                //                   ignore_above: 256,
-                //                 },
-                //               },
-                //             },
-                //           },
-                //         },
-                //         id: {
-                //           type: 'keyword',
-                //         },
-                //         name: {
-                //           type: 'text',
-                //         },
-                //         type: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         urlPath: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //       },
-                //     },
-                //     type: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //     },
-                //     urlPath: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //     },
-                //     urlPathHistory: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //     },
-                //   },
-                // },
+                parent: {
+                  type: 'nested',
+                  properties: {
+                    aliases: {
+                      type: 'text',
+                      fields: {
+                        keyword: {
+                          type: 'keyword',
+                          ignore_above: 256,
+                        },
+                      },
+                    },
+                    description: {
+                      type: 'text',
+                      fields: {
+                        keyword: {
+                          type: 'keyword',
+                          ignore_above: 256,
+                        },
+                      },
+                    },
+                    fields: {
+                      properties: {
+                        key: {
+                          type: 'text',
+                          fields: {
+                            keyword: {
+                              type: 'keyword',
+                              ignore_above: 256,
+                            },
+                          },
+                        },
+                        value: {
+                          type: 'text',
+                          fields: {
+                            keyword: {
+                              type: 'keyword',
+                              ignore_above: 256,
+                            },
+                          },
+                        },
+                      },
+                    },
+                    id: {
+                      type: 'keyword',
+                    },
+                    name: {
+                      type: 'text',
+                    },
+                    // parent: {
+                    //   type: 'nested',
+                    //   properties: {
+                    //     aliases: {
+                    //       type: 'text',
+                    //       fields: {
+                    //         keyword: {
+                    //           type: 'keyword',
+                    //           ignore_above: 256,
+                    //         },
+                    //       },
+                    //     },
+                    //     description: {
+                    //       type: 'text',
+                    //       fields: {
+                    //         keyword: {
+                    //           type: 'keyword',
+                    //           ignore_above: 256,
+                    //         },
+                    //       },
+                    //     },
+                    //     fields: {
+                    //       properties: {
+                    //         key: {
+                    //           type: 'text',
+                    //           fields: {
+                    //             keyword: {
+                    //               type: 'keyword',
+                    //               ignore_above: 256,
+                    //             },
+                    //           },
+                    //         },
+                    //         value: {
+                    //           type: 'text',
+                    //           fields: {
+                    //             keyword: {
+                    //               type: 'keyword',
+                    //               ignore_above: 256,
+                    //             },
+                    //           },
+                    //         },
+                    //       },
+                    //     },
+                    //     id: {
+                    //       type: 'keyword',
+                    //     },
+                    //     name: {
+                    //       type: 'text',
+                    //     },
+                    //     type: {
+                    //       type: 'text',
+                    //       fields: {
+                    //         keyword: {
+                    //           type: 'keyword',
+                    //           ignore_above: 256,
+                    //         },
+                    //       },
+                    //     },
+                    //     urlPath: {
+                    //       type: 'text',
+                    //       fields: {
+                    //         keyword: {
+                    //           type: 'keyword',
+                    //           ignore_above: 256,
+                    //         },
+                    //       },
+                    //     },
+                    //   },
+                    // },
+                    type: {
+                      type: 'text',
+                      fields: {
+                        keyword: {
+                          type: 'keyword',
+                          ignore_above: 256,
+                        },
+                      },
+                    },
+                    urlPath: {
+                      type: 'text',
+                      fields: {
+                        keyword: {
+                          type: 'keyword',
+                          ignore_above: 256,
+                        },
+                      },
+                    },
+                    // urlPathHistory: {
+                    //   type: 'text',
+                    //   fields: {
+                    //     keyword: {
+                    //       type: 'keyword',
+                    //       ignore_above: 256,
+                    //     },
+                    //   },
+                    // },
+                  },
+                },
                 type: {
                   type: 'text',
                   fields: {
@@ -3916,15 +3916,15 @@ const mapping: T.IndicesPutMappingRequest = {
                     },
                   },
                 },
-                // urlPathHistory: {
-                //   type: 'text',
-                //   fields: {
-                //     keyword: {
-                //       type: 'keyword',
-                //       ignore_above: 256,
-                //     },
-                //   },
-                // },
+                urlPathHistory: {
+                  type: 'text',
+                  fields: {
+                    keyword: {
+                      type: 'keyword',
+                      ignore_above: 256,
+                    },
+                  },
+                },
               },
             },
             title: {
@@ -3948,9 +3948,9 @@ const mapping: T.IndicesPutMappingRequest = {
             urlPath: {
               type: 'keyword',
             },
-            // urlPathHistory: {
-            //   type: 'keyword',
-            // },
+            urlPathHistory: {
+              type: 'keyword',
+            },
           },
         },
         // footerMenuESI: {
@@ -4034,76 +4034,76 @@ const mapping: T.IndicesPutMappingRequest = {
                 // parameters: {
                 //   type: 'text',
                 // },
-                // parent: {
-                //   properties: {
-                //     directoryName: {
-                //       type: 'keyword',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //     },
-                //     name: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //       term_vector: 'with_positions_offsets',
-                //       analyzer: 'autocomplete',
-                //       search_analyzer: 'autocomplete_search',
-                //       similarity: 'BM25',
-                //     },
-                //     parent: {
-                //       properties: {
-                //         directoryName: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         name: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //         uniqueName: {
-                //           type: 'text',
-                //           fields: {
-                //             keyword: {
-                //               type: 'keyword',
-                //               ignore_above: 256,
-                //             },
-                //           },
-                //         },
-                //       },
-                //     },
-                //     uniqueName: {
-                //       type: 'text',
-                //       fields: {
-                //         keyword: {
-                //           type: 'keyword',
-                //           ignore_above: 256,
-                //         },
-                //       },
-                //       term_vector: 'with_positions_offsets',
-                //       analyzer: 'autocomplete',
-                //       search_analyzer: 'autocomplete_search',
-                //       similarity: 'BM25',
-                //     },
-                //   },
-                // },
+                parent: {
+                  properties: {
+                    // directoryName: {
+                    //   type: 'keyword',
+                    //   fields: {
+                    //     keyword: {
+                    //       type: 'keyword',
+                    //       ignore_above: 256,
+                    //     },
+                    //   },
+                    // },
+                    // name: {
+                    //   type: 'text',
+                    //   fields: {
+                    //     keyword: {
+                    //       type: 'keyword',
+                    //       ignore_above: 256,
+                    //     },
+                    //   },
+                    //   term_vector: 'with_positions_offsets',
+                    //   analyzer: 'autocomplete',
+                    //   search_analyzer: 'autocomplete_search',
+                    //   similarity: 'BM25',
+                    // },
+                    // parent: {
+                    //   properties: {
+                    //     directoryName: {
+                    //       type: 'text',
+                    //       fields: {
+                    //         keyword: {
+                    //           type: 'keyword',
+                    //           ignore_above: 256,
+                    //         },
+                    //       },
+                    //     },
+                    //     name: {
+                    //       type: 'text',
+                    //       fields: {
+                    //         keyword: {
+                    //           type: 'keyword',
+                    //           ignore_above: 256,
+                    //         },
+                    //       },
+                    //     },
+                    //     uniqueName: {
+                    //       type: 'text',
+                    //       fields: {
+                    //         keyword: {
+                    //           type: 'keyword',
+                    //           ignore_above: 256,
+                    //         },
+                    //       },
+                    //     },
+                    //   },
+                    // },
+                    uniqueName: {
+                      type: 'text',
+                      fields: {
+                        keyword: {
+                          type: 'keyword',
+                          ignore_above: 256,
+                        },
+                      },
+                      term_vector: 'with_positions_offsets',
+                      analyzer: 'autocomplete',
+                      search_analyzer: 'autocomplete_search',
+                      similarity: 'BM25',
+                    },
+                  },
+                },
                 uniqueName: {
                   type: 'text',
                   fields: {

@@ -1,4 +1,4 @@
-import { extractFields, ExtractLinkNode } from '@eslibr/lib'
+import { buildPaths, extractFields, ExtractLinkNode } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 
 export class LiteTransformer {
@@ -25,7 +25,14 @@ export class LiteTransformer {
     }
 
     const targetData = extractFields(this.data, this.mapper)
-    logger.trace(JSON.stringify(targetData, null, 2))
+    // logger.info(JSON.stringify(targetData, null, 2))
+    logger.debug(
+      JSON.stringify(
+        this.mapper.flatMap((it) => buildPaths(it)),
+        null,
+        2,
+      ),
+    )
     return targetData
   }
 
