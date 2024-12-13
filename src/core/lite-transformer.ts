@@ -26,13 +26,18 @@ export class LiteTransformer {
 
     const targetData = extractFields(this.data, this.mapper)
     // logger.info(JSON.stringify(targetData, null, 2))
-    logger.debug(
+    logger.trace(
       JSON.stringify(
         this.mapper.flatMap((it) => buildPaths(it)),
         null,
         2,
       ),
     )
+    // return {
+    //   targetData,
+    //   mapper: this.mapper.flatMap((it) => buildPaths(it)),
+    // }
+
     return targetData
   }
 
