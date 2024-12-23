@@ -3,8 +3,8 @@ import { IncomingMessage } from 'node:http'
 import { ParamData } from 'path-to-regexp'
 
 import { LiteTransformer } from '@eslibr/core/lite-transformer'
-import { getLinkNode, mongoDb } from '@eslibr/init'
-import { isStatusOk, traceLog } from '@eslibr/lib'
+import { getLinkNode } from '@eslibr/init'
+import { isStatusOk } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 import { TransHandler } from '.'
 
@@ -41,19 +41,10 @@ export const _updateHandler: TransHandler = (
 
     async () => {
       if (!isStatusOk(res.status)) {
-        logger.error(`Update status failed: ${res.status}`)
+        logger.error(
+          `Update status failed with id: ${_id} stauts is ${res.status}`,
+        )
         return
-      } else {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { doc, ...otherFields } = JSON.parse(body || '{}')
-        await traceLog('Mongo', () =>
-          mongoDb
-            .collection<{ _id: string }>(index)
-            .updateOne({ _id: { $eq: _id } }, { $set: doc }, { upsert: true }),
-        ).then((it) => {
-          logger.trace(it)
-          return it
-        })
       }
     },
   ]

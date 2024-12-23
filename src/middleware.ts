@@ -1,4 +1,4 @@
-import { ELASTICSEARCH_API_KEY, ELASTICSEARCH_HOST } from '@eslibr/constants'
+import { ELASTICSEARCH_HOST } from '@eslibr/constants'
 import { getHandlerInvoker } from '@eslibr/core/method'
 import { traceLog } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
@@ -70,12 +70,12 @@ function ContextMiddleware() {
 }
 
 function AxiosProxy() {
-  const [esHost, esApiKey] = [ELASTICSEARCH_HOST, ELASTICSEARCH_API_KEY]
+  const [esHost] = [ELASTICSEARCH_HOST]
 
   return async (ctx: koa.ExtendableContext) => {
     const axiosRes = await traceLog(
       'Call Elasticsearch',
-      () => ExpressToAxios({ url: esHost, apiKey: esApiKey }, ctx.request),
+      () => ExpressToAxios({ url: esHost }, ctx.request),
       [ctx.request.url],
     )
 
@@ -91,10 +91,7 @@ function AxiosProxy() {
 
 const _axios = axios.create()
 _axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false })
-async function ExpressToAxios(
-  param: { url: string; apiKey: string },
-  request: koa.Request,
-) {
+async function ExpressToAxios(param: { url: string }, request: koa.Request) {
   const reqUrl = `${param.url}${request.url}`
   const urlInfo = new URL(reqUrl)
   delete request.headers['content-length']

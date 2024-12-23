@@ -1,5 +1,4 @@
 import * as T from '@elastic/elasticsearch/lib/api/types'
-import { ENABLE_DB } from '@eslibr/constants'
 import { logger } from '@eslibr/logger'
 
 function isStatusOk(status: number) {
@@ -12,16 +11,6 @@ async function traceLog<T, K extends string>(
   context?: Array<string>,
 ): Promise<T | undefined> {
   const t0 = performance.now()
-  const ignore = !ENABLE_DB && type === 'Mongo'
-
-  if (ignore) {
-    logger.warn(
-      `[${type}] ${
-        context || ''
-      } Operatoinal data not enabled! Pretend that the data is returned correctly.Ignore this warning message!`,
-    )
-    return undefined
-  }
 
   return func().then((res) => {
     logger.info(

@@ -1,5 +1,4 @@
 import { app } from '@eslibr/app'
-import { ELASTICSEARCH_API_KEY } from '@eslibr/constants'
 import { initServer, stopServer } from '@eslibr/init'
 import request from 'supertest'
 
@@ -8,9 +7,8 @@ beforeAll(initServer)
 afterAll(stopServer)
 
 test('Get /', async () => {
-  const response = await request(app.callback())
-    .get('/')
-    .set('Authorization', `ApiKey ${ELASTICSEARCH_API_KEY}`)
+  const response = await request(app.callback()).get('/')
+  // .set('Authorization', `ApiKey ${ELASTICSEARCH_API_KEY}`)
   expect(response.status).toBe(200)
   // expect(response.text).toMatchSnapshot(`{
   //   name: expect.any(String),

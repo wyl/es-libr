@@ -1,28 +1,20 @@
-import { ENABLE_DB, MONGODB_DBNAME } from '@eslibr/constants'
-import { mongoClient } from '@eslibr/core/mongodb'
 import dotenv from 'dotenv'
 import { getIndexLinkNode } from '@eslibrRoot/index-mappings'
-import { Db } from 'mongodb'
+import { logger } from './logger'
 dotenv.config()
 
 const getLinkNode = getIndexLinkNode()
 
-let mongoDb: Db
-
 async function initServer() {
   // const imapping = indexMapping();
-
-  if (ENABLE_DB) {
-    await mongoClient.connect()
-    mongoDb = mongoClient.db(MONGODB_DBNAME)
-  }
-
   // const mapping = getIndexMapper("caas-cn-zaobao-online");
   // TODO create or update Es Index
+
+  logger.info('Server started')
 }
 
 async function stopServer() {
-  mongoClient.close()
+  logger.info('Server stopped')
 }
 
-export { initServer, mongoDb, stopServer, getLinkNode }
+export { initServer, stopServer, getLinkNode }

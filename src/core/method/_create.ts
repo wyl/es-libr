@@ -1,8 +1,8 @@
 import { IncomingMessage } from 'node:http'
 
 import { LiteTransformer } from '@eslibr/core/lite-transformer'
-import { getLinkNode, mongoDb } from '@eslibr/init'
-import { isStatusOk, traceLog } from '@eslibr/lib'
+import { getLinkNode } from '@eslibr/init'
+import { isStatusOk } from '@eslibr/lib'
 import { logger } from '@eslibr/logger'
 import Koa from 'koa'
 import { ParamData } from 'path-to-regexp'
@@ -41,16 +41,10 @@ export const _createHandler: TransHandler = (
 
     async () => {
       if (!isStatusOk(res.status)) {
-        logger.error(`Create status failed: ${res.status} `)
+        logger.error(
+          `Create status failed with id: ${_id} stauts is ${res.status} `,
+        )
         return
-      } else {
-        const doc = JSON.parse(body || '{}')
-        await traceLog('Mongo', () =>
-          mongoDb.collection<{ _id: string }>(index).insertOne({ ...doc, _id }),
-        ).then((it) => {
-          logger.trace(it)
-          return it
-        })
       }
     },
   ]

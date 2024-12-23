@@ -18,7 +18,6 @@
   "keywords": [
     "elasticsearch",
     "koa",
-    "mongodb",
     "ndjson"
   ],
   "license": "UNLICENSED",
@@ -37,7 +36,6 @@
     "koa": "^2.15.3",
     "koa-router": "^12.0.1",
     "lodash": "^4.17.21",
-    "mongodb": "^6.10.0",
     "ndjson": "^2.0.0",
     "path-to-regexp": "^8.2.0",
     "stream-each": "^1.2.3",
