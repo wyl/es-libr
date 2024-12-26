@@ -14,7 +14,7 @@
 
 # Key Feature
 
-定义好 Es 索引结构，上报的数据只会是定义的数据结构，可以去掉使用不到的数据，以减少 ES 索引检索和数据传输的压力。
+定义好 Es 索引结构，上报的数据只会是定义的数据结构。
 
 > 服务使用 NodeJs Koa 框架开发，使用 Middleware 来拦截修改请求数据，在 Request 和 Response 中修改数据逻辑，请求路径和返回值都是 Elasticsearch 的数据。
 
@@ -120,9 +120,10 @@ const indexMappingList = [mapping, blogPostIndexMapping]
 
 ![Update Log](image/Update-log.png)
 
-实际上报 Body
+**实际上报的 Body**
 
-````{
+```
+{
   "doc": {
     "title": "Nest eggs",
     "tags": [
@@ -141,13 +142,16 @@ const indexMappingList = [mapping, blogPostIndexMapping]
     ]
   },
   "doc_as_upsert": true
-}```
+}
 
-可以看到 data 内的数据结构即是定义的索引结构，确保不会因为提交数据的更多而引起 ES Index Mapping 的变更。
+```
 
-将更多的注意力放在业务上。
+可以看到上报的数据，就是索引定义的数据结构。
+
+可以将更多的注意力放在业务上。
 
 ![KOA ONION Model](image/Koa_Onion_Model.png)
+
 ### 在以下方法减少数据 body
 
 #### [Index API/Create API](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html)
