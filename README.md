@@ -158,7 +158,7 @@ const blogPostIndexMapping: T.IndicesPutMappingRequest =
 
 将更多的注意力放在业务上。
 
-### 在以下方法减少数据 body
+### 在以下方法减少上报的 body
 
 #### [Index API/Create API](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html)
 
