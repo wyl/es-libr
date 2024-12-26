@@ -6,7 +6,7 @@ import js from '@eslint/js'
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   { files: ['**/*.{js,mjs,cjs,ts}'] },
-  // { ignores: ['dist/*'] },
+  { ignores: ['dest/*'] },
   js.configs.recommended,
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,

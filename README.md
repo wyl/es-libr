@@ -90,7 +90,8 @@ const blogPostIndexMapping: T.IndicesPutMappingRequest =
 
 发起 document 插入或更新请求。
 
-```curl --request POST \
+```
+  curl --request POST \
   --url http://127.0.0.1:3001/my_index/_update/1 \
   --header 'Authorization: ApiKey <ES API KEY>' \
   --header 'Content-Type: application/json' \
@@ -156,7 +157,7 @@ const blogPostIndexMapping: T.IndicesPutMappingRequest =
 
 可以看到上报的数据，就是索引定义的数据结构。
 
-将更多的注意力放在业务上。
+将更多的注意力放在业务上
 
 ### 在以下方法减少上报的 body
 
