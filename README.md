@@ -14,13 +14,24 @@
 
 # Key Feature
 
+## 定义数据 Mapping
+
+[Index Mapping Demo](index-mappings/blog-post.ts)
 定义好 Es 索引结构，上报的数据只会是定义的数据结构。
 
 > 服务使用 NodeJs Koa 框架开发，使用 Middleware 来拦截修改请求数据，在 Request 和 Response 中修改数据逻辑，请求路径和返回值都是 Elasticsearch 的数据。
 
-> **定义好索引后，像使用 ES 一样去使用此服务。**
+## 装载索引
 
-## 示例 Data
+[Index](index-mappings/index.ts)
+
+```
+const indexMappingList = [mapping, blogPostIndexMapping]
+```
+
+> 完成以上步骤，像使用 ES 一样去使用此服务。
+
+## Example
 
 ```
 {
@@ -48,8 +59,7 @@
 
 如上，我们有一个原始文档。搜索需求需要根据 `title`、`tags` 和 `comments` 中的 `age`、`stars` 做检索。
 
-- 在上报数据之前，修改 body 与搜索姿势匹配，(OK 转身离开，下面不用看了)
-- 使用此服务，确定使用姿势，定义如下 Index mapping，替代 Elasticsearch
+### 定义索引
 
 ```
 const blogPostIndexMapping: T.IndicesPutMappingRequest =
@@ -74,13 +84,9 @@ const blogPostIndexMapping: T.IndicesPutMappingRequest =
 
 ```
 
-把 `blogPostIndexMapping` 装载入系统：
+### 装载索引
 
-```
-const indexMappingList = [mapping, blogPostIndexMapping]
-```
-
-[Index Mapping Demo](index-mappings/blog-post.ts)
+### 发起请求
 
 发起 document 插入或更新请求。
 
@@ -118,9 +124,11 @@ const indexMappingList = [mapping, blogPostIndexMapping]
 }'
 ```
 
+#### log
+
 ![Update Log](image/Update-log.png)
 
-**实际上报的 Body**
+#### 实际上报的 Body
 
 ```
 {
@@ -148,7 +156,7 @@ const indexMappingList = [mapping, blogPostIndexMapping]
 
 可以看到上报的数据，就是索引定义的数据结构。
 
-可以将更多的注意力放在业务上。
+将更多的注意力放在业务上。
 
 ![KOA ONION Model](image/Koa_Onion_Model.png)
 
@@ -170,7 +178,7 @@ const indexMappingList = [mapping, blogPostIndexMapping]
 - POST /\_bulk
 - POST /:target/\_bulk
 
-![Elasticsearch Distributed Search](https://github.com/wyl/es-libr/blob/main/elasticsearch%20distributed%20search.md)
+[Elasticsearch Distributed Search](https://github.com/wyl/es-libr/blob/main/elasticsearch%20distributed%20search.md)
 
 ### Q/A
 
