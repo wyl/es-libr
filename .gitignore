@@ -4,3 +4,5 @@
 /test-scripts
 .test*.ts
 .env
+
+/dest
