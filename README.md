@@ -195,4 +195,3 @@ const blogPostIndexMapping: T.IndicesPutMappingRequest =
 是通过优化提交ES 的数据结构，减少上报的数据结构来优化时长。响应速度可能被优化的不多，优化的是ES 的使用成本。
 
 </details>
-````
