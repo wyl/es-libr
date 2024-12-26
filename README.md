@@ -31,7 +31,7 @@ const indexMappingList = [mapping, blogPostIndexMapping]
 
 > 完成以上步骤，像使用 ES 一样去使用此服务。
 
-## Example
+# Example
 
 ```
 {
@@ -59,7 +59,7 @@ const indexMappingList = [mapping, blogPostIndexMapping]
 
 如上，我们有一个原始文档。搜索需求需要根据 `title`、`tags` 和 `comments` 中的 `age`、`stars` 做检索。
 
-### 定义索引
+## 定义索引
 
 ```
 const blogPostIndexMapping: T.IndicesPutMappingRequest =
@@ -84,9 +84,9 @@ const blogPostIndexMapping: T.IndicesPutMappingRequest =
 
 ```
 
-### 装载索引
+## 装载索引
 
-### 发起请求
+## 发起请求
 
 发起 document 插入或更新请求。
 
@@ -124,11 +124,11 @@ const blogPostIndexMapping: T.IndicesPutMappingRequest =
 }'
 ```
 
-#### log
+### log
 
 ![Update Log](image/Update-log.png)
 
-#### 实际上报的 Body
+### 实际上报的 Body
 
 ```
 {
@@ -157,8 +157,6 @@ const blogPostIndexMapping: T.IndicesPutMappingRequest =
 可以看到上报的数据，就是索引定义的数据结构。
 
 将更多的注意力放在业务上。
-
-![KOA ONION Model](image/Koa_Onion_Model.png)
 
 ### 在以下方法减少数据 body
 
