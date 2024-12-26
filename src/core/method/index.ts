@@ -8,16 +8,6 @@ import { _updateHandler } from '@eslibr/core/method/_update'
 
 /** @private */
 export const transHandlerList: Array<TransHandlerSettings> = [
-  // {
-  //   title: 'Search API',
-  //   routes: [
-  //     'GET /:target/_search',
-  //     'GET /_search',
-  //     'POST /:target/_search',
-  //     'POST /_search',
-  //   ],
-  //   handler: _searchHandler,
-  // },
   {
     title: 'Index API/Create API',
     routes: [
@@ -28,41 +18,11 @@ export const transHandlerList: Array<TransHandlerSettings> = [
     ],
     handler: _createHandler,
   },
-  // {
-  //   title: 'Get API',
-  //   routes: [
-  //     'GET /:index/_doc/:_id',
-  //     'HEAD /:index/_doc/:_id',
-  //     'GET /:index/_source/:_id',
-  //     'HEAD /:index/_source/:_id',
-  //   ],
-  //   handler: _getHandler,
-  // },
-  // {
-  //   title: 'Delete API',
-  //   routes: ['DELETE /:index/_doc/:_id'],
-  //   handler: _deleteHandler,
-  // },
-  // {
-  //   title: 'Delete by query API',
-  //   routes: ['POST /:target/_delete_by_query'],
-  //   handler: _emptyHandler,
-  // },
   {
     title: 'Update API',
     routes: ['POST /:index/_update{/:_id}'],
     handler: _updateHandler,
   },
-  // {
-  //   title: 'Update By Query API',
-  //   routes: ['POST /:target/_update_by_query'],
-  //   handler: _emptyHandler,
-  // },
-  // {
-  //   title: 'Multi get (mget) API',
-  //   routes: ['GET /_mget', 'GET /:index/_mget'],
-  //   handler: _emptyHandler,
-  // },
   {
     title: 'Bulk API',
     routes: ['POST /_bulk', 'POST /:target/_bulk'],

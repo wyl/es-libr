@@ -1,17 +1,24 @@
 # Overview
 
-定义好 Es 索引结构，上报的数据只会是定义的数据结构，可以去掉使用不到的数据，以减少 ES 索引检索和数据传输的压力，来提升 ES 的工作效率和降低成本。
+通过此程序减少发送到 ES 的数据量，之前的任何使用方式都不需要做更改。
+通过优化数据量，来优化响应速度和减少成本
 
-> 服务使用 NodeJs Koa 框架开发，使用 Middleware 来拦截修改请求数据，在 Request 和 Response 中修改数据逻辑，请求路径和返回值都是 Elasticsearch 的数据。
+![Request Follow](image/Request-Follow.png)
 
-> **定义好索引后，像使用 ES 一样去使用此服务。**
-
-## 关心 ES 使用姿势：
+# ES 使用姿势：
 
 - 仅满足搜索条件的数据结构
 - 除搜索需求之外，报表属性
 - 除搜索需求之外，报表属性，业务展示需求的属性
 - 原始数据结构
+
+# Key Feature
+
+定义好 Es 索引结构，上报的数据只会是定义的数据结构，可以去掉使用不到的数据，以减少 ES 索引检索和数据传输的压力。
+
+> 服务使用 NodeJs Koa 框架开发，使用 Middleware 来拦截修改请求数据，在 Request 和 Response 中修改数据逻辑，请求路径和返回值都是 Elasticsearch 的数据。
+
+> **定义好索引后，像使用 ES 一样去使用此服务。**
 
 ## 示例 Data
 
@@ -111,109 +118,71 @@ const indexMappingList = [mapping, blogPostIndexMapping]
 }'
 ```
 
-```
-{
-  "url": "https://0fe4e0624dd34ab8af08a893c97e8f3e.us-central1.gcp.cloud.es.io:443/my_index/_update/1",
-  "method": "POST",
-  "headers": {
-    "content-type": "application/json",
-    "user-agent": "insomnia/9.3.2",
-    "authorization": "ApiKey <ES API KEY>",
-    "accept": "*/*",
-    "host": "0fe4e0624dd34ab8af08a893c97e8f3e.us-central1.gcp.cloud.es.io"
+![Update Log](image/Update-log.png)
+
+实际上报 Body
+
+````{
+  "doc": {
+    "title": "Nest eggs",
+    "tags": [
+      "cash",
+      "shares"
+    ],
+    "comments": [
+      {
+        "age": 28,
+        "stars": 4
+      },
+      {
+        "age": 31,
+        "stars": 5
+      }
+    ]
   },
-  "params": {},
-  "data": "{\"doc\":{\"title\":\"Nest eggs\",\"tags\":[\"cash\",\"shares\"],\"comments\":[{\"age\":28,\"stars\":4},{\"age\":31,\"stars\":5}]},\"doc_as_upsert\":true}"
-}
-```
+  "doc_as_upsert": true
+}```
 
 可以看到 data 内的数据结构即是定义的索引结构，确保不会因为提交数据的更多而引起 ES Index Mapping 的变更。
 
-将更多的注意力放在，业务上。
+将更多的注意力放在业务上。
 
-<details>
-<summary>启用 Mongo 作为数据载体</summary>
+![KOA ONION Model](image/Koa_Onion_Model.png)
+### 在以下方法减少数据 body
 
-## 启用 Mongo 作为数据载体（Option）
+#### [Index API/Create API](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html)
 
-![MongoDB VS Elasticsearch](image/mongo-vs-elasticsearch.png)
+- PUT /:index/\_doc/:\_id
+- POST /:index/\_doc/
+- PUT /:index/\_create/:\_id
+- POST /:index/\_create/:\_id
 
-当 ES 使用方式极简时，**仅满足搜索条件的数据结构**，此时搜索 Response 中仅有**\_id**有意义，为了保障使用此服务前后是一样的使用习惯。获取原始数据可通过数据中台来加载原始数据，或启用 Mongo 选项。
+#### [Update API](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html)
 
-![Enable Mongodb Processing when search](./image/enable-mongo-process.png)
+- POST /:index/\_update{/:\_id}
 
-启用 Mongo 后，`_search` 代理到 ES 时 `_source` 为 false，此时 ES 会跳过 Fetch Phase，搜索效率稳定且很快。ES response 的 ID List 会去 Mongo 中查询，并做数据富华，最终返回结果和直接使用 ES 一样。
+#### [Bulk API](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
 
-启用 Mongo 后，可能面临的问题是费用的提升，但搜索服务会更稳定。
-
-> 修改文档时，缩减数据结构存入 ES，同时存储原始数据到 Mongo。index name 就是 Mongo 的 collection
->
-> 搜索时 ES Query Phase 返回 ID List，response 中的\_source 从 Mongo 还原
-
-### `.env` 启用 Mongo 配置
-
-```
-
-MONGO_ENABLE=TRUE
-MONGODB_URL=mongodb://root:<PASSWORD>@dds-2vc5c94f551f46941635-pub.mongodb.cn-chengdu.rds.aliyuncs.com:3717/admin?replicaSet=mgset-1150466874&directConnection=true
-MONGODB_DBNAME=<dev>
-
-```
-
-</details>
-
-![KOA Onion Model](image/image-20241112-080341.png)
-
-- [x] 支持 Aggregate
-- [x] `<index>/_bulk`
-- [x] `<index>/_create`
-- [x] `<index>/_delete `
-- [x] `<index>/_get `
-- [x] `<index>/_search `
-- [x] `<index>/_update `
-- [ ] `_reindex`，如果需要考虑从 Mongo Oplog 到 ES，避免原始数据丢失
-- [ ] Delete Index 需要 Delete Mongo Collection
-- [ ] `_alias` 需要考虑
-- [ ] `_msearch`
-
-不重要部分
-
-- `_delete_by_query`
-- `_update_by_query`
-
-不支持
-
-- 多个 index 搜索 `/<index1,index2,*>/_search`
+- POST /\_bulk
+- POST /:target/\_bulk
 
 ![Elasticsearch Distributed Search](https://github.com/wyl/es-libr/blob/main/elasticsearch%20distributed%20search.md)
 
 ### Q/A
 
 <details>
-<summary>Q: 如上报数据的索引未被定义会发生什么？</summary>
-此时此服务就是 ES，直接转发任何请求至 ES。
+<summary>Q: 定义过索引的数据提交会更改提交的数据结构，未定义索引的数据会怎样处理？</summary>
+未定义会直接转发原始Body，此时这个服务本身就是ES
 </details>
 
 <details>
-<summary>Q: 认证 API-KEY 是怎么处理的？</summary>
-API-KEY 是后端的 ES 的 API-KEY，权限认证、状态码等都是 ES 的真实响应
-</details>
-
-<details>
-<summary>Q: 启用 Mongo 后 搜索语句中的 `_source/_source_excludes/_source_includes` 是如何处理的？</summary>
-
-```
-Phase 01 查询 ES 时，`_source` 是 false。跳过 Fetch Phase
-Phase 02 查询`_source` 被转换成 [Mongo find projection](https://www.mongodb.com/zh-cn/docs/manual/reference/method/db.collection.find/)，此时 Mongo 返回的数据结构与 ES 的`_source` 同等效果。
-
-```
-
+<summary>Q: 认证是怎样处理的？</summary>
+认证未做任何更改，认证及返回的状态都是ES 本身的真实相应
 </details>
 
 <details>
 <summary>Q:响应速度可能被优化到多少？</summary>
-
-从做的一些实验上来看 150ms(Query Phase) + 2s(Fetch Phase) + ?ms(Mongo ) = 总耗时。
-如果 Mongo 稳定在 200 ms 左右，那搜索可被稳定在 350 ms 左右。
+是通过优化提交ES 的数据结构，减少上报的数据结构来优化时长。响应速度可能被优化的不多，优化的是ES 的使用成本。
 
 </details>
+````
