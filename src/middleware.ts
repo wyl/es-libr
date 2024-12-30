@@ -79,9 +79,14 @@ function AxiosProxy() {
       [ctx.request.url],
     )
 
-    ctx.response.status = axiosRes.status as number
+    if (axiosRes instanceof Error) {
+      ctx.response.status = 500
+      return (ctx.response.body = axiosRes.message)
+    }
+
+    ctx.response.status = axiosRes.status
     ctx.response.body = axiosRes.data
-    Object.entries(axiosRes.headers).forEach(([key, value]) => {
+    Object.entries(axiosRes?.headers).forEach(([key, value]) => {
       ctx.response.set(key, value + '')
     })
 
@@ -102,7 +107,6 @@ async function ExpressToAxios(param: { url: string }, request: koa.Request) {
       ? 'application/x-ndjson'
       : 'application/json',
     host: urlInfo.hostname,
-    // Authorization: `ApiKey ${param.apiKey}`,
   }
 
   const options = {
@@ -136,13 +140,12 @@ async function ExpressToAxios(param: { url: string }, request: koa.Request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
-        logger.debug(error.request)
+        // logger.debug(error.request)
+        logger.error('Error', error.message)
       } else {
         // Something happened in setting up the request that triggered an Error
-        logger.debug('Error', error.message)
+        logger.error('Error', error.message)
       }
-      // logger.debug(error.config);
-      logger.debug(error.message)
       return error
     })
   // .then((it) => {

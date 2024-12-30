@@ -5,4 +5,4 @@
 .test*.ts
 .env
 
-/dest
+/dist

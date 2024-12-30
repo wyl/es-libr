@@ -21,7 +21,7 @@ async function traceLog<T, K extends string>(
   })
 }
 
-export type ExtractLinkNode<> = {
+export type ExtractLinkNode = {
   key: string
   next?: Array<ExtractLinkNode>
 }

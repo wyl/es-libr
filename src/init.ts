@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
-import { getIndexLinkNode } from '@eslibrRoot/index-mappings'
 import { logger } from './logger'
+import { getIndexLinkNode } from 'index-mappings'
 dotenv.config()
 
 const getLinkNode = getIndexLinkNode()
